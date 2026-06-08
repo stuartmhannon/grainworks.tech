@@ -12,3 +12,4 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+.hugo_build.lock
