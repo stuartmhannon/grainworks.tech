@@ -1,0 +1,15 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }} · {{ site.Title }}{{ end }}</title>
+<meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}">
+{{- with site.Params.author }}
+<meta name="author" content="{{ . }}">
+{{- end }}
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="stylesheet" href="/css/main.css">
+{{- if .IsHome }}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ "index.xml" | absURL }}">
+{{- else }}
+<link rel="alternate" type="application/rss+xml" title="RSS" href="{{ "/index.xml" | absURL }}">
+{{- end }}
+{{- /* Zero JavaScript. Zero tracking. */}}

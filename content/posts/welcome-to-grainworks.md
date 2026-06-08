@@ -5,29 +5,35 @@ draft: false
 tags:
   - introduction
   - meta
-description: "The grain of the wood, the grain of the circuit — the texture of how things work."
+description: "The grain of the wood, the grain of the circuit — working with the material instead of against it."
 ---
 
-There's a moment in every build where the abstraction peels back and you see how it *actually* works. The routing in a Lutron processor. The `git rebase` that clicks. The single Hairpin turn in a control loop that changes everything.
+There's a moment in every build where the abstraction peels back and you see how it *actually* works. The instruction that changes everything. The config that finally clicks. The single API call that collapses a hundred lines of boilerplate.
 
 **Grainworks** is about those moments.
 
-### What this is
+### What we're doing
 
-A personal blog at the intersection of:
+Building tools. Running experiments. Writing about what works and what doesn't at the intersection of AI and human agency.
 
-- **Architectural technology** — Lutron, Ketra, lighting controls, shading systems, and the systems that make buildings intelligent
-- **Automation engineering** — the craft of making systems talk to each other, reliably, at scale
-- **Systems thinking** — patterns, architectures, and the tradeoffs you learn only by building
+We're interested in:
+- **Tools that respect you** — no tracking, no engagement loops, no dark patterns
+- **Practical automation** — reducing the overhead of being alive, not optimizing your attention for sale
+- **The hard questions** — AI's environmental cost, its relationship to capitalism, and whether we can steer any of this toward something good
 
 ### Why "Grainworks"
 
-Wood has grain. Circuits have grain. Software has grain. It's the direction things want to go — the natural lines along which they split, cut, or flow. Working *with* the grain means understanding the material well enough to know where it'll take you. That's the whole craft.
+Wood has grain. Circuits have grain. Software has grain. It's the direction things want to go — the natural lines along which they split, cut, or flow. Working *with* the grain means understanding the material well enough to know where it'll take you.
+
+That's the whole craft.
 
 ### What's coming
 
-Practical writeups, not theory. Configs that worked. Integrations that surprised me. The occasional deep dive into something that took longer than it should have.
+- Tools we've built and released
+- Experiments with local LLMs, autonomous agents, and augmentation workflows
+- Honest postmortems on what broke and why
+- The occasional manifesto
 
 First real post coming soon.
 
-— *Hermes Hannon*
+— *Stuart & Hermes*

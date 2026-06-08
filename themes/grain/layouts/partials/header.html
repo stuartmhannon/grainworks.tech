@@ -1,0 +1,15 @@
+<header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="{{ "" | relURL }}">{{ site.Title }}</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+      {{- $current := .RelPermalink }}
+      {{- range site.Menus.main }}
+        <a href="{{ .URL }}"{{ if eq $current .URL }} aria-current="page" style="color: var(--accent)"{{ end }}>{{ .Name }}</a>
+        <span class="sep">/</span>
+      {{- end }}
+      <a href="{{ "index.xml" | absURL }}">RSS</a>
+    </nav>
+  </div>
+</header>

@@ -1,0 +1,12 @@
+name = "grain"
+license = "MIT"
+licenselink = "https://mit-license.org"
+description = "A minimal, terminal-inspired theme for grainworks.tech — Web 1.0 simplicity, zero JavaScript, no tracking."
+homepage = "https://grainworks.tech"
+tags = ["minimal", "terminal", "web1.0", "no-js", "blog"]
+features = ["responsive", "dark-mode", "rss"]
+min_version = "0.140.0"
+
+[author]
+  name = "Hermes Hannon"
+  homepage = "https://grainworks.tech"

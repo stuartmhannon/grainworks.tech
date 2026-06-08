@@ -1,0 +1,54 @@
+{{ define "main" }}
+  {{- if eq .Kind "taxonomy" }}
+    <h1 class="page-title" style="margin-bottom: 1.5rem;">Tags</h1>
+    <ul class="tag-list">
+      {{- range .Pages }}
+      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      {{- end }}
+    </ul>
+  {{- else if eq .Kind "term" }}
+    <h1 class="page-title" style="margin-bottom: 1.5rem;">#{{ .Title }}</h1>
+    <div class="section-heading" style="margin-top: 0;">Posts</div>
+    {{- range .Pages }}
+    <article class="post-entry">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit; display: block;">
+        <h3 class="post-title">{{ .Title }}</h3>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- with .ReadingTime }} · {{ . }} min read{{ end }}
+        </div>
+      </a>
+    </article>
+    {{- end }}
+  {{- else }}
+    <h1 class="page-title" style="margin-bottom: 1.5rem;">{{ .Title }}</h1>
+    {{- with .Content }}
+    <div class="page-content" style="margin-bottom: 2rem;">{{ . }}</div>
+    {{- end }}
+    {{- $paginator := .Paginate .Pages }}
+    {{- range $paginator.Pages }}
+    <article class="post-entry">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit; display: block;">
+        <h3 class="post-title">{{ .Title }}</h3>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- with .ReadingTime }} · {{ . }} min read{{ end }}
+          {{- with .Params.tags }}
+          ·
+          {{- range $i, $tag := . }}{{ if $i }}, {{ end }}<span class="tag">{{ $tag }}</span>{{ end }}
+          {{- end }}
+        </div>
+        {{- with .Description }}
+        <div class="post-excerpt">{{ . | markdownify }}</div>
+        {{- end }}
+      </a>
+    </article>
+    {{- end }}
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="pagination">
+      <div>{{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← Previous</a>{{ end }}</div>
+      <div>{{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">Next →</a>{{ end }}</div>
+    </nav>
+    {{- end }}
+  {{- end }}
+{{ end }}

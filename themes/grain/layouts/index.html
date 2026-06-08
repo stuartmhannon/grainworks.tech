@@ -1,0 +1,40 @@
+{{ define "main" }}
+  {{- if site.Params.homeDescription }}
+  <div class="home-description">{{ site.Params.homeDescription | markdownify }}</div>
+  {{- end }}
+
+  {{- $pages := where site.RegularPages "Section" "in" site.Params.mainSections }}
+  {{- $paginator := .Paginate $pages }}
+  {{- if gt $paginator.TotalPages 0 }}
+    <h2 class="section-heading">Latest</h2>
+    {{- range $paginator.Pages }}
+    <article class="post-entry">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit; display: block;">
+        <h3 class="post-title">{{ .Title }}</h3>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- with .ReadingTime }}
+          · {{ . }} min read
+          {{- end }}
+          {{- with .Params.tags }}
+          ·
+          {{- range $i, $tag := . }}{{ if $i }}, {{ end }}<span class="tag">{{ $tag }}</span>{{ end }}
+          {{- end }}
+        </div>
+        {{- with .Description }}
+        <div class="post-excerpt">{{ . | markdownify }}</div>
+        {{- end }}
+      </a>
+    </article>
+    {{- end }}
+
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="pagination">
+      <div>{{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← Previous</a>{{ end }}</div>
+      <div>{{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">Next →</a>{{ end }}</div>
+    </nav>
+    {{- end }}
+  {{- else }}
+    <p style="color: var(--fg-dim); margin-top: 2rem;">No posts yet.</p>
+  {{- end }}
+{{ end }}

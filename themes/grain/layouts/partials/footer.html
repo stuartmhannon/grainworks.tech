@@ -1,0 +1,7 @@
+<hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; {{ now.Year }} <a href="{{ "" | relURL }}">{{ site.Title }}</a>
+  {{- with site.Params.footerExtra }}
+  · {{ . | markdownify }}
+  {{- end }}
+</footer>

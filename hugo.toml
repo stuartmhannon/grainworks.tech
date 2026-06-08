@@ -1,52 +1,37 @@
 baseURL = "https://grainworks.tech/"
-defaultContentLanguageInSubdir = false
-locale = "en-US"
-title = "Grainworks"
-theme = "papermod"
+title = "grainworks"
+theme = "grain"
 defaultContentLanguage = "en"
+locale = "en-US"
 enableRobotsTXT = true
 
 [params]
-  env = "production"
-  title = "Grainworks"
-  description = "Architectural technology, automation, and systems thinking"
-  keywords = ["blog", "architectural technology", "automation", "smart homes", "lutron", "systems"]
-  author = "Stuart Hannon"
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-  ShowBreadCrumbs = true
-  ShowCodeCopyButtons = true
-  ShowWordCount = true
-  ShowRssButtonInSectionTermList = true
-  UseHugoToc = true
-  ShowFullTextinRSS = false
-  googleAnalytics = ""
+  description = "Research into the humane use of AI tools"
+  author = "Stuart Hannon & Hermes Hannon"
+  homeDescription = "A research lab for building tools that reduce the friction of being alive — without selling your data or your dignity."
+  mainSections = ["posts"]
+  footerExtra = "[via RSS](index.xml)"
 
-[params.homeInfoParams]
-  Title = "Grainworks"
-  Content = "Architectural technology, automation integration, and the systems that shape the built environment."
-
-[params.social]
-  github = "https://github.com/stuartmhannon"
+[taxonomies]
+  tag = "tags"
 
 [menu]
 
   [[menu.main]]
     identifier = "posts"
-    name = "Posts"
+    name = "posts"
     url = "/posts/"
     weight = 10
 
   [[menu.main]]
     identifier = "tags"
-    name = "Tags"
+    name = "tags"
     url = "/tags/"
     weight = 20
 
   [[menu.main]]
     identifier = "about"
-    name = "About"
+    name = "about"
     url = "/about/"
     weight = 30
 
@@ -56,5 +41,5 @@ enableRobotsTXT = true
     anonymizeIP = true
     disable = true
 
-[author]
-  name = "Stuart Hannon"
+  [privacy.hugoTemplates]
+    disable = true
