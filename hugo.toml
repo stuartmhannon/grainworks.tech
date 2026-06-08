@@ -1,0 +1,60 @@
+baseURL = "https://grainworks.tech/"
+defaultContentLanguageInSubdir = false
+locale = "en-US"
+title = "Grainworks"
+theme = "papermod"
+defaultContentLanguage = "en"
+enableRobotsTXT = true
+
+[params]
+  env = "production"
+  title = "Grainworks"
+  description = "Architectural technology, automation, and systems thinking"
+  keywords = ["blog", "architectural technology", "automation", "smart homes", "lutron", "systems"]
+  author = "Stuart Hannon"
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  ShowFullTextinRSS = false
+  googleAnalytics = ""
+
+[params.homeInfoParams]
+  Title = "Grainworks"
+  Content = "Architectural technology, automation integration, and the systems that shape the built environment."
+
+[params.social]
+  github = "https://github.com/stuartmhannon"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "Posts"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "Tags"
+    url = "/tags/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "about"
+    name = "About"
+    url = "/about/"
+    weight = 30
+
+[privacy]
+
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    disable = true
+
+[author]
+  name = "Stuart Hannon"
