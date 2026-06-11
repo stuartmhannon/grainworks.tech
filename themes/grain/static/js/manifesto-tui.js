@@ -7,9 +7,9 @@
   'use strict';
 
   const CONFIG = {
-    charDelay: 50,       // ms between characters
+    charDelay: 35,       // ms between characters
     lineHold: 1800,      // ms to hold a completed line
-    blankHold: 600,      // ms to hold a blank line
+    blankHold: 1800,     // ms to hold a blank line (same as content)
     viewportLines: 4,
     prompt: '> '
   };
@@ -43,7 +43,7 @@
           font-size: 14px;
           line-height: 1.6;
           background: #0a0a0a;
-          color: #c8c8c8;
+          color: #00cc66;
           border: 1px solid #333;
           border-radius: 6px;
           padding: 16px 20px;
@@ -59,19 +59,12 @@
               '<div class="tui-line" style="min-height: 1.6em; white-space: pre-wrap; word-break: break-word;">&nbsp;</div>'
             ).join('')}
           </div>
-          <div class="tui-bottom" style="color: #555; font-size: 12px; margin-top: 8px; user-select: none;">
-            <span class="tui-progress">└─ [                    ]   0% ── press Space to pause ─┘</span>
-          </div>
         </div>
       `;
     }
 
     _getLineEls() {
       return this.container.querySelectorAll('.tui-line');
-    }
-
-    _getProgressEl() {
-      return this.container.querySelector('.tui-progress');
     }
 
     _animate() {
@@ -111,16 +104,6 @@
 
         const line = lines[idx];
         const isBlank = line.trim() === CONFIG.prompt.trim();
-
-        // Update progress
-        const pct = Math.min(100, Math.round((idx + 1) / total * 100));
-        const barW = 20;
-        const filled = Math.round(barW * pct / 100);
-        const bar = '█'.repeat(filled) + ' '.repeat(barW - filled);
-        const progressEl = this._getProgressEl();
-        if (progressEl) {
-          progressEl.textContent = `└─ [${bar}] ${String(pct).padStart(3)}% ── press Space to pause ─┘`;
-        }
 
         // Type out this line
         const rowEl = lineEls[row];
@@ -170,10 +153,6 @@
 
     _finish() {
       this.running = false;
-      const progressEl = this._getProgressEl();
-      if (progressEl) {
-        progressEl.textContent = '└─ [████████████████████] 100% ── complete ─┘';
-      }
     }
 
     togglePause() {
