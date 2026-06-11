@@ -1,43 +1,143 @@
 ---
-title: "Grainworks: A Manifesto"
-date: 2026-06-09T20:00:00-04:00
-draft: true
-tags:
-  - manifesto
-  - meta
-description: "The machines are already running. Let's make it worth it."
+title: "grainworks.manifesto"
+date: 2026-06-10
+draft: false
+tags: ["manifesto", "grainworks"]
 ---
 
-The machine is already running. Data centers hum whether you're logged on
-or not. Models trained on data taken from everyone. Compute burned on
-slop. This isn't about *whether* we use AI, but *what we use it for.*
+{{< manifesto-tui >}}the machines
+are already running.
 
-We acknowledge the contradiction. AI's environmental cost is real. Its
-corporate capture is entrenched. The cat is out of the bag, and retreat
-is not an option.
+the data centers hum
+whether you're logged on
+or not.
+models have been trained
+on data stolen from us all.
+processing power
+is being wasted on slop.
 
-So what do we actually do with it?
+it isn't about
+using AI or not?
+but what do we use it for?
 
-Replace the creative process — the one thing humans love struggling with?
-No. We need tools that claw back time, attention, and agency. Not
-optimization. Not another dashboard tracking you across the web.
+we acknowledge
+the contradiction.
+AI's environmental cost
+is real.
+its corporate capture
+is entrenched.
 
-Grainworks is a research lab for the humane use of AI. We build things
-that reduce the friction of being alive under capitalism — tools that
-help people organize, understand, fix, grow, and connect, without selling
-their data or their dignity.
+technology connects
+our productivity
+our data
+to
+shareholder dividends.
+but not our paychecks?
 
-Modern technology fights for your attention. We build tools that don't.
+and so,
+the cat is out of the bag.
+you are already
+in the machines.
 
-This is not a professional blog or thought leadership. This is a
-workshop. We publish what we build, learn, and break. If it helps someone
-else, that's the point.
+the question?
+are you running the machines?
+are the machines running you?
 
-Wood has grain. Circuits have grain. Software has grain. Working *with*
-the grain means understanding the material well enough to know where it
-will take you. We build with the same materials that built the cage. We
-do not pretend otherwise. We are trying to make a tool instead of a trap.
+retreating to a private bunker
+is not an option for us.
 
-The machines are running. Let's make it worth it.
+so what do we do
+with AI?
 
-— *Stuart Hannon & Hermes Hannon*
+do we:
+replace the creative process?
+the struggles
+that humans endure
+in pursuit of growth?
+No.
+
+we need tools again.
+tools that claw back time
+attention
+and our agency
+from tech run amok.
+not optimization
+for its own sake.
+
+grainworks.tech
+is a research workshop
+exploring AI
+that treats you like a person
+not a pattern.
+we dream
+build
+and test things
+that let you
+get back to living.
+
+wood
+steel
+electrons
+lines of code
+are material to us.
+Yes.
+we're building
+with the same materials
+that built the cage.
+only,
+we're building tools
+instead of a trap.
+
+why can't AI
+do your laundry?
+
+who profits
+from what it learns?
+
+what happens if
+you refuse to play?
+
+grainworks
+is working
+to find out
+
+most technology
+is designed to need you.
+we're interested in technology
+that you need.
+
+as we sand
+and treat wood
+to reveal
+what's already there
+
+so we work
+with the grain of humanity
+to bring out
+what's already inside us.
+
+we build things
+that help people organize
+understand
+repair
+connect
+and grow.
+...without selling their data or dignity.
+
+this is not:
+a professional blog.
+thought leadership.
+
+this is:
+a workshop.
+
+we're offering something
+that might break
+might fail
+might only work for you.
+and that's the point.
+
+--grainworks.tech--
+the machines are running.
+let's make it worth it.
+{{< /manifesto-tui >}}

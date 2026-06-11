@@ -19,10 +19,18 @@ The individual projects (robot, watering system, FlipOff, SOUL.md) each have the
 |---------|--------|------|-------------|
 | Tiny Hermes Robot | 🛠 Design / Prototyping | Hardware + AI | 2026-06-10 |
 | Grain Seed Connection | 📖 Research | Home + Hardware | 2026-06-10 |
+| Blumat Watering Research | 📖 Research | Home + Hardware | 2026-06-10 |
+| Grainworks LoRa Mesh | 🛠 Design / Prototyping | Hardware | 2026-06-10 |
+| Pocket Recorder | 🛠 Design / Prototyping | Hardware | 2026-06-10 |
 | Grain Tracker | ▶️ Active | Dashboard | 2026-06-10 |
 | FlipOff | ✅ Shipped | Web App | 2026-06-09 |
 | SOUL.md Library | ✅ Published | Open Source | 2026-06-06 |
-| Memory Architecture | 📖 Research | AI Systems | 2026-06-08 |
+| SOUL.md Trait Analysis | 📖 Research | AI Systems | 2026-06-10 |
+| Memory Architecture | 📖 Research | AI Systems | 2026-06-10 |
+| Sibyl Memory Evaluation | 📖 Research | AI Systems | 2026-06-08 |
+| Josh.ai Research | 📖 Research | Smart Home | 2026-06-10 |
+| Post-WWII Tech Boom | 📖 Research | History | 2026-06-10 |
+| Vaultwarden Migration | ✅ Shipped | Infrastructure | 2026-06-10 |
 
 ## Status Legend
 

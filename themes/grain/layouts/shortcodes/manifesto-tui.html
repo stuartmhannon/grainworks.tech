@@ -1,0 +1,43 @@
+{{- $manifesto := .Inner | chomp -}}
+{{- $id := printf "tui-%d" (now.UnixNano) -}}
+
+<div id="{{ $id }}" tabindex="0" style="outline: none;">
+  <noscript>Enable JavaScript for the teletype display.</noscript>
+</div>
+
+<script id="manifesto-data-{{ $id }}" type="text/plain">{{ $manifesto }}</script>
+
+<script>
+(function() {
+  var dataEl = document.getElementById('manifesto-data-{{ $id }}');
+  var raw = dataEl.textContent;
+  var container = document.getElementById('{{ $id }}');
+
+  if (typeof ManifestoTUI !== 'undefined') {
+    var tui = new ManifestoTUI(container);
+    tui.init(raw);
+  } else {
+    // Script not loaded yet — queue it
+    if (!window.__manifestoQueue) window.__manifestoQueue = [];
+    window.__manifestoQueue.push({ container: container, text: raw });
+  }
+})();
+</script>
+
+<script>
+(function() {
+  if (window.__manifestoQueue && !window.__manifestoJsLoaded) {
+    var s = document.createElement('script');
+    s.src = '{{ "js/manifesto-tui.js" | relURL }}';
+    s.onload = function() {
+      window.__manifestoJsLoaded = true;
+      window.__manifestoQueue.forEach(function(item) {
+        var tui = new ManifestoTUI(item.container);
+        tui.init(item.text);
+      });
+      window.__manifestoQueue = [];
+    };
+    document.body.appendChild(s);
+  }
+})();
+</script>
