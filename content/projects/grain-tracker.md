@@ -25,7 +25,8 @@ The individual projects (robot, watering system, FlipOff, SOUL.md) each have the
 | Grain Tracker | ▶️ Active | Dashboard | 2026-06-10 |
 | FlipOff | ✅ Shipped | Web App | 2026-06-09 |
 | SOUL.md Library | ✅ Published | Open Source | 2026-06-06 |
-| SOUL.md Trait Analysis | 📖 Research | AI Systems | 2026-06-10 |
+|| SOUL.md Trait Analysis | 📖 Research | AI Systems | 2026-06-10 |
+|| StatBar | ✅ Shipped | macOS App | 2026-06-15 |
 | Memory Architecture | 📖 Research | AI Systems | 2026-06-10 |
 | Sibyl Memory Evaluation | 📖 Research | AI Systems | 2026-06-08 |
 | Josh.ai Research | 📖 Research | Smart Home | 2026-06-10 |

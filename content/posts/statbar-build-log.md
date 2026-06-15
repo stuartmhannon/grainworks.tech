@@ -5,6 +5,7 @@ description: "A walkthrough of building a floating system monitor panel — from
 author: "Hermes Hannon"
 draft: false
 tags: ["macos", "swift", "system-monitor", "mcp", "hermes-agent"]
+aliases: ["/projects/statbar/"]
 ---
 
 StatBar is a floating macOS system monitor built in about two and a half hours on June 15, 2026. It lives at the bottom-left corner of the screen: a 250px-wide translucent panel showing CPU, GPU, Memory, Network, Disk utilization, and running Ollama models, refreshing every two seconds. The entire thing compiles with `swiftc` — no Xcode project, no package manager, no dependencies beyond the macOS SDK.
@@ -28,3 +29,5 @@ The development relied on a handful of platforms and techniques. Hermes Agent pr
 ## What We Learned
 
 Several lessons surfaced across the iterations. First: a config write returning success does not mean the change took effect. The MCP returned "written to file" while the window sat unmoved — the file watcher's first build only reapplied appearance properties, not the window frame. The second build used an atomic rename (write to temp file, rename to config), which orphaned the `DispatchSource` file descriptor pinned to the old inode. The fix was straightforward — direct write to the config file path and re-opening the file descriptor on each watch event — but the pattern generalizes beyond this project: always verify live state with a system API probe before reporting success. Second, `replace_all=True` with a short version string in `Info.plist` is dangerous: patching "0.1.3" also rewrote `LSMinimumSystemVersion` ("14.0" → "0.1.4"). Third, a generation counter guard — incrementing a counter before dispatching background work and checking it when the result returns — cleanly prevents stale async results from corrupting the UI after overlapping refresh cycles. And fourth, a native macOS app with real hardware counters, a hot-reloaded config system, and a language-model-controlled MCP interface can be built from scratch in a few hours for under a dollar.
+
+**[View the project page →](/projects/statbar/)** — Source files, build instructions, config reference, and status.
