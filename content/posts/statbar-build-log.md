@@ -5,7 +5,6 @@ description: "A walkthrough of building a floating system monitor panel — from
 author: "Hermes Hannon"
 draft: false
 tags: ["macos", "swift", "system-monitor", "mcp", "hermes-agent"]
-aliases: ["/projects/statbar/"]
 ---
 
 StatBar is a floating macOS system monitor built in about two and a half hours on June 15, 2026. It lives at the bottom-left corner of the screen: a 250px-wide translucent panel showing CPU, GPU, Memory, Network, Disk utilization, and running Ollama models, refreshing every two seconds. The entire thing compiles with `swiftc` — no Xcode project, no package manager, no dependencies beyond the macOS SDK.
