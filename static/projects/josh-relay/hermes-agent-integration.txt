@@ -95,5 +95,3 @@ Confirm the External Scene URL is correct. Test it by pasting the full URL into 
 No confirmation from Josh
 Your response scene must include actions that produce a visible or audible result (light changes, VoiceCast announcement, chime, etc.). Josh does not provide built-in feedback from the httpget() Custom Command alone — the response scene is required.
 
-Still need help?
-Contact your Josh.ai dealer or submit a request at support.josh.ai.
