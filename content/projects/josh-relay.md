@@ -28,7 +28,8 @@ httpGet("http://[relay]:8645/hermes-request", {
 
 ## Source Files
 
-- [josh_relay.py](/projects/josh-relay/josh_relay.py) — 142-line asyncio Python relay, zero external dependencies
+- [josh_relay.py](/projects/josh-relay/josh_relay.py) — v2 asyncio relay, zero external dependencies
+- [josh-mcp](/projects/josh-relay/josh-mcp) — Minimal MCP server exposing `josh_trigger_scene()` and `josh_ping()` tools
 - [Integration Guide](/projects/josh-relay/hermes-agent-integration.txt) — setup instructions in Josh.ai FAQ format
 
 ## How It Works
