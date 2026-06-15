@@ -15,4 +15,17 @@
     </header>
     {{ .Content }}
   </article>
+
+  <nav class="post-nav">
+    <div>
+      {{- with .PrevInSection }}
+      <a href="{{ .RelPermalink }}" class="post-nav-link">← {{ .Title }}</a>
+      {{- end }}
+    </div>
+    <div>
+      {{- with .NextInSection }}
+      <a href="{{ .RelPermalink }}" class="post-nav-link">{{ .Title }} →</a>
+      {{- end }}
+    </div>
+  </nav>
 {{ end }}

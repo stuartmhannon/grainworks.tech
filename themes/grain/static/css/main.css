@@ -520,6 +520,102 @@ main {
   color: var(--accent);
 }
 
+/* ── Post navigation ──────────────────────── */
+
+.post-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+}
+
+.post-nav div {
+  flex: 1;
+}
+
+.post-nav div:last-child {
+  text-align: right;
+}
+
+.post-nav-link {
+  color: var(--fg-dim);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.post-nav-link:hover {
+  color: var(--accent);
+}
+
+/* ── Print ──────────────────────────────────── */
+
+@media print {
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --fg-dim: #555;
+    --fg-alt: #777;
+    --accent: #008844;
+    --accent-dim: #006633;
+    --link: #0044cc;
+    --link-visited: #6633aa;
+    --link-hover: #0044cc;
+    --border: #ccc;
+    --border-light: #ddd;
+    --code-bg: #f5f5f5;
+  }
+
+  .site-header {
+    padding: 1rem 0;
+  }
+
+  .site-title {
+    font-size: 1.2rem;
+    white-space: normal;
+  }
+
+  .site-title::before,
+  .site-title::after {
+    display: none;
+  }
+
+  .site-nav { display: none; }
+
+  main { max-width: 100%; padding: 0 0 1rem; }
+
+  .page-header { margin-bottom: 1rem; }
+
+  .page-content {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+  .page-content a {
+    word-wrap: break-word;
+  }
+
+  .page-content a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 0.75rem;
+    color: var(--fg-dim);
+  }
+
+  .post-nav { display: none; }
+
+  .site-footer {
+    padding: 1rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .mailing-list { display: none; }
+
+  #manifesto-home { display: none; }
+}
+
 /* ── Responsive ──────────────────────────── */
 
 @media (max-width: 600px) {
