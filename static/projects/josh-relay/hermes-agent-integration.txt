@@ -95,3 +95,26 @@ Confirm the External Scene URL is correct. Test it by pasting the full URL into 
 No confirmation from Josh
 Your response scene must include actions that produce a visible or audible result (light changes, VoiceCast announcement, chime, etc.). Josh does not provide built-in feedback from the httpget() Custom Command alone — the response scene is required.
 
+---
+
+### v2 — POST + JSON Body + Structured Response
+
+The relay now accepts both GET and POST. When using POST, Josh can send a JSON body with scene context (trigger phrase, room, time) which is forwarded to Hermes.
+
+The relay returns structured JSON that Josh can consume with `format=json`:
+
+```json
+{"status": "accepted", "code": 202, "message": "relayed", "delivery_id": "..."}
+```
+
+Example Josh scene Custom Command using POST:
+
+```lua
+httpGet("http://[relay-ip]:8645/hermes-request", {
+  "method": "post",
+  "headers": ["content-type: application/json; charset=utf-8"],
+  "data": {"trigger": "ask hermes", "room": "kitchen"},
+  "format": "json"
+})
+```
+

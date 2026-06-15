@@ -5,7 +5,26 @@ draft: false
 description: "A lightweight HTTP relay that bridges Josh.ai scenes to Hermes Agent — converts plain GET requests from Josh's httpget() Custom Command into authenticated POST calls for the Hermes webhook system."
 ---
 
-A minimal Python relay that connects Josh.ai's scene system to Hermes Agent. Josh scenes can fire `httpget()` Custom Commands, which are plain HTTP GET requests with no auth headers and no POST body. This relay sits between them — it accepts the GET, wraps it as a signed POST with HMAC-SHA256, and forwards it to the Hermes webhook. It can also fire a response scene via the Josh External Scene API for confirmation feedback.
+A minimal Python relay that connects Josh.ai's scene system to Hermes Agent. Josh's `httpGet()` Custom Command is more powerful than its name suggests — it supports GET and POST, custom headers, JSON body, and structured response parsing via `format=json`. This relay sits between them, accepting raw HTTP from Josh and forwarding as signed POST to the Hermes webhook.
+
+## v2 Upgrade — POST + JSON + Structured Responses
+
+The relay now accepts both GET and POST from Josh, parses JSON request bodies, and returns structured JSON that Josh can consume with `format=json`:
+
+```json
+{"status": "accepted", "code": 202, "message": "relayed", "delivery_id": "..."}
+```
+
+Josh scene Custom Commands can now POST rich context:
+
+```lua
+httpGet("http://[relay]:8645/hermes-request", {
+  "method": "post",
+  "headers": ["content-type: application/json; charset=utf-8"],
+  "data": {"trigger": "ask hermes", "room": "kitchen"},
+  "format": "json"
+})
+```
 
 ## Source Files
 
