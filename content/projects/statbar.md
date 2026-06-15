@@ -1,6 +1,6 @@
 ---
 title: "StatBar — Native macOS System Monitor"
-date: 2026-06-15T16:00:00-04:00
+date: 2026-06-15T11:00:00-04:00
 draft: false
 description: "A native macOS floating system monitor — CPU, GPU, Memory, Network, Disk, and Ollama models, all config-driven with a Hermes MCP interface."
 ---
