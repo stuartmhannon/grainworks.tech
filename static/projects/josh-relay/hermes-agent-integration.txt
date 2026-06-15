@@ -18,7 +18,7 @@ Requirements
 
 Note: The Hermes Agent relay must be running on the same local network as your Josh system, or reachable via a tunnel. The relay is a Python script that runs as a background process. Source and documentation available at:
 
-**https://grainworks.tech/projects/josh-relay/**
+https://grainworks.tech/projects/josh-relay/
 
 How It Works
 
