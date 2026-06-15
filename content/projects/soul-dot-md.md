@@ -39,9 +39,9 @@ The library ships with souls for:
 
 ## Files
 
-- `/Volumes/Mini_1Tb/Projects/SOUL.md/` — Repository root
-- `/Volumes/Mini_1Tb/Projects/SOUL.md/souls/` — Individual soul files
-- `/Volumes/Mini_1Tb/Projects/SOUL.md/trait-8000/` — Extended trait analysis and personality vectors
+- `SOUL.md/` (local) — Repository root
+- `souls/` (local) — Individual soul files
+- `trait-8000/` (local) — Extended trait analysis and personality vectors
 
 ## Status → ✅ **Published**
 

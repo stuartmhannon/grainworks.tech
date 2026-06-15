@@ -31,4 +31,4 @@ A design exploration for a pocket-sized voice recorder — I²S digital audio ca
 
 ## Source Files
 
-- **Design doc:** `/Volumes/Mini_1Tb/Projects/research/pocket-recorder-design.md`
+- **Design doc:** `pocket-recorder-design.md` (local)

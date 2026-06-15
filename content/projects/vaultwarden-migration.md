@@ -20,12 +20,12 @@ A thorough evaluation of the self-hosted Vaultwarden setup, including migration 
 1. **Cloned the production database** from the UnRAID tower to the local Mini for redundancy
 2. **Performed a security assessment** covering container hardening, backup strategy, TLS configuration, and access controls
 3. **Evaluated beyond-Bitwarden alternatives** — what would it take to move away from Vaultwarden entirely? Including Passkey-first approaches, age-encrypted password stores (hermes-pass), and hardware-backed solutions
-4. **Maintained a mirror** at `/Volumes/Mini_1Tb/Projects/vaultwarden-mirror/` for development and testing
+4. **Maintained a mirror** at `vaultwarden-mirror/` (local) for development and testing
 
 ## Source Files
 
-- **Main repo:** `/Volumes/Mini_1Tb/Projects/vaultwarden/`
-- **Mirror (dev):** `/Volumes/Mini_1Tb/Projects/vaultwarden-mirror/`
+- **Main repo:** `vaultwarden/` (local)
+- **Mirror (dev):** `vaultwarden-mirror/` (local)
 - **Security assessment:** `vaultwarden-replacement-security-assessment.md`
 - **Replacement plan:** `vaultwarden-replacement-plan.md`
 - **Beyond-Bitwarden analysis:** `vaultwarden-replacement-beyond-bitwarden.md`

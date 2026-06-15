@@ -31,7 +31,7 @@ A comprehensive deep-dive into the Josh.ai voice control platform — architectu
 
 ## Source Files
 
-- **Comprehensive briefing:** `/Volumes/Mini_1Tb/Projects/research/Josh.ai/JOSH_AI_COMPREHENSIVE_BRIEFING.md`
+- **Comprehensive briefing:** `JOSH_AI_COMPREHENSIVE_BRIEFING.md` (local)
 - **167 source documents:** PDFs, spec sheets, training materials, integration guides from the Josh.ai knowledge base
 - **MEDITATION.md:** Personal reflections on the research process
-- **References:** Individual integration docs in `/Volumes/Mini_1Tb/Projects/research/Josh.ai/`
+- **References:** Individual integration docs in `Josh.ai/` (local)

@@ -61,8 +61,8 @@ Quick holiday solution — uses any standard plastic bottle. ~$12-18.
 
 ## Files
 
-- [Full Research Report](/Volumes/Mini_1Tb/Projects/research/blumat-watering-systems.md) — Complete company background, product lines, pricing, comparisons
-- [Home Research](/Volumes/Mini_1Tb/Projects/home/blumat-research.md) — Abridged version with system architecture notes
+- Full Research Report (local) — Complete company background, product lines, pricing, comparisons
+- Home Research (local) — Abridged version with system architecture notes
 
 ## Status → **Research**
 

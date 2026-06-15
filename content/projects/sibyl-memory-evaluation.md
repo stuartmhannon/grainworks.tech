@@ -30,5 +30,5 @@ For a system designed around local-first operation from day one, Holographic is 
 
 ## Source Files
 
-- Research notes in `/Volumes/Mini_1Tb/Projects/research/sibyl_memory/`
-- Evaluation sources: `/Volumes/Mini_1Tb/Projects/research/sibyl_memory_evaluation_sources/`
+- Research notes in `sibyl_memory/` (local)
+- Evaluation sources: `sibyl_memory_evaluation_sources/` (local)

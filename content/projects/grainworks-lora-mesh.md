@@ -60,8 +60,8 @@ This is the same LoRa fallback channel used by the Tiny Hermes Robot — creatin
 
 ## Source Files
 
-- **Repo:** `/Volumes/Mini_1Tb/Projects/grainworks-lora/`
-- **README:** [Full project README](/Volumes/Mini_1Tb/Projects/grainworks-lora/README.md)
+- **Repo:** `grainworks-lora/` (local)
+- **README:** Full project README (local)
 - **Grain Tag schematic:** `grain-tag/grain-tag.kicad_sch` (14KB)
 - **Generator:** `grain-tag/gen.py`
 - **References:** RF routing patterns, GX16 connector wiring, KiCad S-expression format

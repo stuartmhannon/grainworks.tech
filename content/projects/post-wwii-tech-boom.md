@@ -23,6 +23,6 @@ An analysis of the post-WWII technology boom: how massive wartime R&D investment
 
 ## Source Files
 
-- **Research doc:** `/Volumes/Mini_1Tb/Projects/research/economic-cycles-knowledge-base.md`
-- **Seven patterns post:** `/Volumes/Mini_1Tb/Projects/research/seven-patterns-post.md`
-- **Three patterns deep dive:** `/Volumes/Mini_1Tb/Projects/research/three-patterns-deep-dive.md`
+- **Research doc:** `economic-cycles-knowledge-base.md` (local)
+- **Seven patterns post:** `seven-patterns-post.md` (local)
+- **Three patterns deep dive:** `three-patterns-deep-dive.md` (local)

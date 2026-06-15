@@ -50,6 +50,6 @@ A Python-based analysis system that:
 
 ## Source Files
 
-- **Repo:** `/Volumes/Mini_1Tb/Projects/SOUL.md/`
+- **Repo:** `SOUL.md/` (local)
 - **Trait engine:** `trait-8000/` — Python analysis pipeline
 - **Reference souls:** Individual SKILL.md definitions with visual assets, trait breakdowns, and example interactions

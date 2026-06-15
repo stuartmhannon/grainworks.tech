@@ -8,7 +8,7 @@ draft: true
 
 ## Post 1: "Traffic Is Not a Physical Problem"
 
-**Status:** Drafted at `/Volumes/Mini_1Tb/Projects/grainworks.tech/content/posts/traffic-as-social-condition.md`
+**Status:** Drafted at `traffic-as-social-condition.md` (local)
 
 5-paragraph essay with thesis: traffic congestion is a self-fulfilling belief system, not a capacity constraint. Covers phantom jams (jamiton theory), the social signal of brake lights, and the deeper pattern of belief-driven constraints (bank runs, panics). Citations to Treiber & Helbing (2000) and Stern et al. (2018).
 

@@ -73,8 +73,8 @@ The Tiny Hermes Robot is a deliberately simple robotic platform. All reasoning, 
 
 ## Source Files
 
-- **Design spec:** `/Volumes/Mini_1Tb/Projects/hermes-robot-spec.md`
-- **RCduino baseline firmware:** `/Volumes/Mini_1Tb/Projects/RCduino/rc_car_basic/rc_car_basic.ino`
+- **Design spec:** `hermes-robot-spec.md` (local)
+- **RCduino baseline firmware:** `rc_car_basic/rc_car_basic.ino` (local)
 
 ## Next Steps
 

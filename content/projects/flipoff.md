@@ -16,7 +16,7 @@ An interactive web project — CSS animations, JavaScript interactions, and a fu
 
 ## Source Files
 
-- **Repo:** `/Volumes/Mini_1Tb/Projects/flipoff/`
+- **Repo:** `flipoff/` (local)
 - **README:** Full project description in the repo
 - **Screenshot:** `screenshot.png` (800KB, shows the current state)
 

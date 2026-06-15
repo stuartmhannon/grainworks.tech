@@ -41,8 +41,8 @@ We're staying on Holographic for the orchestrator, research pipelines, and auton
 
 ## Files
 
-- `/Volumes/Mini_1Tb/Projects/research/sibyl_memory/` — Sibyl SDK research and evaluation
-- `/Volumes/Mini_1Tb/Projects/research/sibyl_memory_evaluation_sources/` — Source material for the comparison
+- `sibyl_memory/` (local) — Sibyl SDK research and evaluation
+- `sibyl_memory_evaluation_sources/` (local) — Source material for the comparison
 - [Published Blog Post](/posts/sibyl-vs-holographic-memory/) — Full comparison with architecture details and benchmarks
 
 ## Status → 📖 **Research**

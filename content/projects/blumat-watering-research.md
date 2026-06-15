@@ -23,4 +23,4 @@ A technical deep-dive into Blumat automatic watering systems — the pressure-re
 
 ## Source Files
 
-- **Research doc:** `/Volumes/Mini_1Tb/Projects/research/blumat-watering-systems.md`
+- **Research doc:** `blumat-watering-systems.md` (local)
