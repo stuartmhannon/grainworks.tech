@@ -19,7 +19,7 @@ The complete v0.1.4 source — compiled with `swiftc`, no Xcode required.
 ## Build & Run
 
 ```bash
-cd /Volumes/Mini_1Tb/Projects/statbar
+cd path/to/statbar
 bash compile.sh
 open StatBar.app
 ```
