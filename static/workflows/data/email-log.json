@@ -1,0 +1,111 @@
+{
+  "_meta": {
+    "total": 8,
+    "today": 0,
+    "unread": 2,
+    "last_sync": "2026-06-22T04:00:20.323745+00:00"
+  },
+  "entries": [
+    {
+      "id": "email-001",
+      "timestamp": "2026-06-21T23:15:00Z",
+      "from": "noreply@notion.com",
+      "to": "stuartmhannon@gmail.com",
+      "subject": "Notion \u2014 grainworks design doc updated",
+      "status": "received",
+      "read": false,
+      "body": "Hi Stuart,\n\nDamien Frost has edited the 'grainworks \u2014 platform architecture' page in the grainworks workspace.\n\nChanges made:\n- Added section on SSE event bus architecture\n- Updated deployment diagram\n\nView changes: https://notion.so/grainworks/platform-arch\n\nThe Notion Team",
+      "attachments": [],
+      "error": null
+    },
+    {
+      "id": "email-002",
+      "timestamp": "2026-06-21T22:30:00Z",
+      "from": "stuartmhannon@gmail.com",
+      "to": "damien@frost-consulting.com",
+      "subject": "Re: Workbench v1 deployment checklist",
+      "status": "sent",
+      "read": true,
+      "body": "Damien,\n\nAttached the deployment checklist for the grainworks workbench v1 launch.\n\nChecklist covers:\n- Nginx config updates for SSE endpoint\n- S3 sync of static assets\n- Cron job registration for data collectors\n- SSL cert renewal check\n\nLet me know if anything's missing.\n\nBest,\nStuart",
+      "attachments": [
+        {
+          "name": "workbench-v1-deploy-checklist.pdf",
+          "size": 124000
+        }
+      ],
+      "error": null
+    },
+    {
+      "id": "email-003",
+      "timestamp": "2026-06-21T20:45:00Z",
+      "from": "github@github.com",
+      "to": "stuartmhannon@gmail.com",
+      "subject": "[grainworks.tech] CI build #847 failed",
+      "status": "failed",
+      "read": true,
+      "body": "Build #847 for grainworks.tech/main failed at step 'Static Analysis'.\n\nError: ESLint found 3 errors in static/workflows/js/queue-panel.js\n  - line 142: Unexpected console statement (no-console)\n  - line 215: 'task' is defined but never used (no-unused-vars)\n  - line 388: Expected '===' instead of '==' (eqeqeq)\n\nView build log: https://github.com/grainworks/grainworks.tech/actions/runs/847\n\nThe GitHub Actions Team",
+      "attachments": [],
+      "error": "CI build #847 \u2014 ESLint violations"
+    },
+    {
+      "id": "email-004",
+      "timestamp": "2026-06-21T18:00:00Z",
+      "from": "stuartmhannon@gmail.com",
+      "to": "team@grainworks.io",
+      "subject": "Sprint 12 \u2014 QA gates set for Friday",
+      "status": "sent",
+      "read": true,
+      "body": "Team,\n\nSetting the v1.0 QA gates for this Friday.\n\nRequirements before tag:\n1. Full console audit \u2014 zero errors across all 13 tabs\n2. Responsive test at 1920 / 800 / 600 px\n3. Dark/light mode contrast pass\n4. All data files populated (tasks, email, cron, routes, logs)\n\nI'll run the final sync Thursday evening. Please have your PRs in by EOD Wed.\n\n-Stuart",
+      "attachments": [],
+      "error": null
+    },
+    {
+      "id": "email-005",
+      "timestamp": "2026-06-21T15:20:00Z",
+      "from": "cloudflare@noreply.cloudflare.com",
+      "to": "stuartmhannon@gmail.com",
+      "subject": "Certificate renewal notice \u2014 *.camel-hoki.ts.net",
+      "status": "received",
+      "read": false,
+      "body": "Hello,\n\nThis is an automated notice that the TLS certificate for *.camel-hoki.ts.net will expire in 14 days (on July 5, 2026).\n\nNo action required if auto-renewal is enabled. Current status: ENABLED.\n\nCertificate details:\n  Domain: *.camel-hoki.ts.net\n  Issued: Jan 5, 2026\n  Expires: Jul 5, 2026\n  Issuer: Cloudflare CA\n\nThe Cloudflare Team",
+      "attachments": [],
+      "error": null
+    },
+    {
+      "id": "email-006",
+      "timestamp": "2026-06-20T10:00:00Z",
+      "from": "stuartmhannon@gmail.com",
+      "to": "obsidian-plugins@support.com",
+      "subject": "Plugin request: Local REST API \u2014 sandbox limitation",
+      "status": "sent",
+      "read": true,
+      "body": "Hi support,\n\nI'm using the Local REST API plugin on macOS Sequoia. The Obsidian app container is sandboxed and file system access to the vault directory fails with EPERM when accessed from outside the sandbox.\n\nThe REST API plugin bypasses this via HTTP on localhost:27124, which works well. However, some external scripts that previously used direct file reads now need to be updated to use the API.\n\nIs there documentation on the full API surface? Looking for:\n- List all notes in a folder\n- Read note content by path\n- Search notes by tag\n\nThanks,\nStuart Hannon",
+      "attachments": [],
+      "error": null
+    },
+    {
+      "id": "email-007",
+      "timestamp": "2026-06-19T14:30:00Z",
+      "from": "damien@frost-consulting.com",
+      "to": "stuartmhannon@gmail.com",
+      "subject": "Hermes agent \u2014 cron pipeline design review",
+      "status": "received",
+      "read": true,
+      "body": "Stuart,\n\nReviewed your cron pipeline design doc. A few notes:\n\n1. The 5-min tick interval is fine for task processing but consider a 30s fast-sync for the UI data push \u2014 users shouldn't wait 5 minutes to see task state changes reflected.\n\n2. The subagent delegation pattern looks solid. One concern: if a subagent creates new tasks mid-execution, make sure the queue write happens before the parent completion marker so there's no race.\n\n3. Consider adding a crash-recovery heartbeat \u2014 if the executor cron hasn't ticked in 10 minutes, flag it.\n\nLet me know when the SSE event bus is running and I'll review that too.\n\nDamien",
+      "attachments": [],
+      "error": null
+    },
+    {
+      "id": "email-008",
+      "timestamp": "2026-06-19T09:00:00Z",
+      "from": "stuartmhannon@gmail.com",
+      "to": "noreply@homelabber.net",
+      "subject": "Tower UnRAID \u2014 share usage alert: /mnt/user 87% full",
+      "status": "failed",
+      "read": true,
+      "body": "This is an automated alert from your UnRAID server (tower.camel-hoki.ts.net).\n\nShare: /mnt/user\nUsage: 87% (3.2 TB of 3.7 TB used)\n\nRecommendations:\n- Review disk usage with: du -sh /mnt/user/* | sort -rh\n- Remove old container backups\n- Check appdata for orphaned docker volumes\n\nThreshold: 85%\nAlert frequency: Daily\n\nThe Homelabber Team",
+      "attachments": [],
+      "error": "SMTP relay timeout \u2014 delivery delayed 4h, eventually failed"
+    }
+  ]
+}

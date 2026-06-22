@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>workbench · grainworks</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <h1>grainworks</h1>
+      <div class="subtitle">workbench · v0.9</div>
+    </div>
+    <nav class="sidebar-nav">
+      <div class="nav-item active" data-tab="dashboard">
+        <span class="icon">☰</span> Dashboard
+      </div>
+      <div class="nav-item" data-tab="inbox">
+        <span class="icon">◐</span> Inbox <span id="inbox-badge" class="nav-badge"></span>
+      </div>
+      <div class="nav-item" data-tab="email">
+        <span class="icon">✉</span> Email
+      </div>
+      <div class="nav-item" data-tab="dag">
+        <span class="icon">◈</span> Workflows
+      </div>
+      <div class="nav-item" data-tab="projects">
+        <span class="icon">⧉</span> Projects
+      </div>
+      <div class="nav-item" data-tab="chat">
+        <span class="icon">◉</span> Chat
+      </div>
+      <div class="nav-item" data-tab="sessions">
+        <span class="icon">◉</span> Sessions
+      </div>
+      <div class="nav-item" data-tab="cron">
+        <span class="icon">◷</span> Cron <span id="cron-badge" class="nav-badge"></span>
+      </div>
+      <div class="nav-item" data-tab="library">
+        <span class="icon">◐</span> Library
+      </div>
+      <div class="nav-item" data-tab="status">
+        <span class="icon">◉</span> Agents
+      </div>
+      <div class="nav-item" data-tab="logs">
+        <span class="icon">▤</span> Logs
+      </div>
+      <div class="nav-item" data-tab="tower">
+        <span class="icon">▣</span> Tower <span id="tower-badge" class="nav-badge"></span>
+      </div>
+      <div class="nav-item" data-tab="builder">
+        <span class="icon">✎</span> Builder
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div id="status-indicator">● offline</div>
+    </div>
+  </aside>
+
+  <!-- Main -->
+  <main class="main">
+
+    <div class="tab-content active" id="tab-dashboard">
+      <div id="dashboard-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-inbox">
+      <div id="inbox-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-email">
+      <div id="email-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-dag">
+      <div class="pv-toggle-bar">
+        <button id="pv-toggle-btn" class="pv-toggle-btn">◂ topology</button>
+      </div>
+      <div id="dag-container" style="display:none"></div>
+      <div id="pipeline-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-projects">
+      <div id="queue-summary" class="queue-summary"></div>
+      <div id="projects-grid"></div>
+    </div>
+
+    <div class="tab-content" id="tab-chat">
+      <div id="chat-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-sessions">
+      <div id="session-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-cron">
+      <div id="cron-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-library">
+      <div class="lib-topbar">
+        <div class="lib-search">
+          <span class="search-icon">◐</span>
+          <input type="text" id="lib-search-input" placeholder="search library..." spellcheck="false">
+        </div>
+      </div>
+      <div class="lib-facets" id="lib-facets"></div>
+      <div class="lib-subnav" id="lib-subnav"></div>
+      <div class="lib-results" id="lib-results">
+        <div class="empty-state"><div class="big-icon">◐</div>Loading library index...</div>
+      </div>
+    </div>
+
+    <div class="tab-content" id="tab-status">
+    </div>
+
+    <div class="tab-content" id="tab-logs">
+    </div>
+
+    <div class="tab-content" id="tab-tower">
+      <div id="tower-container"></div>
+    </div>
+
+    <div class="tab-content" id="tab-builder">
+    </div>
+  </main>
+</div>
+
+<script type="module">
+import { renderDAG } from './js/dag-renderer.js';
+import { renderPipelineViz, stopPipelineViz } from './js/pipeline-viz.js';
+import { renderProjects } from './js/projects-panel.js';
+import { renderQueue } from './js/queue-panel.js';
+import { renderChat } from './js/chat-panel.js';
+import { renderStatus, renderLogs, loadLiveData } from './js/status-panel.js';
+import { renderDashboard } from './js/dashboard-panel.js';
+import { renderInbox } from './js/inbox-panel.js';
+import { renderEmail } from './js/email-panel.js';
+
+let routesData = null;
+let isPipelineView = true; // default to pipeline viz on load
+
+/**
+ * Load all data files and render initial views.
+ */
+async function init() {
+  // Load routes
+  try {
+    const resp = await fetch('./data/routes.json?_=' + Date.now());
+    routesData = await resp.json();
+    document.getElementById('status-indicator').textContent = `● ${sumRoutes(routesData)} routes`;
+  } catch (e) {
+    document.getElementById('dag-container').innerHTML =
+      '<div class="empty-state"><div class="big-icon">⚠</div>No route data — run the orchestrator data pipeline first</div>';
+    routesData = { operational: [], enterprise: [] };
+  }
+
+  // Load live data (system + logs)
+  await loadLiveData();
+
+  // Render initial views
+  renderDashboard(document.getElementById('dashboard-container'));
+  renderInbox(document.getElementById('inbox-container'));
+  renderEmail(document.getElementById('email-container'));
+  renderDAG(document.getElementById('dag-container'), routesData);
+  renderPipelineViz(document.getElementById('pipeline-container'), routesData);
+  renderProjects(document.getElementById('projects-grid'));
+  renderQueue(document.getElementById('queue-summary'));
+  renderChat(document.getElementById('chat-container'));
+
+  // Render session inspector (lazy-loaded — dynamic import on first use)
+  import('./js/session-inspector.js').then(mod => {
+    mod.renderSessionInspector(document.getElementById('session-container'));
+  }).catch(() => {
+    document.getElementById('session-container').innerHTML =
+      '<div class="empty-state"><div class="big-icon">⚠</div>Failed to load session inspector</div>';
+  });
+
+  // Render library (lazy-loaded)
+  import('./js/library-panel.js').then(mod => {
+    mod.renderLibrary(document.getElementById('tab-library'));
+  }).catch(() => {});
+
+  renderStatus(document.getElementById('tab-status'), routesData);
+  renderLogs(document.getElementById('tab-logs'));
+
+  // Render tower (lazy-loaded)
+  import('./js/tower-panel.js').then(mod => {
+    mod.renderTower(document.getElementById('tower-container'));
+  }).catch(() => {});
+
+  // Render cron dashboard (lazy-loaded)
+  import('./js/cron-panel.js').then(mod => {
+    const cronContainer = document.getElementById('cron-container');
+    if (cronContainer) {
+      mod.renderCronDashboard(cronContainer).then(() => {
+        updateCronBadge();
+      });
+    }
+  }).catch(() => {});
+
+  // Wire pipeline toggle
+  const toggleBtn = document.getElementById('pv-toggle-btn');
+  toggleBtn.addEventListener('click', () => {
+    isPipelineView = !isPipelineView;
+    const dagEl = document.getElementById('dag-container');
+    const pipeEl = document.getElementById('pipeline-container');
+    if (isPipelineView) {
+      stopPipelineViz();
+      dagEl.style.display = 'none';
+      pipeEl.style.display = 'block';
+      renderPipelineViz(pipeEl, routesData);
+      toggleBtn.textContent = '◂ topology';
+    } else {
+      stopPipelineViz();
+      pipeEl.style.display = 'none';
+      dagEl.style.display = 'block';
+      renderDAG(dagEl, routesData);
+      toggleBtn.textContent = '▸ pipeline';
+    }
+  });
+
+  // Refresh live data every 60s
+  setInterval(refreshLive, 60000);
+}
+
+/**
+ * Refresh system + log data without re-downloading routes.
+ */
+async function refreshLive() {
+  await loadLiveData();
+  const activeTab = document.querySelector('.tab-content.active');
+  if (activeTab) {
+    if (activeTab.id === 'tab-status') {
+      renderStatus(document.getElementById('tab-status'), routesData);
+    } else if (activeTab.id === 'tab-logs') {
+      renderLogs(document.getElementById('tab-logs'));
+    }
+  }
+}
+
+function sumRoutes(r) {
+  return (r.operational?.length || 0) + (r.enterprise?.length || 0);
+}
+
+/**
+ * Update the cron badge count from the dashboard state.
+ */
+function updateCronBadge() {
+  const navBadge = document.getElementById('cron-badge');
+  const tabBadge = document.getElementById('cron-tab-badge');
+  if (!navBadge && !tabBadge) return;
+  fetch('./data/cron-status.json?_=' + Date.now())
+    .then(r => r.json())
+    .then(data => {
+      if (!data || !data.jobs) return;
+      const failing = data.jobs.filter(j => j.status === 'failing').length;
+      const text = failing > 0 ? failing.toString() : data.jobs.length.toString();
+      if (navBadge) { navBadge.textContent = text; navBadge.classList.toggle('warn', failing > 0); }
+      if (tabBadge) { tabBadge.textContent = text; tabBadge.classList.toggle('warn', failing > 0); }
+    })
+    .catch(() => {});
+}
+
+// Tab switching
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('click', () => {
+    const tab = el.dataset.tab;
+    if (!tab) return;
+
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+    document.querySelectorAll(`.nav-item[data-tab="${tab}"]`).forEach(n => n.classList.add('active'));
+    document.getElementById(`tab-${tab}`).classList.add('active');
+
+    // Re-render on switch
+    if (tab === 'dag' && routesData) {
+      const dagEl = document.getElementById('dag-container');
+      const pipeEl = document.getElementById('pipeline-container');
+      if (isPipelineView) {
+        dagEl.style.display = 'none';
+        pipeEl.style.display = 'block';
+        renderPipelineViz(pipeEl, routesData);
+      } else {
+        pipeEl.style.display = 'none';
+        dagEl.style.display = 'block';
+        renderDAG(dagEl, routesData);
+      }
+    }
+    if (tab === 'projects') {
+      renderProjects(document.getElementById('projects-grid'));
+      renderQueue(document.getElementById('queue-summary'));
+    }
+    if (tab === 'chat') {
+      renderChat(document.getElementById('chat-container'));
+    }
+    if (tab === 'cron') {
+      const cronContainer = document.getElementById('cron-container');
+      if (cronContainer) {
+        import('./js/cron-panel.js').then(mod =>
+          mod.renderCronDashboard(cronContainer).then(() => updateCronBadge())
+        ).catch(() => {});
+      }
+    }
+    if (tab === 'sessions') {
+      const sessContainer = document.getElementById('session-container');
+      if (sessContainer) {
+        import('./js/session-inspector.js').then(mod =>
+          mod.renderSessionInspector(sessContainer)
+        ).catch(() => {});
+      }
+    }
+    if (tab === 'library') {
+      import('./js/library-panel.js').then(mod =>
+        mod.renderLibrary(document.getElementById('tab-library'))
+      ).catch(() => {});
+    }
+    if (tab === 'status') {
+      renderStatus(document.getElementById('tab-status'), routesData);
+    }
+    if (tab === 'logs') {
+      renderLogs(document.getElementById('tab-logs'));
+    }
+    if (tab === 'builder') {
+      import('./js/workflow-builder.js').then(mod =>
+        mod.renderBuilder(document.getElementById('tab-builder'))
+      ).catch(() => {});
+    }
+    if (tab === 'dashboard') {
+      renderDashboard(document.getElementById('dashboard-container'));
+    }
+    if (tab === 'inbox') {
+      renderInbox(document.getElementById('inbox-container'));
+    }
+    if (tab === 'email') {
+      renderEmail(document.getElementById('email-container'));
+    }
+    if (tab === 'tower') {
+      import('./js/tower-panel.js').then(mod =>
+        mod.renderTower(document.getElementById('tower-container'))
+      ).catch(() => {});
+    }
+  });
+});
+
+// Start
+init();
+</script>
+
+<!-- SSE live updates — replaces polling with push-based re-renders -->
+<script type="module">
+import { subscribeSSE } from './js/sse-client.js';
+
+// Map data filenames to tab IDs that should re-render on change
+const dataTabMap = {
+  'tasks.json': ['projects', 'queue-summary'],
+  'task-live.json': ['projects', 'queue-summary'],
+  'system.json': ['tower', 'dashboard'],
+  'logs.json': ['logs'],
+  'cron-status.json': ['cron'],
+  'sessions-live.json': ['sessions'],
+  'ideas-index.json': ['library'],
+};
+
+// Fire tab nav click to trigger re-render
+function triggerTabRender(tabIds) {
+  const activeTab = document.querySelector('.tab-content.active');
+  if (!activeTab) return;
+  const currentTabId = activeTab.id.replace('tab-', '');
+  if (tabIds.includes(currentTabId)) {
+    const navItem = document.querySelector(`.nav-item[data-tab="${currentTabId}"]`);
+    if (navItem) navItem.click();
+  }
+}
+
+subscribeSSE('/events', {
+  onFileChange(fileName) {
+    const tabs = dataTabMap[fileName];
+    if (tabs) triggerTabRender(tabs);
+  },
+  onConnectionChange(status) {
+    const indicator = document.getElementById('status-indicator');
+    if (!indicator) return;
+    if (status === 'connected') {
+      indicator.textContent = '● live';
+      indicator.className = 'connected';
+    } else if (status === 'reconnecting') {
+      indicator.textContent = '● reconnecting...';
+      indicator.className = 'warn';
+    } else {
+      indicator.textContent = '● polling';
+      indicator.className = 'disconnected';
+    }
+  },
+  onError(err) {
+    console.warn('[SSE]', err.message);
+  }
+  // Fallback: if SSE connection fails, fall back to polling
+  setTimeout(() => {
+    const indicator = document.getElementById('status-indicator');
+    if (indicator && indicator.textContent === '● offline') {
+      indicator.textContent = '● polling';
+      indicator.className = 'disconnected';
+    }
+  }, 10000);
+});
+</script>
+</body>
+</html>

@@ -1,33 +1,33 @@
 ---
-title: "Pocket Recorder — Hardware Design"
-date: 2026-06-10T16:00:00-04:00
+title: "Pocket Recorder — v0.5 Hardware Proto"
+date: 2026-06-16T18:00:00-04:00
 draft: false
 tags:
   - hardware
   - audio
   - esp32
-  - design
-description: "Design exploration for a pocket-sized voice recorder with I²S audio, LoRa sync, and AI transcription integration."
+  - proto
+description: "A bare-PCB voice recorder with a slider switch. Slide on to record a meeting, slide off to stop. USB-C powered, WiFi sync to Hermes for transcription and note extraction."
 ---
 
-**Status: Design research complete.**
+**Status: Design written. Path A (dev board + modules) costs ~$25 and takes one evening to wire.**
 
-A design exploration for a pocket-sized voice recorder — I²S digital audio capture, local storage, optional LoRa sync for off-grid field recording, and integration with Hermes backend for AI transcription and note extraction.
+A functional prototype of a minimalist voice recorder — one slider switch, no screen, no case, no battery. Set it on a table during a meeting, slide to record, slide off when done. Audio syncs over WiFi to Hermes Agent for transcription, classification, and routing.
 
-## Design Goals
+This is v0.5 — the *working hardware proto* phase. Everything extraneous has been cut: enclosures, seals, batteries, gesture detection, graceful power-loss protection, BLE, OTA. Just the bare minimum that records audio and syncs it.
 
-- **Pocket-sized** — small enough to carry always, discrete enough to use in meetings
-- **High-quality audio** — I²S MEMS microphone, 16-bit/44.1kHz or higher
-- **Local-first** — onboard storage (SD or SPI flash), no cloud dependency
-- **Off-grid sync** — LoRa-based sync to the Grainworks mesh when WiFi is unavailable
-- **AI pipeline** — upload to Hermes for transcription, summarization, and note extraction
+## Design Decisions
 
-## Key Questions
+- **Slider switch over button** — ON records, OFF stops. No press-and-hold, no double-tap, no debounce. Anyone can use it.
+- **USB-C powered** — always plugged in for v0.5. Battery comes in v1.
+- **Bare PCB** — no case, no IP rating, no sealing. Proto only.
+- **Hardcoded WiFi** — credentials set at flash time. Captive portal in v1.
+- **16 kHz mono WAV** — Whisper-standard, 1.8 MB/min, 290 hours on 32GB SD.
 
-- Battery life tradeoffs (continuous recording vs. voice-activated)
-- Storage capacity vs form factor (how many hours before offload?)
-- Wireless sync strategy (WiFi when available, LoRa when not)
-- Transcription accuracy with I²S MEMS mics in real-world acoustic environments
+## BOM (two paths)
+
+- **Path A:** ESP32-S3 dev board + INMP441 breakout + SD module + slide switch = ~$25. One evening on a breadboard.
+- **Path B:** Custom PCB at JLCPCB = $2 for 5 boards, ~2 weeks turnaround.
 
 ## Source Files
 

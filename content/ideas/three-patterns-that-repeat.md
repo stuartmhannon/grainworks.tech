@@ -1,7 +1,7 @@
 ---
 title: "Three Patterns That Repeat"
-date: 2026-06-17
-draft: false
+date: 2026-06-11
+draft: true
 tags: ["history", "economics", "patterns", "cognition", "systems"]
 description: "Across the Gold Rush, the Cold War, and the AI boom — three structural patterns that predict who wins, who loses, and why the best-prepared incumbents are the most vulnerable to change."
 ---
