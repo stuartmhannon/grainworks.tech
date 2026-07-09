@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Comparison on grainworks</title>
+		<link>https://grainworks.tech/tags/comparison/</link>
+		<description>Recent content in Comparison on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 08 Jun 2026 16:00:00 -0400</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/comparison/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Sibyl vs Holographic — Memory at the Grain</title>
+				<link>https://grainworks.tech/projects/sibyl-memory-evaluation/</link>
+				<pubDate>Mon, 08 Jun 2026 16:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/sibyl-memory-evaluation/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: Published. Decision: staying on Holographic for now.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;A head-to-head comparison of two SQLite-backed agentic memory systems for Hermes Agent:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Holographic:&lt;/strong&gt; Local-first, zero-dependency memory provider with Phase Holographic Reduced Representations (HRR) for compositional retrieval. Unlimited database size, no accounts, no cloud roundtrips.&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Sibyl Memory:&lt;/strong&gt; Five-tier hierarchical schema (HOT/WARM/COLD/REFERENCE/ARCHIVE) with self-learning, LongMemEval-validated (95.6%), but requires cloud activation and has a 2 MB free cap.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;the-verdict&#34;&gt;The Verdict&lt;/h2&gt;&#xA;&lt;p&gt;Sibyl wins on features and benchmarks. Holographic wins on operational simplicity — zero external dependencies, unlimited storage, trust-based fact management.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

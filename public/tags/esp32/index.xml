@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Esp32 on grainworks</title>
+		<link>https://grainworks.tech/tags/esp32/</link>
+		<description>Recent content in Esp32 on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 22 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/esp32/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>GrainDrop v0.5: A Pocket Recorder, Designed Start to Finish</title>
+				<link>https://grainworks.tech/posts/graindrop-v0.5/</link>
+				<pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/graindrop-v0.5/</guid>
+				<description>&lt;p&gt;The idea came from wanting a pocket recorder that didn&amp;rsquo;t exist. Not a voice memo app on a phone. Not a dedicated field recorder with menus and levels and configuration. A single-purpose device: slide a switch, it records audio to a MicroSD card. Slide it back, it stops. No screen, no buttons, no setup.&lt;/p&gt;&#xA;&lt;p&gt;I had spent years assembling electronics projects designed by other people. Kits, development boards, hobby modules that I wired together on perfboard. I never attempted my own PCB design. Not because I couldn&amp;rsquo;t learn the concepts, but because the tools had a reputation. KiCad. EDA software. The learning curve felt like a prerequisite course before the real work could start, and I could never justify that to myself.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Pocket Recorder — v0.5 Hardware Proto</title>
+				<link>https://grainworks.tech/projects/pocket-recorder/</link>
+				<pubDate>Tue, 16 Jun 2026 18:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/pocket-recorder/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: Design written. Path A (dev board + modules) costs ~$25 and takes one evening to wire.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;A functional prototype of a minimalist voice recorder — one slider switch, no screen, no case, no battery. Set it on a table during a meeting, slide to record, slide off when done. Audio syncs over WiFi to Hermes Agent for transcription, classification, and routing.&lt;/p&gt;&#xA;&lt;p&gt;This is v0.5 — the &lt;em&gt;working hardware proto&lt;/em&gt; phase. Everything extraneous has been cut: enclosures, seals, batteries, gesture detection, graceful power-loss protection, BLE, OTA. Just the bare minimum that records audio and syncs it.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Tiny Hermes Robot</title>
+				<link>https://grainworks.tech/projects/tiny-hermes-robot/</link>
+				<pubDate>Wed, 10 Jun 2026 16:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/tiny-hermes-robot/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: Design spec complete. Prototype pending.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;The Tiny Hermes Robot is a deliberately simple robotic platform. All reasoning, vision processing, navigation, and personality live on the Hermes backend. The robot itself is just sensors, motors, and a display — an I/O shell with zero onboard intelligence.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;  ┌─────────────────────┐&#xA;  │    HERMES BACKEND   │&#xA;  │  (Hermes Agent VM)  │&#xA;  │                     │&#xA;  │  • Vision (YOLO/CLIP)│&#xA;  │  • Path planning     │&#xA;  │  • Speech (STT/TTS)  │&#xA;  │  • Decision-making   │&#xA;  │  • Personality/LLM   │&#xA;  └──────┬──────────────┘&#xA;         │ WiFi / Tailscale&#xA;         │ WebSocket / MJPEG&#xA;  ┌──────┴──────────────┐&#xA;  │   ROBOT CLIENT      │  ← &amp;#34;Dumb&amp;#34; — no local AI&#xA;  │  (ESP32-S3)         │&#xA;  │                     │&#xA;  │  • Camera stream    │&#xA;  │  • Motor drive I²C  │&#xA;  │  • OLED display     │&#xA;  │  • I²S mic + amp    │&#xA;  │  • Battery monitor  │&#xA;  └─────────────────────┘&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;hardware-bom&#34;&gt;Hardware BOM&lt;/h2&gt;&#xA;&lt;table&gt;&#xA;&#x9;&lt;thead&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;Component&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;Part&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;th&gt;Cost&lt;/th&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/thead&gt;&#xA;&#x9;&lt;tbody&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;MCU&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;ESP32-S3-DevKitC-1 (16MB flash, 8MB PSRAM)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$15&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Camera&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;OV2640 (2MP) on FPC ribbon&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$8&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Display&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;0.96″ OLED 128×64, SSD1306 I²C&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$4&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Motors&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;N20 micro metal gearmotor (100:1, ~150 RPM) ×2&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$12&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Driver&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;DRV8833 dual H-bridge (I²C via PCA9685)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$5&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Chassis&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;3D-printed PLA (2 pieces)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$3&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Battery&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;18650 Li-ion (3.7V 2600mAh) + TP4056 charger&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$8&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;Audio&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;INMP441 I²S mic + MAX98357A amp + speaker&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$8&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;LoRa (opt)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;SX1262 + SMA antenna&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;~$15&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&#x9;&#x9;&lt;tr&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;&lt;strong&gt;Total&lt;/strong&gt;&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&lt;td&gt;&lt;strong&gt;~$97&lt;/strong&gt; ($82 without LoRa)&lt;/td&gt;&#xA;&#x9;&#x9;&#x9;&lt;/tr&gt;&#xA;&#x9;&lt;/tbody&gt;&#xA;&lt;/table&gt;&#xA;&lt;h2 id=&#34;communication&#34;&gt;Communication&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Primary (WiFi):&lt;/strong&gt; Robot streams MJPEG frames + JSON telemetry (battery, temp, RSSI, encoder position) over WebSocket. Hermes sends motor commands, display updates, and speech TTS back down the same connection.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

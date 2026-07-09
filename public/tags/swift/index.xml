@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Swift on grainworks</title>
+		<link>https://grainworks.tech/tags/swift/</link>
+		<description>Recent content in Swift on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 15 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/swift/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Building StatBar: A Native macOS System Monitor in One Day</title>
+				<link>https://grainworks.tech/posts/statbar-build-log/</link>
+				<pubDate>Mon, 15 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/statbar-build-log/</guid>
+				<description>&lt;p&gt;StatBar is a floating macOS system monitor built in about two and a half hours on June 15, 2026. It lives at the bottom-left corner of the screen: a 250px-wide translucent panel showing CPU, GPU, Memory, Network, Disk utilization, and running Ollama models, refreshing every two seconds. The entire thing compiles with &lt;code&gt;swiftc&lt;/code&gt; — no Xcode project, no package manager, no dependencies beyond the macOS SDK.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-framework&#34;&gt;The Framework&lt;/h2&gt;&#xA;&lt;p&gt;The initial specification was straightforward but deliberate: a native floating panel (not a menu bar app or web-based dashboard), reading hardware counters directly through Mach and IOKit APIs, rendered in SwiftUI hosted on a borderless NSWindow. No Electron, no web views, no polling shell commands. CPU from two-sample &lt;code&gt;host_statistics&lt;/code&gt; deltas, memory from &lt;code&gt;vm_statistics64&lt;/code&gt;, GPU core utilization from the IOKit AGXAccelerator performance counters, network rates from &lt;code&gt;getifaddrs&lt;/code&gt;, disk from filesystem attributes, and Ollama state from the local API. All collected on a background queue so the UI never freezes. Compiled with &lt;code&gt;swiftc -O -target arm64-apple-macosx26.0 -parse-as-library&lt;/code&gt; — one file, one shell script, zero Xcode involvement.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

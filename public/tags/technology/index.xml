@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Technology on grainworks</title>
+		<link>https://grainworks.tech/tags/technology/</link>
+		<description>Recent content in Technology on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 10 Jun 2026 16:00:00 -0400</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Post-WWII Tech Boom — Economic Research</title>
+				<link>https://grainworks.tech/projects/post-wwii-tech-boom/</link>
+				<pubDate>Wed, 10 Jun 2026 16:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/post-wwii-tech-boom/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: Research compiled.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;An analysis of the post-WWII technology boom: how massive wartime R&amp;amp;D investment in aerospace, electronics, materials science, and computing shaped the consumer technology landscape of the late 20th century.&lt;/p&gt;&#xA;&lt;h2 id=&#34;key-areas&#34;&gt;Key Areas&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;The military-industrial-academic pipeline:&lt;/strong&gt; How defense spending seeded commercial innovation (transistors, integrated circuits, jet engines, GPS, the internet)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The economic multiplier:&lt;/strong&gt; How one dollar of wartime R&amp;amp;D produced tens of dollars of peacetime economic value&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The seven patterns:&lt;/strong&gt; Identified repeating patterns in how wartime technologies transition to civilian use&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Parallels to AI:&lt;/strong&gt; What the post-WWII boom tells us about the current AI investment cycle&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;source-files&#34;&gt;Source Files&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Research doc:&lt;/strong&gt; &lt;code&gt;economic-cycles-knowledge-base.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Seven patterns post:&lt;/strong&gt; &lt;code&gt;seven-patterns-post.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Three patterns deep dive:&lt;/strong&gt; &lt;code&gt;three-patterns-deep-dive.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+	</channel>
+</rss>

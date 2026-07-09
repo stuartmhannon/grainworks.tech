@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Kicad on grainworks</title>
+		<link>https://grainworks.tech/tags/kicad/</link>
+		<description>Recent content in Kicad on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 22 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/kicad/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>GrainDrop v0.5: A Pocket Recorder, Designed Start to Finish</title>
+				<link>https://grainworks.tech/posts/graindrop-v0.5/</link>
+				<pubDate>Mon, 22 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/graindrop-v0.5/</guid>
+				<description>&lt;p&gt;The idea came from wanting a pocket recorder that didn&amp;rsquo;t exist. Not a voice memo app on a phone. Not a dedicated field recorder with menus and levels and configuration. A single-purpose device: slide a switch, it records audio to a MicroSD card. Slide it back, it stops. No screen, no buttons, no setup.&lt;/p&gt;&#xA;&lt;p&gt;I had spent years assembling electronics projects designed by other people. Kits, development boards, hobby modules that I wired together on perfboard. I never attempted my own PCB design. Not because I couldn&amp;rsquo;t learn the concepts, but because the tools had a reputation. KiCad. EDA software. The learning curve felt like a prerequisite course before the real work could start, and I could never justify that to myself.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Grainworks LoRa Mesh</title>
+				<link>https://grainworks.tech/projects/grainworks-lora-mesh/</link>
+				<pubDate>Wed, 10 Jun 2026 16:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/grainworks-lora-mesh/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: v1 reference designs complete. Schematics generated via KiCad Python S-expression builders.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;A two-component LoRa mesh network for rural property coverage. The Grain Seed Connection — the link between a personal mobile node and a stationary home base — provides off-grid messaging, position tracking, and WiFi bridging across properties where cellular coverage is unreliable.&lt;/p&gt;&#xA;&lt;h2 id=&#34;components&#34;&gt;Components&lt;/h2&gt;&#xA;&lt;h3 id=&#34;grain-tag-personal&#34;&gt;Grain Tag (Personal)&lt;/h3&gt;&#xA;&lt;p&gt;Mobile pocket device running Meshtastic for off-grid messaging and position tracking.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;v1 spec:&lt;/strong&gt; Heltec Wireless Tracker V1.1 (ESP32-S3 + SX1262 + GPS)&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

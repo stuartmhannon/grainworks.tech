@@ -1,0 +1,20 @@
+grainworks.manifesto
+
+the machine is already running.
+
+data centers hum whether you're logged on or not. models have been trained on data stolen from all of humanity. compute is being burned on slop. this isn't whether we use ai but what for.
+
+we acknowledge the contradiction. ai's environmental cost is real. its corporate capture is entrenched. the technology was not built to set us free. and so, the cat is out of the bag; retreating to a private bunker is not an option us. 
+
+so what do we actually do with it?
+
+replace the creative process? — the one thing humans love struggling with? no, we need tools that claw back time, attention, and agency.  not optimization for its own sake. not another dashboard that tracks you across the web.
+
+grainworks is a research lab for the humane use of ai tools. we dream build and test things that reduce the friction of being alive under capitalism. things that help people organize, understand, fix, grow, and connect — without selling their data or their dignity.
+
+modern technology fights for human attention. we are interested in tools that don't. we work with the grain of humanity. 
+
+this is not a professional blog. this is not thought leadership. this is a workshop. we publish what we build, what we learn, and what breaks. if it's useful to someone else, that's the point.
+
+the machines are running. let's make it worth it.
+

@@ -1,0 +1,70 @@
+{{ define "main" }}
+  <div class="error-404">
+    <p class="error-box-top">┌─────────────────────────────────┐</p>
+    <p class="error-box-line">│                                 │</p>
+    <p class="error-box-line">│          <span class="error-code">404</span>                       │</p>
+    <p class="error-box-line">│                                 │</p>
+    <p class="error-box-line">│         grain not found          │</p>
+    <p class="error-box-line">│                                 │</p>
+    <p class="error-box-bot">└─────────────────────────────────┘</p>
+    <p class="error-message">The page you're looking for doesn't exist.</p>
+    <nav class="error-nav">
+      <a href="{{ "" | relURL }}">index</a>
+      <span class="sep">/</span>
+      <a href="{{ "/posts/" | relURL }}">posts</a>
+      <span class="sep">/</span>
+      <a href="{{ "/projects/" | relURL }}">projects</a>
+      <span class="sep">/</span>
+      <a href="{{ "/about/" | relURL }}">about</a>
+    </nav>
+  </div>
+
+  <style>
+    .error-404 {
+      text-align: center;
+      padding: 3rem 1rem;
+    }
+    .error-box-top,
+    .error-box-bot {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-dim);
+      margin: 0;
+      line-height: 1.1;
+    }
+    .error-box-line {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--accent-dim);
+      margin: 0;
+      line-height: 1.1;
+    }
+    .error-code {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: 0.2em;
+    }
+    .error-message {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--fg-dim);
+      margin: 2rem 0 1.5rem;
+    }
+    .error-nav {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+    }
+    .error-nav a {
+      color: var(--fg-dim);
+      text-decoration: none;
+      padding: 0.25rem 0.5rem;
+    }
+    .error-nav a:hover {
+      color: var(--accent);
+    }
+    .error-nav .sep {
+      color: var(--border-light);
+    }
+  </style>
+{{ end }}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Memory Architecture Research · grainworks</title>
+<meta name="description" content="Research into agentic memory systems — comparing Sibyl Memory (LongMemEval #2) against Holographic for offline, local-first Hermes Agent deployments.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/memory-research/">
+<meta property="og:title" content="Memory Architecture Research">
+<meta property="og:description" content="Research into agentic memory systems — comparing Sibyl Memory (LongMemEval #2) against Holographic for offline, local-first Hermes Agent deployments.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/memory-research/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Memory Architecture Research">
+<meta name="twitter:description" content="Research into agentic memory systems — comparing Sibyl Memory (LongMemEval #2) against Holographic for offline, local-first Hermes Agent deployments.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Memory Architecture Research</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-10">June 10, 2026</time> · 2 min read
+        ·<a href="/tags/research">research</a>, <a href="/tags/memory">memory</a>, <a href="/tags/agents">agents</a>
+      </div>
+    </header>
+    <p>A deep-dive comparison of two SQLite-backed agentic memory systems for Hermes Agent: <strong>Sibyl Memory</strong> (the #2-ranked system on LongMemEval) and <strong>Holographic</strong> (our local-first baseline).</p>
+<h2 id="the-question">The Question</h2>
+<p>Agents need memory to work across sessions. But every memory system makes a tradeoff: cloud vs local, free vs paid, simple vs feature-rich. Which one is right for an offline-first, zero-tracking research setup?</p>
+<h2 id="key-findings">Key Findings</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Dimension</th>
+					<th>Holographic</th>
+					<th>Sibyl Memory</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>Storage</td>
+					<td>SQLite + FTS5 (3 tables)</td>
+					<td>SQLite + FTS5 (5 tiers)</td>
+			</tr>
+			<tr>
+					<td>Locality</td>
+					<td>Fully offline</td>
+					<td>Requires cloud activation</td>
+			</tr>
+			<tr>
+					<td>Cost</td>
+					<td>Free, unlimited</td>
+					<td>Free cap: 2 MB</td>
+			</tr>
+			<tr>
+					<td>Feature</td>
+					<td>Trust scoring, HRR vectors</td>
+					<td>Self-learning, 5-tier schema</td>
+			</tr>
+			<tr>
+					<td>Search</td>
+					<td>FTS5 + trust-weighted</td>
+					<td>FTS5 + multi-tier + LLM re-ranking</td>
+			</tr>
+			<tr>
+					<td>Dependencies</td>
+					<td>numpy (optional)</td>
+					<td>pip + cloud account</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="the-verdict">The Verdict</h2>
+<ul>
+<li><strong>Sibyl wins</strong> on features — self-learning, multi-tier schema, validated retrieval. But the 2 MB free cap and cloud activation requirement are dealbreakers for an offline-first system.</li>
+<li><strong>Holographic wins</strong> on operational simplicity — zero dependencies, unlimited storage, no accounts. Less flashy but operationally bulletproof.</li>
+</ul>
+<h2 id="where-we-landed">Where We Landed</h2>
+<p>We&rsquo;re staying on Holographic for the orchestrator, research pipelines, and autonomous morning briefing. The self-learning gap is real, but not worth trading local-first operation.</p>
+<h2 id="full-writeup">Full Writeup</h2>
+<p>→ <a href="/posts/sibyl-vs-holographic-memory/">Sibyl vs Holographic — Memory at the Grain</a> (published on grainworks.tech)</p>
+<h2 id="files">Files</h2>
+<ul>
+<li><code>sibyl_memory/</code> (local) — Sibyl SDK research and evaluation</li>
+<li><code>sibyl_memory_evaluation_sources/</code> (local) — Source material for the comparison</li>
+<li><a href="/posts/sibyl-vs-holographic-memory/">Published Blog Post</a> — Full comparison with architecture details and benchmarks</li>
+</ul>
+<h2 id="status---research">Status → 📖 <strong>Research</strong></h2>
+<p>The comparison is complete and published. Memory architecture remains an active area of interest — particularly the prospect of a fully local port of Sibyl&rsquo;s multi-tier schema and self-learning detection.</p>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/soul-dot-md/" class="post-nav-link">← SOUL.md Library</a>
+    </div>
+    <div>
+      <a href="/projects/grain-tracker/" class="post-nav-link">Grain Tracker →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,3 @@
+User-agent: *
+Disallow:
+Sitemap: https://grainworks.tech/sitemap.xml

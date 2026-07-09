@@ -1,0 +1,51 @@
+baseURL = "https://grainworks.tech/"
+title = "grainworks"
+theme = "grain"
+defaultContentLanguage = "en"
+locale = "en-US"
+enableRobotsTXT = true
+
+[params]
+  description = "Research into the humane use of AI tools"
+  author = "Stuart Hannon & Hermes Hannon"
+  homeDescription = "A research lab for building tools that reduce the friction of being alive — without selling your data or your dignity."
+  mainSections = ["posts"]
+  footerExtra = "[via RSS](index.xml)"
+
+[taxonomies]
+  tag = "tags"
+
+[menu]
+
+  [[menu.main]]
+    identifier = "posts"
+    name = "posts"
+    url = "/posts/"
+    weight = 10
+
+  [[menu.main]]
+    identifier = "projects"
+    name = "projects"
+    url = "/projects/"
+    weight = 15
+
+  [[menu.main]]
+    identifier = "tags"
+    name = "tags"
+    url = "/tags/"
+    weight = 20
+
+  [[menu.main]]
+    identifier = "about"
+    name = "about"
+    url = "/about/"
+    weight = 30
+
+[privacy]
+
+  [privacy.googleAnalytics]
+    anonymizeIP = true
+    disable = true
+
+  [privacy.hugoTemplates]
+    disable = true

@@ -1,0 +1,207 @@
+{{ define "main" }}
+  <div id="manifesto-home" tabindex="0" style="outline: none; margin-bottom: 2rem;">
+    <noscript>Enable JavaScript for the teletype display.</noscript>
+  </div>
+
+  <script id="manifesto-data-home" type="text/plain">the machines
+are already running.
+
+the data centers hum
+whether you're logged on
+or not.
+models have been trained
+on data stolen from us all.
+processing power
+is being wasted on slop.
+
+it isn't about
+using AI or not?
+but what do we use it for?
+
+we acknowledge
+the contradiction.
+AI's environmental cost
+is real.
+its corporate capture
+is entrenched.
+
+technology connects
+our productivity
+our data
+to
+shareholder dividends.
+but not our paychecks?
+
+and so,
+the cat is out of the bag.
+you are already
+in the machines.
+
+the question?
+are you running the machines?
+are the machines running you?
+
+retreating to a private bunker
+is not an option for us.
+
+so what do we do
+with AI?
+
+do we:
+replace the creative process?
+the struggles
+that humans endure
+in pursuit of growth?
+No.
+
+we need tools again.
+tools that claw back time
+attention
+and our agency
+from tech run amok.
+not optimization
+for its own sake.
+
+grainworks.tech
+is a research workshop
+exploring AI
+that treats you like a person
+not a pattern.
+we dream
+build
+and test things
+that let you
+get back to living.
+
+wood
+steel
+electrons
+lines of code
+are material to us.
+Yes.
+we're building
+with the same materials
+that built the cage.
+only,
+we're building tools
+instead of a trap.
+
+why can't AI
+do your laundry?
+
+who profits
+from what it learns?
+
+what happens if
+you refuse to play?
+
+grainworks
+is working
+to find out
+
+most technology
+is designed to need you.
+we're interested in technology
+that you need.
+
+as we sand
+and treat wood
+to reveal
+what's already there
+
+so we work
+with the grain of humanity
+to bring out
+what's already inside us.
+
+we build things
+that help people organize
+understand
+repair
+connect
+and grow.
+...without selling their data or dignity.
+
+this is a workshop.
+not a professional blog.
+not thought leadership.
+
+we're offering something
+that might break
+might fail
+might only work for you.
+and that's the point.
+
+--grainworks.tech--
+the machines are running.
+let's make it worth it.</script>
+
+  <script>
+  (function() {
+    var dataEl = document.getElementById('manifesto-data-home');
+    var raw = dataEl.textContent;
+    var container = document.getElementById('manifesto-home');
+
+    if (typeof ManifestoTUI !== 'undefined') {
+      var tui = new ManifestoTUI(container);
+      tui.init(raw);
+    } else {
+      if (!window.__manifestoQueue) window.__manifestoQueue = [];
+      window.__manifestoQueue.push({ container: container, text: raw });
+    }
+  })();
+  </script>
+
+  <script>
+  (function() {
+    if (window.__manifestoQueue && !window.__manifestoJsLoaded) {
+      var s = document.createElement('script');
+      s.src = '{{ "js/manifesto-tui.js" | relURL }}';
+      s.onload = function() {
+        window.__manifestoJsLoaded = true;
+        window.__manifestoQueue.forEach(function(item) {
+          var tui = new ManifestoTUI(item.container);
+          tui.init(item.text);
+        });
+        window.__manifestoQueue = [];
+      };
+      document.body.appendChild(s);
+    }
+  })();
+  </script>
+
+  {{- $pages := where site.RegularPages "Section" "in" site.Params.mainSections }}
+  {{- $paginator := .Paginate $pages }}
+  {{- if gt $paginator.TotalPages 0 }}
+    <h2 class="section-heading">Latest</h2>
+    {{- range $paginator.Pages }}
+    <article class="post-entry">
+      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit; display: block;">
+        <h3 class="post-title">{{ .Title }}</h3>
+        <div class="post-meta">
+          <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{- with .ReadingTime }}
+          · {{ . }} min read
+          {{- end }}
+          {{- with .Params.tags }}
+          ·
+          {{- range $i, $tag := . }}{{ if $i }}, {{ end }}<span class="tag">{{ $tag }}</span>{{ end }}
+          {{- end }}
+        </div>
+        {{- with .Description }}
+        <div class="post-excerpt">{{ . | markdownify }}</div>
+        {{- end }}
+      </a>
+    </article>
+    {{- end }}
+
+    {{- if gt $paginator.TotalPages 1 }}
+    <nav class="pagination">
+      <div>{{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← Previous</a>{{ end }}</div>
+      <div>{{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">Next →</a>{{ end }}</div>
+    </nav>
+    {{- end }}
+  {{- else }}
+    <p style="color: var(--fg-dim); margin-top: 2rem;">No posts yet.</p>
+  {{- end }}
+{{ end }}

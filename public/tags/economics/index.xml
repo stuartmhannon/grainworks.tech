@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Economics on grainworks</title>
+		<link>https://grainworks.tech/tags/economics/</link>
+		<description>Recent content in Economics on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 08 Jul 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/economics/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>0% Interest Rate Music: The Financial Fire That Fueled Late 2010s Pop</title>
+				<link>https://grainworks.tech/posts/zero-percent-interest-rate-music/</link>
+				<pubDate>Wed, 08 Jul 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/zero-percent-interest-rate-music/</guid>
+				<description>&lt;p&gt;Between roughly 2012 and 2022, an extraordinary thing happened to pop music. The cost of borrowing money fell to zero, and the major labels borrowed as much as they could. Not to build studios or develop artists — those are cheap. They borrowed to buy catalogs. To acquire publishing rights. To consolidate market share. They borrowed at near-zero interest rates and deployed the capital on a scale the industry had never seen.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Three Patterns That Repeat</title>
+				<link>https://grainworks.tech/posts/three-patterns-that-repeat/</link>
+				<pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/three-patterns-that-repeat/</guid>
+				<description>&lt;p&gt;History does not repeat, but it has structural patterns. After studying five eras — the California Gold Rush, the Great Depression, the Post-WWII Tech Boom, Nuclear Deterrence, and the current AI-driven economy — three patterns recur across every transition. They describe who wins, who loses, and why the actors best positioned for the last era are usually the least prepared for the next.&lt;/p&gt;&#xA;&lt;h2 id=&#34;supply-side-always-wins&#34;&gt;Supply Side Always Wins&lt;/h2&gt;&#xA;&lt;p&gt;The California Gold Rush drew three hundred thousand people to the Sierra Nevada. Almost none got rich from the gold itself. The people who built enduring wealth — Levi Strauss, John Studebaker, Henry Wells and William Fargo, the Big Four railroad barons — were selling jeans, wagons, banking, and rail transport to the miners. Sutter and Marshall, the men who discovered the gold and knew more about extraction than anyone, both died broke.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Post-WWII Tech Boom — Economic Research</title>
+				<link>https://grainworks.tech/projects/post-wwii-tech-boom/</link>
+				<pubDate>Wed, 10 Jun 2026 16:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/post-wwii-tech-boom/</guid>
+				<description>&lt;p&gt;&lt;strong&gt;Status: Research compiled.&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;An analysis of the post-WWII technology boom: how massive wartime R&amp;amp;D investment in aerospace, electronics, materials science, and computing shaped the consumer technology landscape of the late 20th century.&lt;/p&gt;&#xA;&lt;h2 id=&#34;key-areas&#34;&gt;Key Areas&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;The military-industrial-academic pipeline:&lt;/strong&gt; How defense spending seeded commercial innovation (transistors, integrated circuits, jet engines, GPS, the internet)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The economic multiplier:&lt;/strong&gt; How one dollar of wartime R&amp;amp;D produced tens of dollars of peacetime economic value&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;The seven patterns:&lt;/strong&gt; Identified repeating patterns in how wartime technologies transition to civilian use&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Parallels to AI:&lt;/strong&gt; What the post-WWII boom tells us about the current AI investment cycle&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;source-files&#34;&gt;Source Files&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&lt;strong&gt;Research doc:&lt;/strong&gt; &lt;code&gt;economic-cycles-knowledge-base.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Seven patterns post:&lt;/strong&gt; &lt;code&gt;seven-patterns-post.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;li&gt;&lt;strong&gt;Three patterns deep dive:&lt;/strong&gt; &lt;code&gt;three-patterns-deep-dive.md&lt;/code&gt; (local)&lt;/li&gt;&#xA;&lt;/ul&gt;</description>
+			</item>
+	</channel>
+</rss>

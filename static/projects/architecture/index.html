@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Stack Architecture · grainworks</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+      background: #020617;
+      min-height: 100vh;
+      padding: 2rem;
+      color: #e2e8f0;
+    }
+    .container { max-width: 1240px; margin: 0 auto; }
+    .header { margin-bottom: 2rem; }
+    .header-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .pulse-dot {
+      width: 12px; height: 12px;
+      background: #22d3ee;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+    h1 {
+      font-size: 1.5rem; font-weight: 700;
+      letter-spacing: -0.025em; color: #f1f5f9;
+    }
+    .subtitle { color: #64748b; font-size: 0.875rem; margin-left: 1.75rem; }
+    .diagram-container {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 1rem;
+      border: 1px solid #1e293b;
+      padding: 1.5rem;
+      overflow-x: auto;
+    }
+    svg { width: 100%; min-width: 1100px; display: block; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.5);
+      border-radius: 0.75rem;
+      border: 1px solid #1e293b;
+      padding: 1.25rem;
+    }
+    .card-header { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.75rem; }
+    .card-dot { width: 8px; height: 8px; border-radius: 50%; }
+    .card-dot.cyan { background: #22d3ee; }
+    .card-dot.emerald { background: #34d399; }
+    .card-dot.violet { background: #a78bfa; }
+    .card-dot.amber { background: #fbbf24; }
+    .card-dot.rose { background: #fb7185; }
+    .card-dot.orange { background: #fb923c; }
+    .card h3 { font-size: 0.875rem; font-weight: 600; color: #e2e8f0; }
+    .card ul { list-style: none; color: #94a3b8; font-size: 0.75rem; }
+    .card li { margin-bottom: 0.375rem; }
+    .card li::before { content: '• '; color: #64748b; }
+    .footer { text-align: center; margin-top: 1.5rem; color: #334155; font-size: 0.75rem; }
+    a { color: #22d3ee; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <div class="header-row">
+        <div class="pulse-dot"></div>
+        <h1>grainworks Agent Stack</h1>
+      </div>
+      <p class="subtitle">Six-layer architecture — every component we've built, in its layer. June 2026.</p>
+    </div>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 1160 960">
+
+        <defs>
+          <marker id="arrow-down" markerWidth="8" markerHeight="6" refX="4" refY="5" orient="auto">
+            <polygon points="0,0 4,5 8,0" fill="#64748b" />
+          </marker>
+          <marker id="arrow-right" markerWidth="8" markerHeight="6" refX="4" refY="3" orient="auto">
+            <polygon points="0,0 8,3 0,6" fill="#64748b" />
+          </marker>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#1e293b" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+
+        <!-- Background Grid -->
+        <rect width="100%" height="100%" fill="url(#grid)" />
+
+        <!-- ===================================================================
+             LAYER 6 — DELIVERY (top)
+             =================================================================== -->
+        <rect x="30" y="20" width="1100" height="120" rx="12" fill="rgba(8,51,68,0.15)" stroke="#22d3ee" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="42" fill="#22d3ee" font-size="10" font-weight="600">Layer 6</text>
+        <text x="42" y="56" fill="#22d3ee" font-size="12" font-weight="700">DELIVERY</text>
+        <text x="42" y="76" fill="#64748b" font-size="8">How work reaches the user</text>
+
+        <rect x="180" y="35" width="140" height="60" rx="6" fill="#0f172a"/>
+        <rect x="180" y="35" width="140" height="60" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="250" y="58" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">grainworks.tech</text>
+        <text x="250" y="73" fill="#94a3b8" font-size="9" text-anchor="middle">Hugo SSG · Blog + Projects</text>
+        <text x="250" y="85" fill="#64748b" font-size="7" text-anchor="middle">grainworks.tech</text>
+
+        <rect x="350" y="35" width="140" height="60" rx="6" fill="#0f172a"/>
+        <rect x="350" y="35" width="140" height="60" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="420" y="58" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Workbench SPA</text>
+        <text x="420" y="73" fill="#94a3b8" font-size="9" text-anchor="middle">Dashboard · Inbox · Chat</text>
+        <text x="420" y="85" fill="#64748b" font-size="7" text-anchor="middle">v0.9 · Zero-dep JS SPA</text>
+
+        <rect x="520" y="35" width="130" height="60" rx="6" fill="#0f172a"/>
+        <rect x="520" y="35" width="130" height="60" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="585" y="58" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">iMessage Bridge</text>
+        <text x="585" y="73" fill="#94a3b8" font-size="9" text-anchor="middle">imsg CLI relay</text>
+        <text x="585" y="85" fill="#64748b" font-size="7" text-anchor="middle">Verified delivery</text>
+
+        <rect x="680" y="35" width="130" height="60" rx="6" fill="#0f172a"/>
+        <rect x="680" y="35" width="130" height="60" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="745" y="58" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Email Delivery</text>
+        <text x="745" y="73" fill="#94a3b8" font-size="9" text-anchor="middle">Gmail API integration</text>
+        <text x="745" y="85" fill="#64748b" font-size="7" text-anchor="middle">email-instruction-channel</text>
+
+        <rect x="840" y="35" width="130" height="60" rx="6" fill="#0f172a"/>
+        <rect x="840" y="35" width="130" height="60" rx="6" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1.5"/>
+        <text x="905" y="58" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">RSS / Telegram</text>
+        <text x="905" y="73" fill="#94a3b8" font-size="9" text-anchor="middle">Cron delivery channels</text>
+        <text x="905" y="85" fill="#64748b" font-size="7" text-anchor="middle">Newspipe · Bot API</text>
+
+        <!-- Data flow arrows: Pipelines → Delivery -->
+        <line x1="420" y1="178" x2="420" y2="215" stroke="#22d3ee" stroke-width="1" marker-end="url(#arrow-down)" stroke-dasharray="3,3"/>
+
+        <!-- ===================================================================
+             LAYER 5 — PIPELINES
+             =================================================================== -->
+        <rect x="30" y="150" width="1100" height="120" rx="12" fill="rgba(251,146,60,0.06)" stroke="#fb923c" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="172" fill="#fb923c" font-size="10" font-weight="600">Layer 5</text>
+        <text x="42" y="186" fill="#fb923c" font-size="12" font-weight="700">PIPELINES</text>
+        <text x="42" y="206" fill="#64748b" font-size="8">Automated processing (cron-driven)</text>
+
+        <rect x="180" y="167" width="145" height="50" rx="6" fill="#0f172a"/>
+        <rect x="180" y="167" width="145" height="50" rx="6" fill="rgba(251,146,60,0.2)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="252" y="188" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Email Screener</text>
+        <text x="252" y="203" fill="#94a3b8" font-size="9" text-anchor="middle">Classification → Action</text>
+
+        <rect x="355" y="167" width="145" height="50" rx="6" fill="#0f172a"/>
+        <rect x="355" y="167" width="145" height="50" rx="6" fill="rgba(251,146,60,0.2)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="427" y="188" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Obsidian Inbox</text>
+        <text x="427" y="203" fill="#94a3b8" font-size="9" text-anchor="middle">Raw notes → Structured</text>
+
+        <rect x="530" y="167" width="145" height="50" rx="6" fill="#0f172a"/>
+        <rect x="530" y="167" width="145" height="50" rx="6" fill="rgba(251,146,60,0.2)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="602" y="188" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Morning Briefing</text>
+        <text x="602" y="203" fill="#94a3b8" font-size="9" text-anchor="middle">Daily cron aggregation</text>
+
+        <rect x="705" y="167" width="145" height="50" rx="6" fill="#0f172a"/>
+        <rect x="705" y="167" width="145" height="50" rx="6" fill="rgba(251,146,60,0.2)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="777" y="188" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Workflow Store</text>
+        <text x="777" y="203" fill="#94a3b8" font-size="9" text-anchor="middle">State + route indexing</text>
+
+        <rect x="880" y="167" width="145" height="50" rx="6" fill="#0f172a"/>
+        <rect x="880" y="167" width="145" height="50" rx="6" fill="rgba(251,146,60,0.2)" stroke="#fb923c" stroke-width="1.5"/>
+        <text x="952" y="188" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Cron Fleet</text>
+        <text x="952" y="203" fill="#94a3b8" font-size="9" text-anchor="middle">Webhook + scheduled jobs</text>
+
+        <!-- Data flow arrows: Evaluation → Pipelines -->
+        <line x1="420" y1="310" x2="420" y2="340" stroke="#fb923c" stroke-width="1" marker-end="url(#arrow-down)" stroke-dasharray="3,3"/>
+
+        <!-- ===================================================================
+             LAYER 4 — EVALUATION
+             =================================================================== -->
+        <rect x="30" y="285" width="1100" height="105" rx="12" fill="rgba(120,140,93,0.08)" stroke="#788C5D" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="307" fill="#788C5D" font-size="10" font-weight="600">Layer 4</text>
+        <text x="42" y="321" fill="#788C5D" font-size="12" font-weight="700">EVALUATION</text>
+        <text x="42" y="341" fill="#64748b" font-size="8">Quality measurement (Month 2 target)</text>
+
+        <rect x="180" y="300" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="180" y="300" width="200" height="50" rx="6" fill="rgba(120,140,93,0.15)" stroke="#788C5D" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="280" y="321" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">Golden Task Dataset</text>
+        <text x="280" y="338" fill="#64748b" font-size="8" text-anchor="middle">30 curated eval tasks</text>
+
+        <rect x="430" y="300" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="430" y="300" width="200" height="50" rx="6" fill="rgba(120,140,93,0.15)" stroke="#788C5D" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="530" y="321" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">grainworks eval CLI</text>
+        <text x="530" y="338" fill="#64748b" font-size="8" text-anchor="middle">Pass/fail · Cost · Latency</text>
+
+        <rect x="680" y="300" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="680" y="300" width="200" height="50" rx="6" fill="rgba(120,140,93,0.15)" stroke="#788C5D" stroke-width="1.5" stroke-dasharray="4,3"/>
+        <text x="780" y="321" fill="#94a3b8" font-size="10" font-weight="600" text-anchor="middle">Regression Suite CI</text>
+        <text x="780" y="338" fill="#64748b" font-size="8" text-anchor="middle">Pre-deployment check</text>
+
+        <!-- Data flow arrows: Tool Mesh → Evaluation -->
+        <line x1="420" y1="430" x2="420" y2="458" stroke="#788C5D" stroke-width="1" marker-end="url(#arrow-down)" stroke-dasharray="3,3"/>
+
+        <!-- ===================================================================
+             LAYER 3 — TOOL MESH
+             =================================================================== -->
+        <rect x="30" y="405" width="1100" height="160" rx="12" fill="rgba(120,53,15,0.08)" stroke="#fbbf24" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="427" fill="#fbbf24" font-size="10" font-weight="600">Layer 3</text>
+        <text x="42" y="441" fill="#fbbf24" font-size="12" font-weight="700">TOOL MESH</text>
+        <text x="42" y="461" fill="#64748b" font-size="8">MCP servers &amp; external integrations</text>
+
+        <!-- Row 1 -->
+        <rect x="180" y="420" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="180" y="420" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="240" y="441" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">StatBar MCP</text>
+        <text x="240" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">macOS system monitor</text>
+
+        <rect x="325" y="420" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="325" y="420" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="385" y="441" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Josh Relay MCP</text>
+        <text x="385" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">Voice → webhook bridge</text>
+
+        <rect x="470" y="420" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="470" y="420" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="530" y="441" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Arr MCP (4x)</text>
+        <text x="530" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">Radarr/Sonarr/Lidarr/Prowlarr</text>
+
+        <rect x="615" y="420" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="615" y="420" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="675" y="441" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Unraid MCP</text>
+        <text x="675" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">Server management</text>
+
+        <rect x="760" y="420" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="760" y="420" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="820" y="441" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Chipotle MCP</text>
+        <text x="820" y="456" fill="#94a3b8" font-size="8" text-anchor="middle">Food ordering</text>
+
+        <!-- Row 2 -->
+        <rect x="180" y="490" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="180" y="490" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="240" y="511" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Porkbun MCP</text>
+        <text x="240" y="526" fill="#94a3b8" font-size="8" text-anchor="middle">DNS · Domains</text>
+
+        <rect x="325" y="490" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="325" y="490" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="385" y="511" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">MAM MCP</text>
+        <text x="385" y="526" fill="#94a3b8" font-size="8" text-anchor="middle">MyAnonamouse torrents</text>
+
+        <rect x="470" y="490" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="470" y="490" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="530" y="511" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Google Workspace</text>
+        <text x="530" y="526" fill="#94a3b8" font-size="8" text-anchor="middle">Calendar · Drive · Gmail</text>
+
+        <rect x="615" y="490" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="615" y="490" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="675" y="511" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Linear · Notion</text>
+        <text x="675" y="526" fill="#94a3b8" font-size="8" text-anchor="middle">Issue + doc management</text>
+
+        <rect x="760" y="490" width="120" height="50" rx="6" fill="#0f172a"/>
+        <rect x="760" y="490" width="120" height="50" rx="6" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1.5"/>
+        <text x="820" y="511" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Bazarr · Chaptarr</text>
+        <text x="820" y="526" fill="#94a3b8" font-size="8" text-anchor="middle">Subtitles · Chapters</text>
+
+        <!-- Data flow arrows: Memory → Tool Mesh -->
+        <line x1="420" y1="600" x2="420" y2="628" stroke="#fbbf24" stroke-width="1" marker-end="url(#arrow-down)" stroke-dasharray="3,3"/>
+
+        <!-- ===================================================================
+             LAYER 2 — MEMORY
+             =================================================================== -->
+        <rect x="30" y="575" width="1100" height="105" rx="12" fill="rgba(76,29,149,0.08)" stroke="#a78bfa" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="597" fill="#a78bfa" font-size="10" font-weight="600">Layer 2</text>
+        <text x="42" y="611" fill="#a78bfa" font-size="12" font-weight="700">MEMORY</text>
+        <text x="42" y="631" fill="#64748b" font-size="8">Persistent context &amp; state</text>
+
+        <rect x="180" y="590" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="180" y="590" width="200" height="50" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="280" y="611" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">ContextVault</text>
+        <text x="280" y="628" fill="#94a3b8" font-size="8" text-anchor="middle">Swift CLI · Prompt interception</text>
+
+        <rect x="430" y="590" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="430" y="590" width="200" height="50" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="530" y="611" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">Session DB + Fact Store</text>
+        <text x="530" y="628" fill="#94a3b8" font-size="8" text-anchor="middle">SQLite · FTS5 · Memory providers</text>
+
+        <rect x="680" y="590" width="200" height="50" rx="6" fill="#0f172a"/>
+        <rect x="680" y="590" width="200" height="50" rx="6" fill="rgba(76,29,149,0.4)" stroke="#a78bfa" stroke-width="1.5"/>
+        <text x="780" y="611" fill="#e2e8f0" font-size="10" font-weight="600" text-anchor="middle">session_search</text>
+        <text x="780" y="628" fill="#94a3b8" font-size="8" text-anchor="middle">Cross-session FTS5 recall</text>
+
+        <!-- Data flow arrows: Orchestration → Memory -->
+        <line x1="420" y1="720" x2="420" y2="748" stroke="#a78bfa" stroke-width="1" marker-end="url(#arrow-down)" stroke-dasharray="3,3"/>
+
+        <!-- ===================================================================
+             LAYER 1 — ORCHESTRATION (bottom)
+             =================================================================== -->
+        <rect x="30" y="695" width="1100" height="145" rx="12" fill="rgba(6,78,59,0.1)" stroke="#34d399" stroke-width="1" stroke-dasharray="6,3"/>
+        <text x="42" y="717" fill="#34d399" font-size="10" font-weight="600">Layer 1</text>
+        <text x="42" y="731" fill="#34d399" font-size="12" font-weight="700">ORCHESTRATION</text>
+        <text x="42" y="751" fill="#64748b" font-size="8">The brains — routing, reasoning, delegation</text>
+
+        <rect x="180" y="710" width="200" height="60" rx="6" fill="#0f172a"/>
+        <rect x="180" y="710" width="200" height="60" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="280" y="732" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Hermes Agent (Primary)</text>
+        <text x="280" y="748" fill="#94a3b8" font-size="9" text-anchor="middle">DeepSeek/Claude · SOUL.md</text>
+        <text x="280" y="762" fill="#64748b" font-size="7" text-anchor="middle">Clock-driven · Cron · Gateway</text>
+
+        <rect x="430" y="710" width="200" height="60" rx="6" fill="#0f172a"/>
+        <rect x="430" y="710" width="200" height="60" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="530" y="732" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Organizational Orchestrator</text>
+        <text x="530" y="748" fill="#94a3b8" font-size="9" text-anchor="middle">V2.4/2.5 · 19 domain agents</text>
+        <text x="530" y="762" fill="#64748b" font-size="7" text-anchor="middle">Intent classification · Routing</text>
+
+        <rect x="680" y="710" width="200" height="60" rx="6" fill="#0f172a"/>
+        <rect x="680" y="710" width="200" height="60" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="780" y="732" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">Domain Subagents</text>
+        <text x="780" y="748" fill="#94a3b8" font-size="9" text-anchor="middle">delegate_task · Skill system</text>
+        <text x="780" y="762" fill="#64748b" font-size="7" text-anchor="middle">Two-stage review · Plugin model</text>
+
+        <rect x="930" y="710" width="130" height="60" rx="6" fill="#0f172a"/>
+        <rect x="930" y="710" width="130" height="60" rx="6" fill="rgba(6,78,59,0.4)" stroke="#34d399" stroke-width="1.5"/>
+        <text x="995" y="732" fill="#e2e8f0" font-size="11" font-weight="600" text-anchor="middle">MCP Gateway</text>
+        <text x="995" y="748" fill="#94a3b8" font-size="9" text-anchor="middle">native-mcp client</text>
+        <text x="995" y="762" fill="#64748b" font-size="7" text-anchor="middle">Webhook router</text>
+
+        <!-- Vertical data flow annotations -->
+        <line x1="100" y1="95" x2="100" y2="820" stroke="#334155" stroke-width="1" stroke-dasharray="2,4"/>
+        <text x="90" y="840" fill="#334155" font-size="8" text-anchor="end">data</text>
+        <text x="90" y="852" fill="#334155" font-size="8" text-anchor="end">flow</text>
+
+        <!-- Layer boundary labels (right side) -->
+        <line x1="1050" y1="50" x2="1080" y2="50" stroke="#22d3ee" stroke-width="1"/>
+        <text x="1085" y="54" fill="#64748b" font-size="7">to user</text>
+
+        <line x1="1050" y1="190" x2="1080" y2="190" stroke="#fb923c" stroke-width="1"/>
+        <text x="1085" y="194" fill="#64748b" font-size="7">automated</text>
+
+        <line x1="1050" y1="325" x2="1080" y2="325" stroke="#788C5D" stroke-width="1"/>
+        <text x="1085" y="329" fill="#64748b" font-size="7">measure</text>
+
+        <line x1="1050" y1="445" x2="1080" y2="445" stroke="#fbbf24" stroke-width="1"/>
+        <text x="1085" y="449" fill="#64748b" font-size="7">act</text>
+
+        <line x1="1050" y1="615" x2="1080" y2="615" stroke="#a78bfa" stroke-width="1"/>
+        <text x="1085" y="619" fill="#64748b" font-size="7">remember</text>
+
+        <line x1="1050" y1="740" x2="1080" y2="740" stroke="#34d399" stroke-width="1"/>
+        <text x="1085" y="744" fill="#64748b" font-size="7">think</text>
+
+        <!-- Legend -->
+        <text x="42" y="870" fill="#94a3b8" font-size="10" font-weight="600">Legend</text>
+
+        <rect x="42" y="880" width="14" height="10" rx="2" fill="rgba(8,51,68,0.4)" stroke="#22d3ee" stroke-width="1"/>
+        <text x="62" y="889" fill="#94a3b8" font-size="8">Layer boundary</text>
+
+        <rect x="200" y="880" width="14" height="10" rx="2" fill="rgba(120,53,15,0.3)" stroke="#fbbf24" stroke-width="1"/>
+        <text x="220" y="889" fill="#94a3b8" font-size="8">MCP tool</text>
+
+        <rect x="350" y="880" width="14" height="10" rx="2" fill="rgba(120,140,93,0.15)" stroke="#788C5D" stroke-width="1" stroke-dasharray="3,2"/>
+        <text x="370" y="889" fill="#94a3b8" font-size="8">Planned / Month 2+</text>
+
+        <line x1="530" y1="885" x2="550" y2="885" stroke="#64748b" stroke-width="1" marker-end="url(#arrow-down)"/>
+        <text x="556" y="889" fill="#94a3b8" font-size="8">Data flow</text>
+      </svg>
+    </div>
+
+    <!-- Info Cards -->
+    <div class="cards">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot cyan"></div>
+          <h3>Delivery Layer (6)</h3>
+        </div>
+        <ul>
+          <li>grainworks.tech — Hugo site with blog, projects, about</li>
+          <li>Workbench SPA — v0.9 · 10+ panels · zero-dep JS</li>
+          <li>iMessage bridge — imsg CLI with verified delivery</li>
+          <li>Email delivery — Gmail API, instruction channel</li>
+          <li>RSS / Telegram — cron delivery destinations</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot orange"></div>
+          <h3>Pipeline Layer (5)</h3>
+        </div>
+        <ul>
+          <li>Email screener — classify inbox into action/read/defer</li>
+          <li>Obsidian inbox — raw notes → structured backlinked notes</li>
+          <li>Morning briefing — daily cron aggregation + delivery</li>
+          <li>Workflow store — DAG route indexing, activity tracking</li>
+          <li>Cron fleet — webhook subscriptions + scheduled jobs</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-dot emerald"></div>
+          <h3>Orchestration Layer (1)</h3>
+        </div>
+        <ul>
+          <li>Hermes Agent — primary reasoning + tool-calling engine</li>
+          <li>Organizational Orchestrator — V2.4/2.5 · 19 domain agents</li>
+          <li>Domain subagents — delegate_task + two-stage review</li>
+          <li>Skill system — 60+ procedural memory skills</li>
+          <li>MCP Gateway — native-mcp client, webhook router</li>
+        </ul>
+      </div>
+    </div>
+
+    <p class="footer">
+      grainworks agent stack · June 2026 ·
+      <a href="https://grainworks.tech">grainworks.tech</a>
+    </p>
+  </div>
+</body>
+</html>

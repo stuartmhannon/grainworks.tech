@@ -1,0 +1,426 @@
+{
+  "_format": "hermes-continuous-task-queue v1",
+  "_description": "The source of truth for pending, active, and completed tasks.",
+  "tasks": [
+    {
+      "id": 33,
+      "title": "Sprint 9 \u2014 Install Obsidian Local REST API plugin",
+      "goal": "Install plugin so cron scripts can read vault notes via HTTP",
+      "context": "iCloud app container is sandboxed. Install 'Local REST API' community plugin in Obsidian. Enable it, note API key and port 27124. Verify with curl http://127.0.0.1:27124/vault/. Prerequisite for fixing vault-watcher and inbox-processor crons.",
+      "status": "completed",
+      "priority": 4,
+      "created_at": "2026-06-21T12:45:00",
+      "completed_at": "2026-06-21T19:41:00Z",
+      "source": "sprint-plan",
+      "recovery_note": "Auto-reset from stale in_progress (6h48m) \u2014 completed on recovery attempt",
+      "output_file": "33-sprint-9-install-obsidian-local-rest-api-plugin.md"
+    },
+    {
+      "id": 34,
+      "title": "Sprint 9 \u2014 Fix vault-watcher to use REST API",
+      "goal": "Rewrite obsidian_watcher.py to use curl to REST API",
+      "context": "obsidian_watcher.py uses open() which fails EPERM on iCloud container. After REST API plugin installed (task 33), rewrite to curl http://127.0.0.1:27124/vault/... to list/read notes. Replace os.listdir/open with HTTP calls. Test after changes.",
+      "status": "completed",
+      "priority": 4,
+      "created_at": "2026-06-21T12:45:00",
+      "completed_at": "2026-06-21T19:54:00Z",
+      "source": "sprint-plan",
+      "output_file": "34-sprint-9-fix-vault-watcher-to-use-rest-api.md"
+    },
+    {
+      "id": 35,
+      "title": "Sprint 9 \u2014 Fix inbox-processor to read vault notes via REST API",
+      "goal": "Update cron prompt to use curl-to-REST-API for vault reads",
+      "context": "Inbox processor reads pending_inbox_task.json then reads vault note. Switch from MCP to curl http://127.0.0.1:27124/vault/... Cron aa4181e6e812 runs every 5 min.",
+      "status": "completed",
+      "priority": 4,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan",
+      "completed_at": "2026-06-21T20:13:52Z",
+      "output_file": "35-sprint-9-fix-inbox-processor-to-read-vault-notes-via-rest-api.md"
+    },
+    {
+      "id": 36,
+      "title": "Sprint 9 \u2014 Audit all Tower data files",
+      "goal": "Check every data/ file on workbench.camel-hoki.ts.net",
+      "context": "SSH to Tower, check /usr/share/nginx/html/data/ for: tasks.json, task-history.json, task-templates.json, ideas-index.json, cron-status.json, system.json, logs.json, email-log.json, route-activity.json, routes.json, projects.json. Trace missing files to collector scripts and sync-workbench-data.sh.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 37,
+      "title": "Sprint 9 \u2014 Add missing data collectors to sync pipeline",
+      "goal": "Write collector scripts for files missing from Tower data/",
+      "context": "Based on audit (task 36), write or fix collectors. Follow pattern from collect-workbench-data.py. Each writes JSON to ~/.hermes/workbench-data/, sync-workbench-data.sh SCPs to Tower.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 38,
+      "title": "Sprint 9 \u2014 Verify queue kanban renders in Projects tab",
+      "goal": "Confirm queue-panel.js renders with real data",
+      "context": "Open Projects tab. Queue panel should show kanban columns with task cards. Check JS console for errors. Data source: ./data/tasks.json on Tower.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 39,
+      "title": "Sprint 9 \u2014 Wire real agent status from route data",
+      "goal": "Replace dummy cycling statuses with actual state",
+      "context": "status-panel.js cycles hardcoded statuses. Replace with data from route-activity.json: online = priority 4+ or active tasks, idle = normal, error = failing cron associations.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 40,
+      "title": "Sprint 9 \u2014 Responsive breakpoint test",
+      "goal": "Verify all tabs at 3 viewport sizes",
+      "context": "Test at 1920px, 800px (icon sidebar), 600px (no sidebar). Fix overflow and cutoff.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 41,
+      "title": "Sprint 9 \u2014 Console audit all 13 tabs",
+      "goal": "Open every tab, fix all JS errors, reach 0 warnings",
+      "context": "Open DevTools Console, click every tab. Fix all errors: missing data, null refs, selectors. Quality gate before sign-off.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 42,
+      "title": "Sprint 9 \u2014 Retrospective + production verify",
+      "goal": "Document Sprint 9 and verify all tabs in production",
+      "context": "Write sprint-9-retrospective.md. Cover: bugs fixed, Obsidian pipeline status, remaining issues. Deploy sync, manual tab check.",
+      "status": "pending",
+      "priority": 1,
+      "created_at": "2026-06-21T12:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 43,
+      "title": "Sprint 10 \u2014 Chat: persist message history in localStorage",
+      "goal": "Save/restore chat sessions across page reloads",
+      "context": "chat-panel.js already has LS_SESSIONS_KEY and LS_MSG_PREFIX constants defined but session restore may be incomplete. Ensure full round-trip: save messages per session, restore on load, switch between sessions. Follow existing ES6 module style. Use local Mistral NeMo for inline coding, DeepSeek for design review.",
+      "status": "completed",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan",
+      "started_at": "2026-06-21T20:20:19Z",
+      "completed_at": "2026-06-21T20:22:35Z",
+      "output_file": "43-sprint-10-chat-persist-message-history-in-localstorage.md"
+    },
+    {
+      "id": 44,
+      "title": "Sprint 10 \u2014 Chat: model selector dropdown",
+      "goal": "Add model picker in chat toolbar, fetched from /v1/models",
+      "context": "Add a select dropdown to the chat toolbar. On chat render, fetch models from API_BASE + '/models'. Populate dropdown. When user sends message, pass selected model in the request body. Save preference to localStorage.",
+      "status": "completed",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "started_at": "2026-06-21T20:43:00Z",
+      "completed_at": "2026-06-21T20:44:30Z",
+      "source": "sprint-plan",
+      "output_file": "44-sprint-10-chat-model-selector-dropdown.md"
+    },
+    {
+      "id": 45,
+      "title": "Sprint 10 \u2014 Chat: session list sidebar",
+      "goal": "Manage sessions: new, rename, delete, switch",
+      "context": "Add a session sidebar to the chat tab (collapsible). Show all saved sessions from localStorage. Buttons: + New Session, rename on double-click, delete with confirm, switch on click. Active session highlighted.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 46,
+      "title": "Sprint 10 \u2014 Chat: copy button + markdown polish",
+      "goal": "Add copy-to-clipboard on messages, improve markdown rendering",
+      "context": "Each assistant message gets a copy icon (top-right corner). Click copies message text to clipboard. Improve markdown rendering: code blocks with syntax hint, link targets, inline code styling.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 47,
+      "title": "Sprint 10 \u2014 Sessions tab: live viewer with auto-refresh",
+      "goal": "Show active Hermes sessions, poll every 10s",
+      "context": "session-inspector.js renders session cards. Add 10s auto-poll to GET /v1/sessions. Show: session ID, model, created time, last activity, message count. Auto-refresh badge. Use local coding model for JS changes, DeepSeek for API design.",
+      "status": "pending",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 48,
+      "title": "Sprint 10 \u2014 Sessions: stop/cancel button",
+      "goal": "Wire stop button to POST /api/v1/sessions/:id/stop",
+      "context": "Each active session card gets a Stop button. On click: POST to /v1/sessions/{id}/stop. Show loading state on button. On success, update card status to 'stopped'. On error, show error inline.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 49,
+      "title": "Sprint 10 \u2014 Sessions: tool call timeline panel",
+      "goal": "Click a session to see its tool call history",
+      "context": "Click a session card \u2192 slide-in detail panel showing chronological tool calls: tool name, arguments (truncated), result summary, timestamp. Data from GET /v1/sessions/{id}/tools or synthesize from available data.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 50,
+      "title": "Sprint 10 \u2014 Chat: graceful reconnection",
+      "goal": "Retry on network error 3x, show connection status indicator",
+      "context": "When sendMessage fails (network error, not HTTP error), retry up to 3 times with exponential backoff (1s, 2s, 4s). Show a small status indicator in the toolbar: '\u25c9 connected' green, '\u25c9 reconnecting...' yellow, '\u25c9 disconnected' red.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 51,
+      "title": "Sprint 10 \u2014 Chat: keyboard shortcuts",
+      "goal": "Ctrl+Enter send, Esc cancel, Ctrl+Up edit last message",
+      "context": "Implement keyboard shortcuts in the chat input: Ctrl+Enter or Cmd+Enter to send, Esc to cancel current streaming response, Ctrl+Up (or Cmd+Up) to edit the last user message. Show shortcut hints in input placeholder.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 52,
+      "title": "Sprint 10 \u2014 Write retrospective",
+      "goal": "Document Sprint 10 results",
+      "context": "Write sprint-10-retrospective.md to /Volumes/Mini_1Tb/Projects/grainworks.tech/static/workflows/. Cover: shipped vs planned, LOC, key decisions, lessons learned.",
+      "status": "pending",
+      "priority": 1,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 53,
+      "title": "Sprint 11 \u2014 Queue: inline task creation form",
+      "goal": "Add a form to create tasks from the queue panel",
+      "context": "queue-panel.js has an add overlay (qp-add-overlay, qp-add-form classes with CSS already added). Wire it: show form on +Add Task click, fields for title (required), goal, priority (1-5 dropdown), source. On submit, POST to /api/queue/. On success, add card to PENDING column and re-render. Use local Mistral NeMo for JS work, DeepSeek for API shape review.",
+      "status": "in_progress",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "started_at": "2026-06-21T21:08:00Z",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 54,
+      "title": "Sprint 11 \u2014 Queue: batch operations",
+      "goal": "Select multiple tasks, bulk change status or delete",
+      "context": "queue-panel.js already has batch toggle (qp-batch-toggle) and qp-batch-check classes. Wire: toggle batch mode shows checkboxes on each card. When 1+ selected, show action bar: 'Set Pending', 'Cancel', 'Delete'. POST array of IDs to /api/queue/batch.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 55,
+      "title": "Sprint 11 \u2014 Queue: drag-and-drop between columns",
+      "goal": "Drag cards between status columns to update task state",
+      "context": "queue-panel.js has basic drag/dragstart/dragend listeners. Complete: on drop, update task status to match the target column, POST PATCH /api/queue/{id} with new status, re-render board. Add visual feedback: card opacity while dragging, highlight drop targets.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 56,
+      "title": "Sprint 11 \u2014 Queue: task detail overlay",
+      "goal": "Click a task card to see full detail and edit fields",
+      "context": "Add click handler on task cards. Opens a qp-detail overlay showing: title, goal, context, priority, source, created_at, status, completed_at. Editable fields: title, goal, priority. Save button PATCHes /api/queue/{id}. Reuse existing qp-detail-overlay and qp-detail CSS.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 57,
+      "title": "Sprint 11 \u2014 Cron: Run Now button",
+      "goal": "Wire Run Now button to POST /api/cron/run/:id",
+      "context": "cron-panel.js renders cron job cards. Add '\u25b6 Run Now' button to each. On click: POST to /api/cron/run/{job_id}. Show spinner while running. On success: update last_run_at. On fail: show error text on card.",
+      "status": "pending",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 58,
+      "title": "Sprint 11 \u2014 Cron: pause/resume toggle",
+      "goal": "Toggle cron job enabled/disabled with visual state",
+      "context": "Add a pause/resume toggle button on each cron card. Toggle visual: green dot = enabled, gray dot = disabled. On click: POST to /api/cron/{job_id}/pause or resume. Update card state on response.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 59,
+      "title": "Sprint 11 \u2014 Tower: live container status",
+      "goal": "Show Tower containers with refresh and status dots",
+      "context": "tower-panel.js already renders container cards from system.json (tower.containers). Add a '\u27f3 Refresh' button that re-fetches system.json. Container cards show: name, status dot (green=running, yellow=paused, red=stopped), image, uptime, ports.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 60,
+      "title": "Sprint 11 \u2014 Tower: color-coded storage bars",
+      "goal": "Storage usage with color thresholds",
+      "context": "tower-panel.js has tw-storage-item with tw-si-fill bar. Wire: fetch storage data from system.json (tower.share_usage or similar). Bar color: green < 70%, yellow < 90%, red > 90%. Show numeric usage text.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 61,
+      "title": "Sprint 11 \u2014 SSE push endpoint for live updates",
+      "goal": "Replace polling with server-sent events for real-time data",
+      "context": "Create a lightweight SSE endpoint on the Tower nginx or as a Python script that watches ~/.hermes/workbench-data/ for changes and pushes updates to connected browsers. Browser tab subscribes to /events SSE stream. On new data, re-render active tab. Start simple: push on file change, 30s keepalive. Use DeepSeek for SSE architecture design, local models for implementation.",
+      "status": "pending",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 62,
+      "title": "Sprint 11 \u2014 Write retrospective",
+      "goal": "Document Sprint 11 results",
+      "context": "Write sprint-11-retrospective.md. Cover: operational features shipped, SSE pipeline status, remaining gaps.",
+      "status": "pending",
+      "priority": 1,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 63,
+      "title": "Sprint 12 \u2014 Library: full-text search across all sources",
+      "goal": "End-to-end search across 5 knowledge sources",
+      "context": "library-panel.js loads from library/index.json. Ensure search works across: audiobooks, skills, fact store, contacts, ideas. Search bar filters results client-side. Facet pills filter by type. Show result count. Use local models for JS, DeepSeek for search UX design.",
+      "status": "pending",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 64,
+      "title": "Sprint 12 \u2014 Library: detail panels per type",
+      "goal": "Render type-specific metadata in detail overlay",
+      "context": "Library cards show different detail content per type: audiobook (author, narrator, duration), skill (author, category, description), fact (entity, trust score, source), contact (company, title, linkedin), idea (date, tags, context). Reuse lib-detail overlay CSS.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 65,
+      "title": "Sprint 12 \u2014 Email tab: render real data",
+      "goal": "Show real email data from email-log.json with detail",
+      "context": "email-panel.js renders from data/email-log.json. Cards show: time, sender, subject, status. Click opens detail overlay with full message body. Ensure data file has real entries from the email pipeline.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 66,
+      "title": "Sprint 12 \u2014 Performance: lazy-load tab modules",
+      "goal": "Dynamic import JS modules on tab switch instead of all at init",
+      "context": "Currently all 13 tab modules are imported eagerly at page load. Refactor to dynamic import() on tab switch. Keep frequently-used tabs (dashboard, chat, projects) eager. Lazy-load: sessions, cron, library, tower, builder. Measure initial JS load reduction. Use DeepSeek for architecture review.",
+      "status": "pending",
+      "priority": 3,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 67,
+      "title": "Sprint 12 \u2014 Performance: code-split large modules",
+      "goal": "Split queue-panel.js (36KB) and chat-panel.js (29KB)",
+      "context": "These two modules account for most of the JS payload. Extract shared utilities (relativeTime, escapeHtml) into a shared-utils.js module. Split queue-panel into board renderer + API layer + drag-drop. Split chat-panel into message renderer + API client + session manager.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 68,
+      "title": "Sprint 12 \u2014 QA: full console audit v1.0",
+      "goal": "Zero JS errors and warnings across all 13 tabs",
+      "context": "Open every tab in browser DevTools. Capture all Console output. Fix every error: missing data files, null reference, wrong API paths, DOM selector mismatches, unhandled promise rejections. Zero warnings target. This is the v1.0 quality gate. Run on DeepSeek for thoroughness.",
+      "status": "pending",
+      "priority": 4,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 69,
+      "title": "Sprint 12 \u2014 QA: responsive testing",
+      "goal": "All tabs usable at 1920, 800, and 600px",
+      "context": "Test at 3 breakpoints. Desktop (1920px): full sidebar + content. Tablet (800px): icon-only sidebar. Mobile (600px): no sidebar, minimal padding. Fix any overflow, cutoff, or unusable elements.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 70,
+      "title": "Sprint 12 \u2014 QA: dark/light mode contrast",
+      "goal": "Verify both color schemes, fix readability issues",
+      "context": "Toggle prefers-color-scheme in DevTools. Check every tab surface: text contrast on panels, status dots visible, links readable, queue cards legible. Fix any inaccessible color combinations.",
+      "status": "pending",
+      "priority": 2,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 71,
+      "title": "Sprint 12 \u2014 Docs: v1.0 changelog + deploy guide",
+      "goal": "Write release notes and deployment docs",
+      "context": "Write CHANGELOG.md covering all sprints (9-12). Deployment guide: how to sync, what files go where, nginx config, data pipeline dependencies. Save to /Volumes/Mini_1Tb/Projects/grainworks.tech/static/workflows/.",
+      "status": "pending",
+      "priority": 1,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    },
+    {
+      "id": 72,
+      "title": "Sprint 12 \u2014 Retrospective + tag v1.0",
+      "goal": "Final retrospective and version tag",
+      "context": "Write sprint-12-retrospective.md. Tag repo v1.0. Summarize: what shipped across all 4 sprints, total LOC, bugs fixed, architecture decisions, known issues, next horizon.",
+      "status": "pending",
+      "priority": 1,
+      "created_at": "2026-06-21T18:45:00",
+      "source": "sprint-plan"
+    }
+  ],
+  "_meta": {
+    "next_id": 73,
+    "created_at": "2026-06-19T20:00:00",
+    "updated_at": "2026-06-21T19:55:00Z",
+    "last_updated": "2026-06-21T20:44:30Z"
+  }
+}

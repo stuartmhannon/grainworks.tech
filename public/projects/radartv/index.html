@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RadarTV — Raspberry Pi RF-to-Composite Video Broadcast · grainworks</title>
+<meta name="description" content="A C-based composite video generator that reads aviation radar data and renders it as PAL/NTSC video output from a Raspberry Pi — direct RF to analog TV.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/radartv/">
+<meta property="og:title" content="RadarTV — Raspberry Pi RF-to-Composite Video Broadcast">
+<meta property="og:description" content="A C-based composite video generator that reads aviation radar data and renders it as PAL/NTSC video output from a Raspberry Pi — direct RF to analog TV.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/radartv/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RadarTV — Raspberry Pi RF-to-Composite Video Broadcast">
+<meta name="twitter:description" content="A C-based composite video generator that reads aviation radar data and renders it as PAL/NTSC video output from a Raspberry Pi — direct RF to analog TV.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">RadarTV — Raspberry Pi RF-to-Composite Video Broadcast</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-29">June 29, 2026</time> · 2 min read
+        ·<a href="/tags/hardware">hardware</a>, <a href="/tags/raspberry-pi">raspberry-pi</a>, <a href="/tags/video">video</a>, <a href="/tags/radar">radar</a>, <a href="/tags/c">c</a>, <a href="/tags/embedded">embedded</a>
+      </div>
+    </header>
+    <p>A composite video signal generator running on a Raspberry Pi. It reads live aviation radar data (from an RTL-SDR or similar receiver), renders a radar sweep display, and outputs the result as a PAL composite video signal — viewable on any analog TV or monitor with composite input.</p>
+<h2 id="architecture">Architecture</h2>
+<pre tabindex="0"><code>RTL-SDR (1090 MHz ADS-B)
+  → Pi reads aircraft positions
+  → radartv.c renders radar sweep + blips in 640×480 framebuffer
+  → GPIO composite output (PAL/NTSC via Pi&#39;s TV out)
+  → Analog TV: real-time radar display
+</code></pre><p>All rendering is done in C with direct framebuffer access. No GPU, no X11, no desktop. The composite output is generated via the Pi&rsquo;s native TV-out circuitry using <code>pwm_ir_tx</code> pin for video and <code>pcm_clk</code> for audio sync.</p>
+<h2 id="source-files">Source Files</h2>
+<ul>
+<li><strong><code>radartv.c</code></strong> — ~800 lines of C: composite sync generation, radar sweep rendering, aircraft blip drawing, font rendering (font8x16.inc)</li>
+<li><strong><code>radartv.conf</code></strong> — Configuration: center frequency, line mode (PAL/NTSC), test pattern</li>
+<li><strong><code>compile.sh</code></strong> — GCC build with <code>-O2 -march=armv6</code></li>
+<li><strong><code>install.sh</code></strong> — Systemd service setup, auto-start on boot</li>
+</ul>
+<h2 id="features">Features</h2>
+<ul>
+<li>Real-time radar sweep with persistent trail (fading blips)</li>
+<li>Aircraft tags: callsign, altitude, speed, squawk</li>
+<li>Test pattern mode for display calibration</li>
+<li>Configurable: line standard, color burst, scan rate</li>
+<li>LCD/little display mode via <code>/dev/fb0</code> for direct HDMI</li>
+<li>Systemd service for headless operation</li>
+</ul>
+<h2 id="the-hardware">The Hardware</h2>
+<ul>
+<li>Raspberry Pi 3B+ (or any Pi with composite out)</li>
+<li>RTL-SDR dongle for ADS-B reception</li>
+<li>3.5mm TRRS cable → composite video input</li>
+<li>5V USB power</li>
+</ul>
+<h2 id="what-was-learned">What Was Learned</h2>
+<ul>
+<li>Composite video timing to the microsecond: front porch, sync pulse, back porch, active video</li>
+<li>PAL color subcarrier generation (4.43361875 MHz — 283.75 cycles per line + 25 Hz offset)</li>
+<li>Pi&rsquo;s firmware-dictated TV-out configuration via <code>config.txt</code> (pwm_ir_tx, pcm_clk, tvservice)</li>
+<li>The difference between interlaced vs progressive scan and how to pick based on display</li>
+<li>Analog video is a solved problem but has zero documentation for modern software engineers</li>
+</ul>
+<h2 id="status---shipped--running">Status → <strong>✅ Shipped / Running</strong></h2>
+<p>Deployed as a systemd service on a Pi 3B+. Composite output to a 14&quot; CRT in the workshop. Available as a reference for any Pi→composite video project.</p>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/pocket-recorder/" class="post-nav-link">← Pocket Recorder — v0.5 Hardware Proto</a>
+    </div>
+    <div>
+      <a href="/projects/organizational-orchestrator/" class="post-nav-link">Organizational Orchestrator — Multi-Agent Routing System →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pocket Recorder — v0.5 Hardware Proto · grainworks</title>
+<meta name="description" content="A bare-PCB voice recorder with a slider switch. Slide on to record a meeting, slide off to stop. USB-C powered, WiFi sync to Hermes for transcription and note extraction.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/pocket-recorder/">
+<meta property="og:title" content="Pocket Recorder — v0.5 Hardware Proto">
+<meta property="og:description" content="A bare-PCB voice recorder with a slider switch. Slide on to record a meeting, slide off to stop. USB-C powered, WiFi sync to Hermes for transcription and note extraction.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/pocket-recorder/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Pocket Recorder — v0.5 Hardware Proto">
+<meta name="twitter:description" content="A bare-PCB voice recorder with a slider switch. Slide on to record a meeting, slide off to stop. USB-C powered, WiFi sync to Hermes for transcription and note extraction.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Pocket Recorder — v0.5 Hardware Proto</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-16">June 16, 2026</time> · 1 min read
+        ·<a href="/tags/hardware">hardware</a>, <a href="/tags/audio">audio</a>, <a href="/tags/esp32">esp32</a>, <a href="/tags/proto">proto</a>
+      </div>
+    </header>
+    <p><strong>Status: Design written. Path A (dev board + modules) costs ~$25 and takes one evening to wire.</strong></p>
+<p>A functional prototype of a minimalist voice recorder — one slider switch, no screen, no case, no battery. Set it on a table during a meeting, slide to record, slide off when done. Audio syncs over WiFi to Hermes Agent for transcription, classification, and routing.</p>
+<p>This is v0.5 — the <em>working hardware proto</em> phase. Everything extraneous has been cut: enclosures, seals, batteries, gesture detection, graceful power-loss protection, BLE, OTA. Just the bare minimum that records audio and syncs it.</p>
+<h2 id="design-decisions">Design Decisions</h2>
+<ul>
+<li><strong>Slider switch over button</strong> — ON records, OFF stops. No press-and-hold, no double-tap, no debounce. Anyone can use it.</li>
+<li><strong>USB-C powered</strong> — always plugged in for v0.5. Battery comes in v1.</li>
+<li><strong>Bare PCB</strong> — no case, no IP rating, no sealing. Proto only.</li>
+<li><strong>Hardcoded WiFi</strong> — credentials set at flash time. Captive portal in v1.</li>
+<li><strong>16 kHz mono WAV</strong> — Whisper-standard, 1.8 MB/min, 290 hours on 32GB SD.</li>
+</ul>
+<h2 id="bom-two-paths">BOM (two paths)</h2>
+<ul>
+<li><strong>Path A:</strong> ESP32-S3 dev board + INMP441 breakout + SD module + slide switch = ~$25. One evening on a breadboard.</li>
+<li><strong>Path B:</strong> Custom PCB at JLCPCB = $2 for 5 boards, ~2 weeks turnaround.</li>
+</ul>
+<h2 id="source-files">Source Files</h2>
+<ul>
+<li><strong>Design doc:</strong> <code>pocket-recorder-design.md</code> (local)</li>
+</ul>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/josh-relay/" class="post-nav-link">← Josh.ai &#43; Hermes Agent Relay</a>
+    </div>
+    <div>
+      <a href="/projects/radartv/" class="post-nav-link">RadarTV — Raspberry Pi RF-to-Composite Video Broadcast →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

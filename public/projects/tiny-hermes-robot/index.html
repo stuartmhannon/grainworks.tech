@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tiny Hermes Robot · grainworks</title>
+<meta name="description" content="A &#39;dumb client&#39; robot design — all intelligence lives on the Hermes backend. ESP32-S3, camera, motors, LoRa fallback.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/tiny-hermes-robot/">
+<meta property="og:title" content="Tiny Hermes Robot">
+<meta property="og:description" content="A &#39;dumb client&#39; robot design — all intelligence lives on the Hermes backend. ESP32-S3, camera, motors, LoRa fallback.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/tiny-hermes-robot/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tiny Hermes Robot">
+<meta name="twitter:description" content="A &#39;dumb client&#39; robot design — all intelligence lives on the Hermes backend. ESP32-S3, camera, motors, LoRa fallback.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Tiny Hermes Robot</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-10">June 10, 2026</time> · 2 min read
+        ·<a href="/tags/hardware">hardware</a>, <a href="/tags/robot">robot</a>, <a href="/tags/esp32">esp32</a>, <a href="/tags/iot">iot</a>, <a href="/tags/ai">ai</a>
+      </div>
+    </header>
+    <p><strong>Status: Design spec complete. Prototype pending.</strong></p>
+<p>The Tiny Hermes Robot is a deliberately simple robotic platform. All reasoning, vision processing, navigation, and personality live on the Hermes backend. The robot itself is just sensors, motors, and a display — an I/O shell with zero onboard intelligence.</p>
+<h2 id="architecture">Architecture</h2>
+<pre tabindex="0"><code>  ┌─────────────────────┐
+  │    HERMES BACKEND   │
+  │  (Hermes Agent VM)  │
+  │                     │
+  │  • Vision (YOLO/CLIP)│
+  │  • Path planning     │
+  │  • Speech (STT/TTS)  │
+  │  • Decision-making   │
+  │  • Personality/LLM   │
+  └──────┬──────────────┘
+         │ WiFi / Tailscale
+         │ WebSocket / MJPEG
+  ┌──────┴──────────────┐
+  │   ROBOT CLIENT      │  ← &#34;Dumb&#34; — no local AI
+  │  (ESP32-S3)         │
+  │                     │
+  │  • Camera stream    │
+  │  • Motor drive I²C  │
+  │  • OLED display     │
+  │  • I²S mic + amp    │
+  │  • Battery monitor  │
+  └─────────────────────┘
+</code></pre><h2 id="hardware-bom">Hardware BOM</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Component</th>
+					<th>Part</th>
+					<th>Cost</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>MCU</td>
+					<td>ESP32-S3-DevKitC-1 (16MB flash, 8MB PSRAM)</td>
+					<td>~$15</td>
+			</tr>
+			<tr>
+					<td>Camera</td>
+					<td>OV2640 (2MP) on FPC ribbon</td>
+					<td>~$8</td>
+			</tr>
+			<tr>
+					<td>Display</td>
+					<td>0.96″ OLED 128×64, SSD1306 I²C</td>
+					<td>~$4</td>
+			</tr>
+			<tr>
+					<td>Motors</td>
+					<td>N20 micro metal gearmotor (100:1, ~150 RPM) ×2</td>
+					<td>~$12</td>
+			</tr>
+			<tr>
+					<td>Driver</td>
+					<td>DRV8833 dual H-bridge (I²C via PCA9685)</td>
+					<td>~$5</td>
+			</tr>
+			<tr>
+					<td>Chassis</td>
+					<td>3D-printed PLA (2 pieces)</td>
+					<td>~$3</td>
+			</tr>
+			<tr>
+					<td>Battery</td>
+					<td>18650 Li-ion (3.7V 2600mAh) + TP4056 charger</td>
+					<td>~$8</td>
+			</tr>
+			<tr>
+					<td>Audio</td>
+					<td>INMP441 I²S mic + MAX98357A amp + speaker</td>
+					<td>~$8</td>
+			</tr>
+			<tr>
+					<td>LoRa (opt)</td>
+					<td>SX1262 + SMA antenna</td>
+					<td>~$15</td>
+			</tr>
+			<tr>
+					<td><strong>Total</strong></td>
+					<td></td>
+					<td><strong>~$97</strong> ($82 without LoRa)</td>
+			</tr>
+	</tbody>
+</table>
+<h2 id="communication">Communication</h2>
+<p><strong>Primary (WiFi):</strong> Robot streams MJPEG frames + JSON telemetry (battery, temp, RSSI, encoder position) over WebSocket. Hermes sends motor commands, display updates, and speech TTS back down the same connection.</p>
+<p><strong>Fallback (LoRa — optional):</strong> When WiFi is unavailable, the robot sends short status packets every 30s and receives waypoint commands. No video/audio — commands only, ~30 bytes/sec.</p>
+<h2 id="key-design-decisions">Key Design Decisions</h2>
+<p><strong>Why ESP32-S3, not RPi?</strong> Instant-on, 100mA active draw vs 500mA+. The robot should be usable for hours, not minutes. No Linux boot time, no SD card corruption risk.</p>
+<p><strong>Why I²C motor driver?</strong> Frees up GPIO pins. The PCA9685 PWM driver handles 16 channels on just two pins (SDA/SCL), leaving the rest for camera, display, audio, and sensors.</p>
+<p><strong>Why MJPEG, not H.264?</strong> The ESP32-S3 lacks a hardware H.264 encoder. Software encoding would consume most of the CPU. MJPEG at 640×480 is simple and well within the S3&rsquo;s ISP pipeline — the backend handles compression and analysis.</p>
+<h2 id="source-files">Source Files</h2>
+<ul>
+<li><strong>Design spec:</strong> <code>hermes-robot-spec.md</code> (local)</li>
+<li><strong>RCduino baseline firmware:</strong> <code>rc_car_basic/rc_car_basic.ino</code> (local)</li>
+</ul>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Prototype the chassis (3D print)</li>
+<li>Assemble the ESP32-S3 dev board + motors + driver</li>
+<li>Write the Arduino firmware (WiFi, WebSocket, camera stream)</li>
+<li>Build the Hermes backend handler (vision, path planning, personality)</li>
+</ul>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/vaultwarden-migration/" class="post-nav-link">← Vaultwarden Migration &amp; Security Assessment</a>
+    </div>
+    <div>
+      <a href="/projects/soul-trait-analysis/" class="post-nav-link">SOUL.md — Trait Analysis &amp; Personality System →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

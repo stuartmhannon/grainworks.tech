@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Orchestration on grainworks</title>
+		<link>https://grainworks.tech/tags/orchestration/</link>
+		<description>Recent content in Orchestration on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 29 Jun 2026 06:00:00 -0400</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/orchestration/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Organizational Orchestrator — Multi-Agent Routing System</title>
+				<link>https://grainworks.tech/projects/organizational-orchestrator/</link>
+				<pubDate>Mon, 29 Jun 2026 06:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/organizational-orchestrator/</guid>
+				<description>&lt;p&gt;An advanced master orchestrator for routing, delegating, and verifying tasks across organizational domains. Started as a keyword-matching router (V2.2) and evolved toward LLM-based intent classification (V2.5). Uses Hermes Agent&amp;rsquo;s &lt;code&gt;delegate_task&lt;/code&gt; API under the hood for subagent execution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;┌──────────────────────────────────────────────┐&#xA;│           OrganizationalOrchestrator          │&#xA;│  Intent Classification → Routing → Delegation │&#xA;├──────────────────────────────────────────────┤&#xA;│  Specialists (19 domains):                    │&#xA;│  Strategy | Finance | HR | Legal | Data      │&#xA;│  IT/Security | Procurement | Citizen Svcs    │&#xA;│  Auditor | Emergency | Urban Planner | Health│&#xA;│  Education | Social Services | Comms | Ops   │&#xA;│  Facilities | Research | Innovation           │&#xA;└──────────────────────────────────────────────┘&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Each specialist has:&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

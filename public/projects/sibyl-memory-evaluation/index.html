@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sibyl vs Holographic — Memory at the Grain · grainworks</title>
+<meta name="description" content="Side-by-side evaluation of Sibyl Memory and Holographic as agentic memory providers for Hermes Agent — architecture, tradeoffs, and the verdict.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/sibyl-memory-evaluation/">
+<meta property="og:title" content="Sibyl vs Holographic — Memory at the Grain">
+<meta property="og:description" content="Side-by-side evaluation of Sibyl Memory and Holographic as agentic memory providers for Hermes Agent — architecture, tradeoffs, and the verdict.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/sibyl-memory-evaluation/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sibyl vs Holographic — Memory at the Grain">
+<meta name="twitter:description" content="Side-by-side evaluation of Sibyl Memory and Holographic as agentic memory providers for Hermes Agent — architecture, tradeoffs, and the verdict.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Sibyl vs Holographic — Memory at the Grain</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-08">June 8, 2026</time> · 1 min read
+        ·<a href="/tags/memory">memory</a>, <a href="/tags/agents">agents</a>, <a href="/tags/hermes">hermes</a>, <a href="/tags/comparison">comparison</a>, <a href="/tags/research">research</a>
+      </div>
+    </header>
+    <p><strong>Status: Published. Decision: staying on Holographic for now.</strong></p>
+<p>A head-to-head comparison of two SQLite-backed agentic memory systems for Hermes Agent:</p>
+<ul>
+<li><strong>Holographic:</strong> Local-first, zero-dependency memory provider with Phase Holographic Reduced Representations (HRR) for compositional retrieval. Unlimited database size, no accounts, no cloud roundtrips.</li>
+<li><strong>Sibyl Memory:</strong> Five-tier hierarchical schema (HOT/WARM/COLD/REFERENCE/ARCHIVE) with self-learning, LongMemEval-validated (95.6%), but requires cloud activation and has a 2 MB free cap.</li>
+</ul>
+<h2 id="the-verdict">The Verdict</h2>
+<p>Sibyl wins on features and benchmarks. Holographic wins on operational simplicity — zero external dependencies, unlimited storage, trust-based fact management.</p>
+<p>For a system designed around local-first operation from day one, Holographic is the right choice — but we&rsquo;d love a local-only port of Sibyl&rsquo;s multi-tier schema.</p>
+<h2 id="full-analysis">Full Analysis</h2>
+<p><strong><a href="/posts/sibyl-vs-holographic-memory/">Read the full comparison →</a></strong></p>
+<h2 id="source-files">Source Files</h2>
+<ul>
+<li>Research notes in <code>sibyl_memory/</code> (local)</li>
+<li>Evaluation sources: <code>sibyl_memory_evaluation_sources/</code> (local)</li>
+</ul>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+    </div>
+    <div>
+      <a href="/projects/vaultwarden-migration/" class="post-nav-link">Vaultwarden Migration &amp; Security Assessment →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,120 @@
+Josh.ai > Integrations > Hermes Agent
+
+Hermes Agent Integration
+2 hours ago · Updated
+Follow
+
+Overview
+
+Hermes Agent is an open-source, autonomous AI agent platform. This integration allows Josh.ai to trigger Hermes Agent actions through a scene-based HTTP bridge and receive confirmation via a secondary scene.
+
+The integration uses Josh's Custom Command action combined with a lightweight relay service that translates Josh's HTTP requests into the authenticated format expected by the Hermes Agent webhook system.
+
+Requirements
+
+- Josh Core or Josh One (Nimble DevSuite not required)
+- A network-accessible machine running the Hermes Agent relay service
+- Hermes Agent with its webhook platform enabled
+
+Note: The Hermes Agent relay must be running on the same local network as your Josh system, or reachable via a tunnel. The relay is a Python script that runs as a background process. Source and documentation available at:
+
+https://grainworks.tech/projects/josh-relay/
+
+How It Works
+
+The integration uses two Josh scenes to create a bidirectional bridge:
+
+1. Trigger Scene — activated by voice. Sends an `httpget()` Custom Command to the Hermes relay service on your local network.
+2. Response Scene — fired automatically by the relay after it successfully delivers the trigger to Hermes Agent. Provides confirmation that the message was received.
+
+The relay service sits between Josh and Hermes Agent, handling the protocol translation:
+
+- Accepts plain HTTP GET requests from Josh's `httpget()` Custom Command
+- Converts them to authenticated POST requests for Hermes Agent's webhook system
+- Fires the callback scene to confirm delivery
+
+Setting Up the Relay
+
+1. Place the relay script on a machine on the same network as your Josh system.
+2. Install Python 3.10 or later if not already available.
+3. Start the relay:
+
+   python3 josh_relay.py
+
+   The relay listens on port 8645 by default. You can verify it is running:
+
+   curl http://[relay-ip]:8645/health
+
+   Expected response: ``{"status": "ok"}``
+
+For automatic startup after reboot, configure the relay as a launchd service (macOS) or a systemd service (Linux).
+
+Creating the Trigger Scene
+
+1. Open Josh Portal and navigate to Scenes.
+2. Create a new scene and give it a name (e.g., "Hermes Trigger").
+3. Add a Voice Trigger with your preferred phrase (e.g., "ask hermes").
+4. Add a Custom Command action:
+
+   `httpget("http://[relay-ip]:8645/hermes-request")`
+
+   Replace `[relay-ip]` with the IP address of the machine running the relay.
+5. Save the scene.
+
+Creating the Response Scene
+
+1. In Josh Portal, create a second scene (e.g., "Hermes Response").
+2. This scene is triggered by the External Scene API, not by voice. Under Voice Triggers, add:
+
+   `external:[scene-name]:[your-password]`
+
+3. Set the scene actions to whatever confirmation you prefer — dimming lights, a VoiceCast announcement, or any combination of Josh actions.
+4. Save the scene.
+
+Note: The relay uses the External Scene API to fire the response scene. The URL takes this form:
+
+`https://www.josh.ai/external?licensekey=[license-key]&scene=[scene-name]&password=[your-password]`
+
+Your license key is available in Josh Portal under System Settings.
+
+Testing
+
+1. Say your voice trigger phrase to Josh.
+2. The trigger scene fires, sending a request to the relay.
+3. The relay forwards the request to Hermes Agent and fires the response scene.
+4. If a response scene is configured, Josh provides audible or visual confirmation.
+
+Troubleshooting
+
+Relay not responding
+Check that the relay is running and reachable from the same network as your Josh system. Verify with curl from another machine on the network.
+
+Response scene does not fire
+Confirm the External Scene URL is correct. Test it by pasting the full URL into a browser — a page reading "Scene executed" confirms the scene is reachable.
+
+No confirmation from Josh
+Your response scene must include actions that produce a visible or audible result (light changes, VoiceCast announcement, chime, etc.). Josh does not provide built-in feedback from the httpget() Custom Command alone — the response scene is required.
+
+---
+
+### v2 — POST + JSON Body + Structured Response
+
+The relay now accepts both GET and POST. When using POST, Josh can send a JSON body with scene context (trigger phrase, room, time) which is forwarded to Hermes.
+
+The relay returns structured JSON that Josh can consume with `format=json`:
+
+```json
+{"status": "accepted", "code": 202, "message": "relayed", "delivery_id": "..."}
+```
+
+Example Josh scene Custom Command using POST:
+
+```lua
+httpGet("http://[relay-ip]:8645/hermes-request", {
+  "method": "post",
+  "headers": ["content-type: application/json; charset=utf-8"],
+  "data": {"trigger": "ask hermes", "room": "kitchen"},
+  "format": "json"
+})
+```
+

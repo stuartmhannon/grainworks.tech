@@ -1,0 +1,116 @@
+{{ define "main" }}
+  <h1 class="page-title" style="margin-bottom: 1rem;">{{ .Title }}</h1>
+  {{- with .Content }}
+  <div class="page-content" style="margin-bottom: 2rem;">{{ . }}</div>
+  {{- end }}
+
+  <h2 class="section-heading">Index</h2>
+  <div class="project-grid">
+    {{- $pages := where .Pages "Params.draft" "!=" true }}
+    {{- range $pages.ByTitle }}
+    <article class="project-card">
+      <a href="{{ .RelPermalink }}" class="project-link">
+        <div class="project-card-header">
+          <span class="project-card-icon">▶</span>
+          <h2 class="project-card-title">{{ .Title }}</h2>
+        </div>
+        {{- with .Params.tags }}
+        <div class="project-card-tags">
+          {{- range $i, $tag := . }}{{ if $i }} <span class="project-sep">|</span> {{ end }}<span class="project-tag">{{ $tag }}</span>{{ end }}
+        </div>
+        {{- end }}
+        {{- with .Description }}
+        <div class="project-card-desc">{{ . | markdownify }}</div>
+        {{- end }}
+        {{- with .Params.status }}
+        <div class="project-card-status">Status: {{ . }}</div>
+        {{- end }}
+      </a>
+    </article>
+    {{- end }}
+  </div>
+
+  <style>
+    .project-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+
+    .project-card {
+      background: var(--bg);
+    }
+
+    .project-link {
+      display: block;
+      padding: 1rem 1.25rem;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.15s ease;
+    }
+
+    .project-link:hover {
+      background: var(--bg-alt);
+    }
+
+    .project-card-header {
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-card-icon {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--accent-dim);
+      flex-shrink: 0;
+    }
+
+    .project-card-title {
+      font-family: var(--font-mono);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--fg);
+      margin: 0;
+    }
+
+    .project-link:hover .project-card-title {
+      color: var(--accent);
+    }
+
+    .project-card-tags {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--fg-alt);
+      margin-bottom: 0.35rem;
+    }
+
+    .project-sep {
+      color: var(--border-light);
+    }
+
+    .project-tag {
+      color: var(--fg-alt);
+    }
+
+    .project-card-desc {
+      font-size: 0.85rem;
+      color: var(--fg-dim);
+      line-height: 1.5;
+    }
+
+    .project-card-desc p {
+      margin: 0;
+    }
+
+    .project-card-status {
+      margin-top: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--fg-alt);
+    }
+  </style>
+{{ end }}

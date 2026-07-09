@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Systems on grainworks</title>
+		<link>https://grainworks.tech/tags/systems/</link>
+		<description>Recent content in Systems on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Wed, 17 Jun 2026 00:00:00 +0000</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/systems/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Three Patterns That Repeat</title>
+				<link>https://grainworks.tech/posts/three-patterns-that-repeat/</link>
+				<pubDate>Wed, 17 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/three-patterns-that-repeat/</guid>
+				<description>&lt;p&gt;History does not repeat, but it has structural patterns. After studying five eras — the California Gold Rush, the Great Depression, the Post-WWII Tech Boom, Nuclear Deterrence, and the current AI-driven economy — three patterns recur across every transition. They describe who wins, who loses, and why the actors best positioned for the last era are usually the least prepared for the next.&lt;/p&gt;&#xA;&lt;h2 id=&#34;supply-side-always-wins&#34;&gt;Supply Side Always Wins&lt;/h2&gt;&#xA;&lt;p&gt;The California Gold Rush drew three hundred thousand people to the Sierra Nevada. Almost none got rich from the gold itself. The people who built enduring wealth — Levi Strauss, John Studebaker, Henry Wells and William Fargo, the Big Four railroad barons — were selling jeans, wagons, banking, and rail transport to the miners. Sutter and Marshall, the men who discovered the gold and knew more about extraction than anyone, both died broke.&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Traffic as a Social Condition</title>
+				<link>https://grainworks.tech/posts/traffic-as-social-condition/</link>
+				<pubDate>Thu, 11 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/traffic-as-social-condition/</guid>
+				<description>&lt;h2 id=&#34;self-fulfilling-congestion&#34;&gt;Self-Fulfilling Congestion&lt;/h2&gt;&#xA;&lt;p&gt;Traffic congestion follows a social logic. Drivers brake because they see brake lights ahead, and that signal propagates backward through the flow. The result is a traffic jam that forms without any bottleneck, accident, or lane restriction — a phantom jam made real by the act of reacting to other drivers.&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-perception-cascade&#34;&gt;The Perception Cascade&lt;/h2&gt;&#xA;&lt;p&gt;Picture a highway at moderate density. A driver taps the brakes for a curve that looks sharper than expected. The car behind sees the lights and taps a little harder. Two hundred feet back, a third driver sees a wall of red and brakes firmly. By the time the signal ripples through ten cars, the last driver has stopped completely — with nothing in the road ahead.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

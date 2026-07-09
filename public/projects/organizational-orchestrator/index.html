@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Organizational Orchestrator — Multi-Agent Routing System · grainworks</title>
+<meta name="description" content="A multi-agent orchestration framework that routes requests across 19 domain-specialized agents with intent classification, context passing, and two-stage verification.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/organizational-orchestrator/">
+<meta property="og:title" content="Organizational Orchestrator — Multi-Agent Routing System">
+<meta property="og:description" content="A multi-agent orchestration framework that routes requests across 19 domain-specialized agents with intent classification, context passing, and two-stage verification.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/organizational-orchestrator/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Organizational Orchestrator — Multi-Agent Routing System">
+<meta name="twitter:description" content="A multi-agent orchestration framework that routes requests across 19 domain-specialized agents with intent classification, context passing, and two-stage verification.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Organizational Orchestrator — Multi-Agent Routing System</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-29">June 29, 2026</time> · 2 min read
+        ·<a href="/tags/grainworks">grainworks</a>, <a href="/tags/agents">agents</a>, <a href="/tags/orchestration">orchestration</a>, <a href="/tags/hermes-agent">hermes-agent</a>
+      </div>
+    </header>
+    <p>An advanced master orchestrator for routing, delegating, and verifying tasks across organizational domains. Started as a keyword-matching router (V2.2) and evolved toward LLM-based intent classification (V2.5). Uses Hermes Agent&rsquo;s <code>delegate_task</code> API under the hood for subagent execution.</p>
+<h2 id="architecture">Architecture</h2>
+<pre tabindex="0"><code>┌──────────────────────────────────────────────┐
+│           OrganizationalOrchestrator          │
+│  Intent Classification → Routing → Delegation │
+├──────────────────────────────────────────────┤
+│  Specialists (19 domains):                    │
+│  Strategy | Finance | HR | Legal | Data      │
+│  IT/Security | Procurement | Citizen Svcs    │
+│  Auditor | Emergency | Urban Planner | Health│
+│  Education | Social Services | Comms | Ops   │
+│  Facilities | Research | Innovation           │
+└──────────────────────────────────────────────┘
+</code></pre><p>Each specialist has:</p>
+<ul>
+<li><strong>Keyword map</strong> (e.g., &ldquo;budget&rdquo;, &ldquo;appropriation&rdquo; → Finance)</li>
+<li><strong>System prompt</strong> tailored to domain</li>
+<li><strong>Output format</strong> (document, report, email, analysis)</li>
+<li><strong>Tool set</strong> specific to their function</li>
+</ul>
+<h2 id="the-evolution">The Evolution</h2>
+<table>
+	<thead>
+			<tr>
+					<th>Version</th>
+					<th>Approach</th>
+					<th>What Changed</th>
+			</tr>
+	</thead>
+	<tbody>
+			<tr>
+					<td>V1</td>
+					<td>Fixed routing table</td>
+					<td>Every intent hard-coded to one agent</td>
+			</tr>
+			<tr>
+					<td>V2.2</td>
+					<td>Keyword + priority matching</td>
+					<td>19 specialists with aliases, keyword maps, fallback chain</td>
+			</tr>
+			<tr>
+					<td>V2.5</td>
+					<td>LLM intent classification</td>
+					<td>Replace keyword matching with model-based routing</td>
+			</tr>
+	</tbody>
+</table>
+<p>The farm scenario that broke V2.2 keyword matching: &ldquo;I need to deploy a new water sensor array on the north field&rdquo; — this could route to IT (deploy), Facilities (sensors), or Urban Planning (land use). Keyword matching couldn&rsquo;t disambiguate. V2.5&rsquo;s LLM classification solved it.</p>
+<h2 id="key-files">Key Files</h2>
+<ul>
+<li><strong><code>organizational_orchestrator_v2.2.yaml</code></strong> — Full 573-line agent directory with 19 specialist definitions, routing tables, and system prompts</li>
+<li><strong><code>HERMES-DESKTOP AGENT DIRECTORY.yaml</code></strong> — Desktop-compatible version</li>
+</ul>
+<h2 id="what-was-learned">What Was Learned</h2>
+<ul>
+<li>Keyword routing is brittle at domain boundaries</li>
+<li>3+ specialists share common keywords — disambiguation needs semantic understanding</li>
+<li>Context passing between agents is harder than routing itself</li>
+<li>The two-stage review pattern (spec then quality) catches more than either alone</li>
+<li>19 agents is the inflection point where manual routing breaks</li>
+</ul>
+<h2 id="status---shipped-v22---evolving-v25">Status → <strong>✅ Shipped (V2.2) / 🟡 Evolving (V2.5)</strong></h2>
+<p>V2.2 is operational. V2.5 intent classification is in development.</p>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/radartv/" class="post-nav-link">← RadarTV — Raspberry Pi RF-to-Composite Video Broadcast</a>
+    </div>
+    <div>
+      <a href="/projects/agent-stack-architecture/" class="post-nav-link">Agent Stack Architecture — Six Layers of grainworks →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

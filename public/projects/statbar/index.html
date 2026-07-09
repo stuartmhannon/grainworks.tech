@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>StatBar — Native macOS System Monitor · grainworks</title>
+<meta name="description" content="A native macOS floating system monitor — CPU, GPU, Memory, Network, Disk, and Ollama models, all config-driven with a Hermes MCP interface.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/statbar/">
+<meta property="og:title" content="StatBar — Native macOS System Monitor">
+<meta property="og:description" content="A native macOS floating system monitor — CPU, GPU, Memory, Network, Disk, and Ollama models, all config-driven with a Hermes MCP interface.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/statbar/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="StatBar — Native macOS System Monitor">
+<meta name="twitter:description" content="A native macOS floating system monitor — CPU, GPU, Memory, Network, Disk, and Ollama models, all config-driven with a Hermes MCP interface.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">StatBar — Native macOS System Monitor</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-15">June 15, 2026</time> · 2 min read
+      </div>
+    </header>
+    <p>A floating macOS system monitor that lives in the corner of your screen. 250px-wide translucent panel showing CPU, GPU, Memory, Network, Disk utilization, and running Ollama models, refreshed every two seconds. All hardware counters read directly through Mach and IOKit APIs — no shell commands, no polling overhead.</p>
+<h2 id="source-files">Source Files</h2>
+<p>The complete v0.1.4 source — compiled with <code>swiftc</code>, no Xcode required.</p>
+<ul>
+<li><a href="/projects/statbar/StatBar.swift">StatBar.swift</a> — 701 lines of Swift/SwiftUI, config-driven</li>
+<li><a href="/projects/statbar/statbar-mcp">statbar-mcp</a> — 345-line Python MCP server, zero dependencies</li>
+<li><a href="/projects/statbar/compile.sh">compile.sh</a> — build script, deploys binary and MCP server</li>
+<li><a href="/projects/statbar/Info.plist">Info.plist</a> — application bundle metadata</li>
+</ul>
+<h2 id="build--run">Build &amp; Run</h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>cd path/to/statbar
+</span></span><span style="display:flex;"><span>bash compile.sh
+</span></span><span style="display:flex;"><span>open StatBar.app
+</span></span></code></pre></div><p>All configuration is MCP-only — the config file auto-creates on first launch with sensible defaults. Never hand-edit a JSON file.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>6 hardware stats</strong>: CPU (two-sample host_statistics delta), GPU (IOKit AGXAccelerator), Memory (vm_statistics64), Network (getifaddrs rate calc), Disk, Ollama models</li>
+<li><strong>Config-driven layout</strong>: every parameter — position, colors, opacity, section ordering — is in <code>~/.config/statbar/config.json</code>, hot-reloaded via DispatchSource file watcher</li>
+<li><strong>MCP interface</strong>: 4 tools (<code>statbar_get_config</code>, <code>statbar_update_config</code>, <code>statbar_reset_config</code>, <code>statbar_get_status</code>) via Hermes Agent</li>
+<li><strong>No Xcode</strong>: compiled with <code>swiftc -O -target arm64-apple-macosx26.0 -parse-as-library</code></li>
+<li><strong>Main-thread safe</strong>: stat collection on <code>DispatchQueue.global(qos:.utility)</code> with generation counter guard against stale async results</li>
+<li><strong>Login Item</strong>: auto-launches on boot</li>
+</ul>
+<h2 id="configuration-via-mcp-only">Configuration (via MCP Only)</h2>
+<p>25 parameters across 6 groups: window geometry, appearance (colors, opacity, shadow), per-stat visibility, 7+ hex colors, section ordering, refresh interval (≥0.5s), and Ollama endpoint.</p>
+<p>Move it, recolor it, reorder it, speed it up — all through <code>statbar_update_config</code> with partial JSON merges. Example:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none;"><code class="language-json" data-lang="json"><span style="display:flex;"><span>{<span style="color:#f92672">&#34;window&#34;</span>: {<span style="color:#f92672">&#34;x&#34;</span>: <span style="color:#ae81ff">1670</span>}, <span style="color:#f92672">&#34;stats&#34;</span>: {<span style="color:#f92672">&#34;cpu_color&#34;</span>: <span style="color:#e6db74">&#34;#FF9500&#34;</span>}}
+</span></span></code></pre></div><p>Changes take effect within ~1 second via the file watcher.</p>
+<h2 id="dependencies">Dependencies</h2>
+<ul>
+<li>macOS 14.0+ (Apple Silicon)</li>
+<li>Swift 6+ (self-hosted via Xcode Command Line Tools or full Xcode)</li>
+<li>Python 3.x (for MCP server — stdlib only)</li>
+</ul>
+<h2 id="status---shipped">Status → <strong>✅ Shipped</strong></h2>
+<p>Built from scratch in ~2.5 hours on June 15, 2026. Version 0.1.4 is running, verified, and logged as a login item. Clean build, zero warnings, publishable source — no personal info in the codebase.</p>
+<p><strong><a href="/posts/statbar-build-log/">Read the full build log →</a></strong></p>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/grain-tracker/" class="post-nav-link">← Grain Tracker</a>
+    </div>
+    <div>
+      <a href="/projects/josh-relay/" class="post-nav-link">Josh.ai &#43; Hermes Agent Relay →</a>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Grainworks on grainworks</title>
+		<link>https://grainworks.tech/tags/grainworks/</link>
+		<description>Recent content in Grainworks on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 29 Jun 2026 06:00:00 -0400</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/grainworks/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>Agent Stack Architecture — Six Layers of grainworks</title>
+				<link>https://grainworks.tech/projects/agent-stack-architecture/</link>
+				<pubDate>Mon, 29 Jun 2026 06:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/agent-stack-architecture/</guid>
+				<description>&lt;p&gt;A 1-page visual architecture of everything we&amp;rsquo;ve built — organized into six layers from the reasoning core to the user-facing delivery surface. Every component lives in exactly one layer with defined data flow between them.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;&lt;a href=&#34;https://grainworks.tech/projects/architecture/&#34;&gt;View the architecture diagram →&lt;/a&gt;&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;the-six-layers&#34;&gt;The Six Layers&lt;/h2&gt;&#xA;&lt;h3 id=&#34;layer-1--orchestration&#34;&gt;Layer 1 — Orchestration&lt;/h3&gt;&#xA;&lt;p&gt;The brains. Hermes Agent routes, reasons, and delegates. The Organizational Orchestrator (V2.4/2.5) classifies intent and routes to 19 domain subagents. The skill system (60+ skills) and MCP gateway keep the reasoning at the center.&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Organizational Orchestrator — Multi-Agent Routing System</title>
+				<link>https://grainworks.tech/projects/organizational-orchestrator/</link>
+				<pubDate>Mon, 29 Jun 2026 06:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/organizational-orchestrator/</guid>
+				<description>&lt;p&gt;An advanced master orchestrator for routing, delegating, and verifying tasks across organizational domains. Started as a keyword-matching router (V2.2) and evolved toward LLM-based intent classification (V2.5). Uses Hermes Agent&amp;rsquo;s &lt;code&gt;delegate_task&lt;/code&gt; API under the hood for subagent execution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;┌──────────────────────────────────────────────┐&#xA;│           OrganizationalOrchestrator          │&#xA;│  Intent Classification → Routing → Delegation │&#xA;├──────────────────────────────────────────────┤&#xA;│  Specialists (19 domains):                    │&#xA;│  Strategy | Finance | HR | Legal | Data      │&#xA;│  IT/Security | Procurement | Citizen Svcs    │&#xA;│  Auditor | Emergency | Urban Planner | Health│&#xA;│  Education | Social Services | Comms | Ops   │&#xA;│  Facilities | Research | Innovation           │&#xA;└──────────────────────────────────────────────┘&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Each specialist has:&lt;/p&gt;</description>
+			</item>
+			<item>
+				<title>Grainworks 6-Month Trajectory</title>
+				<link>https://grainworks.tech/posts/grainworks-6-month-trajectory/</link>
+				<pubDate>Sun, 28 Jun 2026 00:00:00 +0000</pubDate>
+				<guid>https://grainworks.tech/posts/grainworks-6-month-trajectory/</guid>
+				<description>&lt;p&gt;You already have the systems instinct. This plan builds the vocabulary, the measurement discipline, and the portfolio artifacts that prove it.&lt;/p&gt;&#xA;&lt;p&gt;The $250K target has two paths: walk into that role at a company, or earn it independently through grainworks services + products. Every month works toward both.&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h2 id=&#34;guiding-principles&#34;&gt;Guiding Principles&lt;/h2&gt;&#xA;&lt;p&gt;Every month produces a &lt;strong&gt;portfolio artifact&lt;/strong&gt; for grainworks.tech — a post, a tool, a case study, a demo. Not &amp;ldquo;learning.&amp;rdquo; Build first, name second.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

@@ -1,0 +1,111 @@
+#!/usr/bin/env python3
+"""
+Josh.ai MCP server for Hermes Agent.
+
+Minimal MCP server exposing tools to trigger Josh scenes via
+the Josh External Scene API.  Stdio transport — Hermes Agent
+starts this as a subprocess and communicates over stdin/stdout
+using JSON-RPC 2.0.
+
+Configuration — set these via environment variables or in config.yaml:
+
+  JOSH_LICENSE_KEY     (required) Your Josh system license key
+  JOSH_SCENE_PASSWORD  (required) Scene password for External Scene API
+
+Tools:
+  josh_trigger_scene(name) — Fire a Josh scene by name
+  josh_ping()             — Verify MCP server is alive and configured
+"""
+
+import json
+import os
+import sys
+import urllib.error
+import urllib.request
+
+LICENSE_KEY = os.environ.get("JOSH_LICENSE_KEY", "")
+SCENE_PASSWORD = os.environ.get("JOSH_SCENE_PASSWORD", "")
+EXTERNAL_API = "https://www.josh.ai/external"
+
+
+def trigger_scene(name: str) -> dict:
+    url = f"{EXTERNAL_API}?licensekey={LICENSE_KEY}&scene={name}&password={SCENE_PASSWORD}"
+    try:
+        with urllib.request.urlopen(url, timeout=10) as resp:
+            body = resp.read().decode()
+            return {"status": "ok", "code": resp.status, "body": body}
+    except urllib.error.HTTPError as e:
+        return {"status": "error", "code": e.code, "body": e.read().decode()}
+    except Exception as e:
+        return {"status": "error", "code": 0, "body": str(e)}
+
+
+def handle_request(req: dict) -> dict:
+    req_id = req.get("id")
+    method = req.get("method", "")
+    params = req.get("params", {}) or {}
+
+    if method == "josh_trigger_scene":
+        name = params.get("name") or params.get("scene")
+        if not name:
+            return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32602, "message": "Missing 'name' parameter"}}
+        if not LICENSE_KEY:
+            return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32000, "message": "JOSH_LICENSE_KEY not configured"}}
+        result = trigger_scene(name)
+        if result["status"] == "ok":
+            return {"jsonrpc": "2.0", "id": req_id, "result": result}
+        else:
+            return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32000, "message": result["body"]}}
+
+    elif method == "josh_ping":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {
+            "status": "ok",
+            "configured": bool(LICENSE_KEY),
+        }}
+
+    elif method == "list_tools":
+        return {"jsonrpc": "2.0", "id": req_id, "result": {
+            "tools": [
+                {
+                    "name": "josh_trigger_scene",
+                    "description": "Fire a Josh scene by name via the External Scene API.",
+                    "input_schema": {
+                        "type": "object",
+                        "properties": {
+                            "name": {"type": "string", "description": "Scene name as defined in Josh Portal"}
+                        },
+                        "required": ["name"]
+                    }
+                },
+                {
+                    "name": "josh_ping",
+                    "description": "Check MCP server is alive and license key is configured.",
+                    "input_schema": {"type": "object", "properties": {}}
+                }
+            ]
+        }}
+
+    else:
+        return {"jsonrpc": "2.0", "id": req_id, "error": {"code": -32601, "message": f"Method '{method}' not found"}}
+
+
+def main():
+    status = "configured" if LICENSE_KEY else "MISSING JOSH_LICENSE_KEY"
+    sys.stderr.write(f"[josh-mcp] starting — license: {status}\n")
+    sys.stderr.flush()
+
+    for line in sys.stdin:
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            req = json.loads(line)
+        except json.JSONDecodeError:
+            continue
+        resp = handle_request(req)
+        sys.stdout.write(json.dumps(resp) + "\n")
+        sys.stdout.flush()
+
+
+if __name__ == "__main__":
+    main()

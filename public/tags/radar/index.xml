@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Radar on grainworks</title>
+		<link>https://grainworks.tech/tags/radar/</link>
+		<description>Recent content in Radar on grainworks</description>
+		<generator>Hugo</generator>
+		<language>en-US</language>
+		
+		
+		
+		
+			<lastBuildDate>Mon, 29 Jun 2026 06:00:00 -0400</lastBuildDate>
+		
+			<atom:link href="https://grainworks.tech/tags/radar/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>RadarTV — Raspberry Pi RF-to-Composite Video Broadcast</title>
+				<link>https://grainworks.tech/projects/radartv/</link>
+				<pubDate>Mon, 29 Jun 2026 06:00:00 -0400</pubDate>
+				<guid>https://grainworks.tech/projects/radartv/</guid>
+				<description>&lt;p&gt;A composite video signal generator running on a Raspberry Pi. It reads live aviation radar data (from an RTL-SDR or similar receiver), renders a radar sweep display, and outputs the result as a PAL composite video signal — viewable on any analog TV or monitor with composite input.&lt;/p&gt;&#xA;&lt;h2 id=&#34;architecture&#34;&gt;Architecture&lt;/h2&gt;&#xA;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;RTL-SDR (1090 MHz ADS-B)&#xA;  → Pi reads aircraft positions&#xA;  → radartv.c renders radar sweep + blips in 640×480 framebuffer&#xA;  → GPIO composite output (PAL/NTSC via Pi&amp;#39;s TV out)&#xA;  → Analog TV: real-time radar display&#xA;&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;All rendering is done in C with direct framebuffer access. No GPU, no X11, no desktop. The composite output is generated via the Pi&amp;rsquo;s native TV-out circuitry using &lt;code&gt;pwm_ir_tx&lt;/code&gt; pin for video and &lt;code&gt;pcm_clk&lt;/code&gt; for audio sync.&lt;/p&gt;</description>
+			</item>
+	</channel>
+</rss>

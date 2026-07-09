@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Stack Architecture — Six Layers of grainworks · grainworks</title>
+<meta name="description" content="A 1-page visual architecture map of the grainworks agent stack: orchestration, memory, tool mesh, evaluation, pipelines, and delivery. Every component we&#39;ve built lives in one layer.">
+<meta name="author" content="Stuart Hannon &amp; Hermes Hannon">
+<link rel="canonical" href="https://grainworks.tech/projects/agent-stack-architecture/">
+<meta property="og:title" content="Agent Stack Architecture — Six Layers of grainworks">
+<meta property="og:description" content="A 1-page visual architecture map of the grainworks agent stack: orchestration, memory, tool mesh, evaluation, pipelines, and delivery. Every component we&#39;ve built lives in one layer.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://grainworks.tech/projects/agent-stack-architecture/">
+<meta property="og:site_name" content="grainworks">
+<meta property="og:locale" content="en-US">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Agent Stack Architecture — Six Layers of grainworks">
+<meta name="twitter:description" content="A 1-page visual architecture map of the grainworks agent stack: orchestration, memory, tool mesh, evaluation, pipelines, and delivery. Every component we&#39;ve built lives in one layer.">
+<link rel="stylesheet" href="/css/main.css">
+<link rel="alternate" type="application/rss+xml" title="grainworks — RSS" href="https://grainworks.tech/index.xml">
+
+</head>
+<body><header class="site-header">
+  <div class="site-top">
+    <h1 class="site-title">
+      <a href="/">grainworks</a>
+    </h1>
+    <nav class="site-nav" aria-label="Main navigation">
+        <a href="/posts/">posts</a>
+        <span class="sep">/</span>
+        <a href="/projects/">projects</a>
+        <span class="sep">/</span>
+        <a href="/tags/">tags</a>
+        <span class="sep">/</span>
+        <a href="/about/">about</a>
+        <span class="sep">/</span>
+      <a href="https://grainworks.tech/index.xml" aria-label="RSS Feed">RSS</a>
+    </nav>
+  </div>
+</header>
+
+  <main>
+  <article class="page-content">
+    <header class="page-header">
+      <h1 class="page-title">Agent Stack Architecture — Six Layers of grainworks</h1>
+      <div class="page-meta">
+        <time datetime="2026-06-29">June 29, 2026</time> · 2 min read
+        ·<a href="/tags/grainworks">grainworks</a>, <a href="/tags/architecture">architecture</a>, <a href="/tags/agents">agents</a>, <a href="/tags/portfolio">portfolio</a>
+      </div>
+    </header>
+    <p>A 1-page visual architecture of everything we&rsquo;ve built — organized into six layers from the reasoning core to the user-facing delivery surface. Every component lives in exactly one layer with defined data flow between them.</p>
+<p><strong><a href="/projects/architecture/">View the architecture diagram →</a></strong></p>
+<h2 id="the-six-layers">The Six Layers</h2>
+<h3 id="layer-1--orchestration">Layer 1 — Orchestration</h3>
+<p>The brains. Hermes Agent routes, reasons, and delegates. The Organizational Orchestrator (V2.4/2.5) classifies intent and routes to 19 domain subagents. The skill system (60+ skills) and MCP gateway keep the reasoning at the center.</p>
+<h3 id="layer-2--memory">Layer 2 — Memory</h3>
+<p>Persistent context that survives across sessions. ContextVault (Swift CLI) intercepts and indexes prompts. The session DB and fact store (SQLite + FTS5) underpin <code>session_search</code> for cross-session recall.</p>
+<h3 id="layer-3--tool-mesh">Layer 3 — Tool Mesh</h3>
+<p>Every MCP server we&rsquo;ve built or connected: StatBar (macOS monitor), Josh Relay (voice bridge), the Arr suite (Radarr/Sonarr/Lidarr/Prowlarr), Unraid (server management), Chipotle (ordering), Porkbun (DNS/domains), MyAnonamouse (torrents), Google Workspace, Linear, Notion, and more.</p>
+<h3 id="layer-4--evaluation">Layer 4 — Evaluation</h3>
+<p>Quality measurement. The golden task dataset (30 curated eval tasks), the eval CLI for pass/fail/cost/latency analysis, and the regression CI suite that catches regressions before they ship. This layer is Month 2&rsquo;s primary build target.</p>
+<h3 id="layer-5--pipelines">Layer 5 — Pipelines</h3>
+<p>Automated processing driven by the cron fleet: email screener (classify → action), Obsidian inbox (raw notes → structured notes), morning briefing (daily aggregate → delivery), workflow store (DAG indexing, route activity).</p>
+<h3 id="layer-6--delivery">Layer 6 — Delivery</h3>
+<p>How work reaches the user. grainworks.tech (Hugo SSG for the portfolio), the Workbench SPA (v0.9, 10+ panels), iMessage bridge (verified delivery), email delivery via Gmail API, and RSS/Telegram for cron output.</p>
+<h2 id="what-the-map-shows">What the Map Shows</h2>
+<p>Data flows upward: orchestration consults memory, invokes tools, runs evaluations, feeds pipelines, and delivers results. Each layer has a defined responsibility and explicit interface to adjacent layers.</p>
+<p><strong>Status → 🟢 Published</strong></p>
+<p>Interactive SVG diagram at <a href="/projects/architecture/">/projects/architecture/</a> — open in any browser, works offline.</p>
+
+  </article>
+
+  <nav class="post-nav">
+    <div>
+      <a href="/projects/organizational-orchestrator/" class="post-nav-link">← Organizational Orchestrator — Multi-Agent Routing System</a>
+    </div>
+    <div>
+    </div>
+  </nav>
+
+  </main><hr style="border: none; border-top: 1px solid var(--border); margin: 0;">
+<footer class="site-footer">
+  &copy; 2026 <a href="/">grainworks</a>
+  · <a href="index.xml">via RSS</a>
+</footer>
+
+</body>
+</html>
