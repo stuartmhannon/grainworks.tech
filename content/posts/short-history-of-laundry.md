@@ -1,7 +1,7 @@
 ---
 title: "A Short History of Laundry"
 date: 2026-07-08
-draft: true
+draft: false
 tags:
   - history
   - technology
@@ -33,20 +33,15 @@ Energy crises in the 1970s drove efficiency standards. Water consumption dropped
 
 The machine is mature. The market is saturated. And yet, the experience has not fundamentally improved in fifty years.
 
-## The Grainworks Thesis
+## What Comes Next
 
-The grainworks research lab's mission statement is the redesign of the residential laundry machine. This is not a design exercise. The thesis is that the mature, optimized washing machine has hit a plateau imposed by its own underlying physics — and that AI-assisted design can find paths the mechanical era could not.
+What does laundry look like if you start from the physics of soil removal and water chemistry, rather than from the historical trajectory of rotating drums and detergent dispensers? This is the question that animates the grainworks research lab's first project.
 
-The problems with current laundry are not marginal:
+Clothing has a hidden lifetime cost. The average American household spends about $360 per year in clothing wear accelerated by mechanical washing — that's roughly $65 billion nationally in shortened garment life. And the environmental costs are harder to monetize: a single synthetic load releases hundreds of thousands of microplastic fibers into wastewater, because the same mechanical action that removes dirt also abrades the fabric itself.
 
-- **Microplastic shedding.** A single synthetic load releases hundreds of thousands of microplastic fibers into wastewater. The mechanisms that remove dirt also abrade fabric.
-- **Mechanical violence.** Agitation and high-speed spinning damage fibers, reducing garment lifespan. The average piece of clothing is discarded after 7-10 wears, and laundry machinery is a contributor.
-- **Water and energy.** Even efficient machines use 15 gallons and 0.5-1 kWh per load. Multiply by the 30 million loads per day in the US alone.
-- **Design fragmentation.** Drying, folding, and organizing remain manual tasks with no integration to the washing step. The machine does one thing; the rest is human labor.
+A machine designed today, with modern simulation tools and material science, could approach the problem differently. Ultrasonic cleaning removes soil without mechanical agitation. Advanced surfactants break down greases and proteins at lower temperatures. Closed-loop water systems could recirculate and filter rather than dump. Drying doesn't have to mean heat-tumbling — the physics of moisture removal has alternatives.
 
-The operating question: what does laundry look like if you start from the physics of soil removal and water chemistry, rather than from the historical trajectory of rotating drums and detergent dispensers? What does a machine look like when its design is informed by simulation, material science, and an AI that can explore a vastly larger design space than any human engineer could evaluate manually?
-
-We don't know the answer yet. That's why it's the research mission. But we know the right question: *what would you build if you assumed the washing machine as we know it was never the right answer, just the first one that worked well enough?*
+The hard question is not whether a better washing machine is possible. It's whether our design imagination has been trapped by the rotating drum. The current machine works well enough that no one has had a strong enough reason to start over. But when you add up the aggregate costs — the shortened life of every piece of clothing, the microplastics in every load, the water and energy of every cycle — well enough may not be good enough anymore.
 
 ---
 
@@ -55,3 +50,6 @@ We don't know the answer yet. That's why it's the research mission. But we know 
 - US DOE Appliance Standards Rulemakings, 1987-2022
 - Ellen MacArthur Foundation, "A New Textiles Economy" (2017)
 - Ellenbroek et al., "Microplastic Emission from Washing Machines," *Environmental Science & Technology* (2020)
+- BLS Consumer Expenditure Survey, clothing category
+- EIA Residential Energy Consumption Survey
+- Cotton Incorporated / WRAP, clothing lifetime studies
