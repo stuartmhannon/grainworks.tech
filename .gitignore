@@ -1,0 +1,16 @@
+# Build output — Hugo generates this on every build
+public/
+
+# OS files
+.DS_Store
+
+# IDE/editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Hugo dev server cache
+.hugo_build.lock
+resources/_gen/
