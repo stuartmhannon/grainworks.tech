@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Brain — Interactive</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 1050px; width: 100%; }
+
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+
+/* Layer headers */
+.lh { font-size: 11px; font-weight: 600; color: #00cc66; letter-spacing: 1px; padding: 6px 12px; border-radius: 4px; margin-bottom: 10px; display: inline-block; }
+
+/* Flow arrows */
+.flow-v { width: 2px; height: 20px; background: #00cc66; margin: 0 auto; }
+.flow-h { height: 2px; background: #22c55e; flex: 1; min-width: 20px; }
+.flow-row { display: flex; align-items: center; gap: 0; }
+
+/* Phase boxes */
+.box { border-radius: 6px; padding: 10px 14px; cursor: pointer; transition: all 0.2s; border-width: 1.5px; border-style: solid; }
+.box:hover { filter: brightness(1.3); }
+.box .label { font-size: 13px; font-weight: 600; color: #e5e5e5; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 2px; }
+.box .detail { font-size: 10px; color: #525252; margin-top: 8px; display: none; padding-top: 8px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 2px 0 2px 12px; position: relative; font-size: 10px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+
+.bg-green-dark { background: #052e16; border-color: #22c55e; }
+.bg-green-mid { background: #0a2e16; border-color: #166534; }
+.bg-green-pale { background: #0f1a08; border-color: #166534; }
+.bg-red { background: #1a0808; border-color: #dc2626; }
+.bg-blue { background: #0a142e; border-color: #3b82f6; }
+
+.row { display: flex; gap: 12px; margin-bottom: 12px; }
+.row > * { flex: 1; }
+
+/* Decision diamond */
+.dec { display: flex; justify-content: center; margin: 10px 0; }
+.dec-inner { width: 110px; height: 110px; transform: rotate(45deg); border: 1.5px solid #166534; background: #0a2e16; display: flex; align-items: center; justify-content: center; }
+.dec-text { transform: rotate(-45deg); font-size: 12px; font-weight: 600; color: #e5e5e5; text-align: center; line-height: 1.4; }
+
+/* Branch labels */
+.branch-row { display: flex; justify-content: space-between; padding: 0 10px; margin: 4px 0; }
+.branch { font-size: 10px; color: #4ade80; }
+
+/* Loop back arrow */
+.loop { text-align: center; margin: 6px 0; }
+.loop svg { width: 100%; height: 24px; }
+.loop span { display: block; font-size: 10px; color: #4ade80; margin-top: -2px; }
+
+.sec { margin-bottom: 28px; }
+</style>
+</head>
+<body>
+<div class="d">
+<h1>The Brain — One Turn Cycle, Inside Out</h1>
+<p class="sub">Click any box to expand details. What happens between you typing and getting a response.</p>
+
+<!-- PROLOGUE -->
+<div class="sec">
+<span class="lh" style="background:#052e16;">PROLOGUE — Setup</span>
+<div class="row">
+  <div class="box bg-green-mid" onclick="this.classList.toggle('open')">
+    <div class="label">Sanitize · Restore Prompt</div>
+    <div class="desc">crash resilience · preflight compression</div>
+    <div class="detail">
+      <ul>
+        <li>Strip non-ASCII surrogates that crash json.dumps</li>
+        <li>Repair broken tool-call arguments from prior turns</li>
+        <li>Restore or rebuild the system prompt (resets on session start)</li>
+        <li>Recover from crashes: reload messages from session DB</li>
+        <li>Preflight context size check — compress if near limit</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box bg-green-mid" onclick="this.classList.toggle('open')">
+    <div class="label">Load Memory + Skills</div>
+    <div class="desc">fact_store · skill relevance match</div>
+    <div class="detail">
+      <ul>
+        <li>Holographic memory: 946 facts, trust scoring, entity resolution</li>
+        <li>FTS5 session search for past context</li>
+        <li>Skills scanned for relevance to current task</li>
+        <li>Relevant skill instructions injected into system prompt</li>
+        <li>Memory context block built from prefetch cache</li>
+      </ul>
+    </div>
+  </div>
+  <div class="box bg-green-mid" onclick="this.classList.toggle('open')">
+    <div class="label">Plugin pre_llm_call Hooks</div>
+    <div class="desc">external memory · context enrichment</div>
+    <div class="detail">
+      <ul>
+        <li>Plugins inject user context into the current turn</li>
+        <li>External memory providers (Holographic, etc.) prefetch facts</li>
+        <li>Plugin context merged into the user message, not system prompt</li>
+        <li>This keeps the prompt cache prefix stable across turns</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</div>
+
+<div class="flow-v" style="margin:0 auto 20px;"></div>
+
+<!-- MAIN LOOP -->
+<div class="sec">
+<span class="lh" style="background:#0a2e16;">MAIN LOOP — runs once per API call until the model says done</span>
+
+<!-- A -->
+<div class="box bg-green-pale" style="margin-bottom:10px;" onclick="this.classList.toggle('open')">
+  <div class="label">A. Build API Messages</div>
+  <div class="desc">Sanitize tool calls · Repair alternation · Inject memory + plugin context</div>
+  <div class="detail">
+    <ul>
+      <li>Sanitize tool_call arguments (repair JSON corruption)</li>
+      <li>Repair message role alternation (tool → user breaks strict APIs)</li>
+      <li>Inject memory context and plugin context into the user message</li>
+      <li>Copy reasoning fields for multi-turn provider compatibility</li>
+      <li>Strip fields strict APIs reject (finish_reason, internal markers)</li>
+      <li>Apply Anthropic prompt caching if using Claude</li>
+      <li>Normalize whitespace and JSON key order for KV cache reuse</li>
+      <li>Strip orphaned tool results, add stubs for missing ones</li>
+      <li>Drop thinking-only assistant turns (Anthropic rejects them)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="flow-v" style="margin:0 auto 10px;"></div>
+
+<!-- B -->
+<div class="box bg-red" style="margin-bottom:10px;" onclick="this.classList.toggle('open')">
+  <div class="label">B. Pre-Flight Checks</div>
+  <div class="desc">Budget consumed? → exit. Interrupt? → exit. Context full? → compress.</div>
+  <div class="detail">
+    <ul>
+      <li>Iteration budget check: how many API calls used this turn? Exhausted? Hard stop.</li>
+      <li>Budget grace call: one extra chance before the axe</li>
+      <li>Interrupt check: user hit escape? Exit with partial results</li>
+      <li>Context pressure check: estimate request tokens against threshold</li>
+      <li>Deferred to real usage? Skip estimate if recent provider data is better</li>
+      <li>Compression cooldown active? Skip to avoid infinite compress loops</li>
+      <li>Ollama context size check: if GGUF window is physically too small, hard error</li>
+    </ul>
+  </div>
+</div>
+
+<div class="flow-v" style="margin:0 auto 10px;"></div>
+
+<!-- C -->
+<div class="box bg-blue" style="margin-bottom:10px;" onclick="this.classList.toggle('open')">
+  <div class="label">C. Call the LLM</div>
+  <div class="desc">Send messages + tools to DeepSeek (or Claude · Ollama · Bedrock · etc.)</div>
+  <div class="detail">
+    <ul>
+      <li>Streaming: text deltas fire stream_callback as they arrive</li>
+      <li>TTS pipeline can start generating audio before full response</li>
+      <li>Non-streaming: wait for complete response</li>
+      <li>Retry loop (up to max_retries): jittered exponential backoff (5s base, 120s cap)</li>
+      <li>Rate limited (429)? Backoff and retry</li>
+      <li>Server error (500/502)? Backoff and retry</li>
+      <li>Overloaded (503/529)? Backoff and retry</li>
+      <li>Timeout (504/524)? Backoff and retry</li>
+      <li>Content filter hit? Hard stop, explain refusal to user</li>
+      <li>Max retries exhausted? Try fallback provider, if none → hard error</li>
+    </ul>
+  </div>
+</div>
+
+<div class="flow-v" style="margin:0 auto 10px;"></div>
+
+<!-- Decision diamond -->
+<div class="dec">
+  <div class="dec-inner">
+    <div class="dec-text">Tool<br>calls<br>or text?</div>
+  </div>
+</div>
+
+<div class="flow-row">
+  <div class="flow-h" style="max-width:200px;margin-left:auto;"></div>
+  <div class="flow-h" style="max-width:200px;"></div>
+</div>
+
+<div class="branch-row">
+  <span class="branch">→ Has tool_calls</span>
+  <span class="branch">→ No tools (it's the answer)</span>
+</div>
+
+<!-- Split: Tools | Response -->
+<div class="row">
+<!-- D: Tools -->
+<div class="box bg-green-dark" style="flex:1;" onclick="this.classList.toggle('open')">
+  <div class="label">D. Execute Tools</div>
+  <div class="desc">Guardrail check before every tool · sequential or parallel (up to 8 workers)</div>
+  <div class="detail">
+    <ul>
+      <li>Guardrail checks each tool by name and arguments before execution</li>
+      <li>Destructive commands (rm, sudo, docker rm -f): warn user or block</li>
+      <li>Idempotency check: same tool + same args + same result? Skip.</li>
+      <li>Budget check: track token usage per tool call</li>
+      <li>Sequential path: one tool at a time (most tools)</li>
+      <li>Concurrent path: up to 8 parallel workers (independent reads)</li>
+      <li>Guardrail fires after each result: failure detection + classification</li>
+      <li>Guardrail halt? Synthesize "tool denied" result, agent explains why</li>
+      <li>Post-tool: compress context if near limit</li>
+      <li>Append tool results to messages → loop back to top</li>
+    </ul>
+  </div>
+</div>
+
+<!-- E: Response -->
+<div class="box bg-green-dark" style="flex:1;" onclick="this.classList.toggle('open')">
+  <div class="label">E. Finalize Response</div>
+  <div class="desc">The model produced text with no tool calls — this is the answer.</div>
+  <div class="detail">
+    <ul>
+      <li>Normal case: content delivered to user</li>
+      <li>Empty after tool calls: nudge model once to continue processing</li>
+      <li>Thinking-only: model produced reasoning fields but no text → let it self-continue</li>
+      <li>Truncated mid-tool-call: retry with doubled output budget (4 attempts max)</li>
+      <li>Partial stream delivery: use whatever text arrived before connection died</li>
+      <li>Content filter hit: inform user the model declined to respond</li>
+      <li>Failed fallback: return error message with diagnostic details</li>
+      <li>Persist messages to session DB</li>
+      <li>Clean up task resources (VM, temporary files)</li>
+      <li>Return final response to caller</li>
+    </ul>
+  </div>
+</div>
+</div>
+
+<!-- Loop back from tools -->
+<div class="loop">
+  <svg viewBox="0 0 300 24">
+    <path d="M150,2 L150,22" stroke="#22c55e" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+    <path d="M150,22 Q40,22 40,2" stroke="#22c55e" stroke-width="2" stroke-dasharray="4,3" fill="none" marker-end="url(#m)"/>
+    <defs><marker id="m" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6" fill="#22c55e"/></marker></defs>
+  </svg>
+  <span>↻ Tool results feed back in → Call the LLM again</span>
+</div>
+</div>
+
+<script>
+// Auto-open nothing; click to toggle
+</script>
+</div>
+</body>
+</html>

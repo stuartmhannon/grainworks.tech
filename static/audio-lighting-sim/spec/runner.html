@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio-Lighting Simulator — Unit Tests</title>
+  <style>
+    body {
+      font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+      background: #0a0a0a;
+      color: #c0c0c0;
+      margin: 2rem;
+    }
+    h1 {
+      color: #e0e0e0;
+      font-weight: 300;
+      font-size: 1.2rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1.5rem;
+    }
+    #results {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+    .suite {
+      padding: 0.6rem 1rem;
+      border-left: 3px solid #333;
+      background: #111;
+    }
+    .suite.pass { border-left-color: #2a7; }
+    .suite.fail { border-left-color: #c33; }
+    .suite-name {
+      color: #aaa;
+      font-size: 0.85rem;
+    }
+    .suite-result {
+      margin-top: 0.2rem;
+    }
+    .summary { font-size: 1rem; font-weight: 500; }
+    .summary.good { color: #2a7; }
+    .summary.bad  { color: #c33; }
+    .error-list {
+      margin-top: 0.4rem;
+      font-size: 0.8rem;
+      color: #c66;
+      line-height: 1.4;
+      white-space: pre-wrap;
+    }
+    #summary-line {
+      margin-top: 1.5rem;
+      padding: 0.6rem 1rem;
+      border-left: 3px solid #555;
+      background: #111;
+      font-size: 1rem;
+    }
+    #summary-line.good { border-left-color: #2a7; }
+    #summary-line.bad  { border-left-color: #c33; }
+  </style>
+</head>
+<body>
+  <h1>Audio-Lighting Simulator — Spec Runner</h1>
+  <div id="results"></div>
+  <div id="summary-line">Running…</div>
+
+  <script type="module">
+    import { runLightingTests } from '../simulation/lighting.test.js';
+    import { runAcousticTests } from '../simulation/acoustic.test.js';
+    import { runCoverageTests } from '../simulation/coverage-renderer.test.js';
+    import { runSpeakerLibraryTests } from '../simulation/speaker-library.test.js';
+
+    const resultsDiv = document.getElementById('results');
+    const summaryLine = document.getElementById('summary-line');
+
+    function makeSuiteEl(name, result) {
+      const div = document.createElement('div');
+      div.className = `suite ${result.failed > 0 ? 'fail' : 'pass'}`;
+
+      const nameEl = document.createElement('div');
+      nameEl.className = 'suite-name';
+      nameEl.textContent = name;
+      div.appendChild(nameEl);
+
+      const resEl = document.createElement('div');
+      resEl.className = 'suite-result';
+      const summary = document.createElement('span');
+      summary.className = `summary ${result.failed > 0 ? 'bad' : 'good'}`;
+      summary.textContent = `${result.passed} passed, ${result.failed} failed`;
+      resEl.appendChild(summary);
+      div.appendChild(resEl);
+
+      if (result.errors.length > 0) {
+        const errEl = document.createElement('div');
+        errEl.className = 'error-list';
+        errEl.textContent = result.errors.join('\n');
+        div.appendChild(errEl);
+      }
+
+      return div;
+    }
+
+    async function runAll() {
+      const sets = [
+        { name: 'lighting', run: runLightingTests },
+        { name: 'acoustic', run: runAcousticTests },
+        { name: 'coverage', run: runCoverageTests },
+        { name: 'speaker-library', run: runSpeakerLibraryTests },
+      ];
+
+      // Create placeholder elements
+      const suiteEls = {};
+      for (const set of sets) {
+        const el = makeSuiteEl(set.name, { passed: 0, failed: 0, errors: ['running…'] });
+        resultsDiv.appendChild(el);
+        suiteEls[set.name] = el;
+      }
+
+      let totalPassed = 0;
+      let totalFailed = 0;
+      const allErrors = [];
+
+      for (const set of sets) {
+        try {
+          const result = await set.run();
+          totalPassed += result.passed;
+          totalFailed += result.failed;
+          allErrors.push(...result.errors.map(e => `[${set.name}] ${e}`));
+          const newEl = makeSuiteEl(set.name, result);
+          resultsDiv.replaceChild(newEl, suiteEls[set.name]);
+        } catch (e) {
+          totalFailed++;
+          allErrors.push(`[${set.name}] Exception: ${e.message}`);
+          const errEl = makeSuiteEl(set.name, { passed: 0, failed: 1, errors: [e.message] });
+          resultsDiv.replaceChild(errEl, suiteEls[set.name]);
+        }
+      }
+
+      if (totalFailed === 0) {
+        summaryLine.className = 'good';
+        summaryLine.textContent = `✓ All ${totalPassed} tests passed.`;
+      } else {
+        summaryLine.className = 'bad';
+        summaryLine.textContent = `✗ ${totalFailed} test(s) failed. ${totalPassed} passed.`;
+        const errDiv = document.createElement('div');
+        errDiv.style.cssText = 'margin-top:0.5rem;font-size:0.8rem;color:#c66;white-space:pre-wrap';
+        errDiv.textContent = allErrors.join('\n');
+        summaryLine.appendChild(errDiv);
+      }
+    }
+
+    runAll();
+  </script>
+</body>
+</html>

@@ -4,6 +4,27 @@
   <div class="page-content" style="margin-bottom: 2rem;">{{ . }}</div>
   {{- end }}
 
+  {{- $all := where .Pages "Params.draft" "!=" true }}
+  {{- $statuses := slice }}
+  {{- range $all }}
+    {{- with .Params.status }}{{ $statuses = $statuses | append . }}{{ end }}
+  {{- end }}
+  {{- $live := where $all ".Params.status" "Live" | len }}
+  {{- $research := where $all ".Params.status" "Research" | len }}
+  {{- $prototype := where $all ".Params.status" "Prototype" | len }}
+  {{- $complete := where $all ".Params.status" "Complete" | len }}
+  {{- $design := where $all ".Params.status" "Design" | len }}
+
+  {{- if or $live $research $prototype $complete $design }}
+  <div class="status-counter" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--fg-dim);margin-bottom:1.5rem;display:flex;gap:1rem;flex-wrap:wrap;">
+    {{- if gt $live 0 }}<span>Live: {{ $live }}</span>{{ end }}
+    {{- if gt $research 0 }}<span>Research: {{ $research }}</span>{{ end }}
+    {{- if gt $prototype 0 }}<span>Prototype: {{ $prototype }}</span>{{ end }}
+    {{- if gt $design 0 }}<span>Design: {{ $design }}</span>{{ end }}
+    {{- if gt $complete 0 }}<span>Complete: {{ $complete }}</span>{{ end }}
+  </div>
+  {{- end }}
+
   <h2 class="section-heading">Index</h2>
   <div class="project-grid">
     {{- $pages := where .Pages "Params.draft" "!=" true }}

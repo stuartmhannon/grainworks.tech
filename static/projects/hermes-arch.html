@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hermes Agent Architecture</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      padding: 30px;
+    }
+    .diagram {
+      max-width: 1100px;
+      width: 100%;
+    }
+    svg { width: 100%; height: auto; display: block; }
+  </style>
+</head>
+<body>
+  <div class="diagram">
+    <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="#666"/>
+        </marker>
+        <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="#2563eb"/>
+        </marker>
+        <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+          <path d="M0,0 L8,3 L0,6" fill="#059669"/>
+        </marker>
+        <style>
+          .title { font-size: 20px; font-weight: 700; fill: #111; }
+          .subtitle { font-size: 13px; fill: #666; }
+          .header { font-size: 12px; font-weight: 600; fill: #333; }
+          .label { font-size: 13px; font-weight: 600; fill: #111; }
+          .sublabel { font-size: 11px; fill: #555; }
+          .tinylabel { font-size: 9px; fill: #777; }
+        </style>
+      </defs>
+
+      <!-- Background -->
+      <rect width="1000" height="700" fill="white" rx="8"/>
+
+      <!-- Title -->
+      <text x="30" y="35" class="title">Hermes Agent — How the Brain Works</text>
+      <text x="30" y="55" class="subtitle">One turn cycle. Six layers. Arrow = information flow.</text>
+
+      <!-- ============================== LAYER 1: INPUT ============================== -->
+      <rect x="30" y="75" width="940" height="28" rx="4" fill="#e0e7ff"/>
+      <text x="40" y="93" class="header">① INPUT SURFACES</text>
+
+      <!-- Input boxes (no text on boxes, use labels) -->
+      <rect x="40" y="110" width="125" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="102" y="128" class="label" text-anchor="middle">CLI / TUI</text>
+      <text x="102" y="143" class="sublabel" text-anchor="middle">prompt_toolkit</text>
+
+      <rect x="180" y="110" width="125" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="242" y="128" class="label" text-anchor="middle">Desktop App</text>
+      <text x="242" y="143" class="sublabel" text-anchor="middle">Electron + React</text>
+
+      <rect x="320" y="110" width="125" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="382" y="128" class="label" text-anchor="middle">Web UI</text>
+      <text x="382" y="143" class="sublabel" text-anchor="middle">Vite + React + TS</text>
+
+      <rect x="460" y="110" width="125" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="522" y="128" class="label" text-anchor="middle">API Server</text>
+      <text x="522" y="143" class="sublabel" text-anchor="middle">OpenAI-compatible</text>
+
+      <rect x="600" y="110" width="155" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="677" y="128" class="label" text-anchor="middle">Platform Channels</text>
+      <text x="677" y="143" class="sublabel" text-anchor="middle">Telegram · Discord · Slack</text>
+
+      <rect x="770" y="110" width="130" height="42" rx="5" fill="#dbeafe" stroke="#2563eb" stroke-width="1.5"/>
+      <text x="835" y="128" class="label" text-anchor="middle">Computer Use</text>
+      <text x="835" y="143" class="sublabel" text-anchor="middle">cua-driver</text>
+
+      <!-- Input arrows down -->
+      <line x1="100" y1="152" x2="100" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+      <line x1="240" y1="152" x2="240" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+      <line x1="380" y1="152" x2="380" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+      <line x1="520" y1="152" x2="520" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+      <line x1="675" y1="152" x2="675" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+      <line x1="835" y1="152" x2="835" y2="175" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+
+      <!-- ============================== LAYER 2: GATEWAY ============================= -->
+      <rect x="30" y="183" width="940" height="28" rx="4" fill="#fce7f3"/>
+      <text x="40" y="201" class="header">② GATEWAY &amp; AUTH</text>
+
+      <rect x="40" y="218" width="900" height="38" rx="5" fill="#fdf2f8" stroke="#db2777" stroke-width="1.5"/>
+      <text x="490" y="238" class="label" text-anchor="middle">Transport adapters: Anthropic · OpenAI · Bedrock · Gemini · Codex · Vertex</text>
+      <text x="490" y="251" class="sublabel" text-anchor="middle">Auth check → Approval Control Protocol (ACP)</text>
+
+      <line x1="490" y1="256" x2="490" y2="278" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ============================== LAYER 3: CORE =============================== -->
+      <rect x="30" y="285" width="940" height="28" rx="4" fill="#d1fae5"/>
+      <text x="40" y="303" class="header">③ THE BRAIN — ONE TURN CYCLE</text>
+
+      <!-- 4 steps -->
+      <rect x="40" y="320" width="195" height="65" rx="5" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+      <text x="137" y="340" class="label" text-anchor="middle">1. Build Context</text>
+      <text x="137" y="356" class="sublabel" text-anchor="middle">Load messages + tools</text>
+      <text x="137" y="370" class="sublabel" text-anchor="middle">+ memory + skills</text>
+
+      <line x1="235" y1="352" x2="260" y2="352" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+      <rect x="265" y="320" width="195" height="65" rx="5" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+      <text x="362" y="340" class="label" text-anchor="middle">2. Call LLM</text>
+      <text x="362" y="356" class="sublabel" text-anchor="middle">DeepSeek (or Claude)</text>
+      <text x="362" y="370" class="sublabel" text-anchor="middle">Ollama / OpenAI / etc.</text>
+
+      <line x1="460" y1="352" x2="485" y2="352" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+      <rect x="490" y="320" width="195" height="65" rx="5" fill="#fef3c7" stroke="#d97706" stroke-width="1.5"/>
+      <text x="587" y="340" class="label" text-anchor="middle">3. Execute Tools</text>
+      <text x="587" y="356" class="sublabel" text-anchor="middle">terminal · browser · web</text>
+      <text x="587" y="370" class="sublabel" text-anchor="middle">file_ops · vision · etc.</text>
+
+      <line x1="685" y1="352" x2="710" y2="352" stroke="#059669" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+      <rect x="715" y="320" width="195" height="65" rx="5" fill="#d1fae5" stroke="#059669" stroke-width="1.5"/>
+      <text x="812" y="340" class="label" text-anchor="middle">4. Feed Back</text>
+      <text x="812" y="356" class="sublabel" text-anchor="middle">Results → context</text>
+      <text x="812" y="370" class="sublabel" text-anchor="middle">↻ loop to step 1</text>
+
+      <!-- Loopback arrow -->
+      <path d="M 910 385 L 910 420 Q 910 435 490 435 L 137 435 L 137 387" fill="none" stroke="#059669" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arrow-green)"/>
+      <text x="490" y="430" class="sublabel" text-anchor="middle" fill="#059669">↻ Loop until model says "done"</text>
+
+      <!-- Adjacent detail boxes -->
+      <rect x="40" y="405" width="195" height="28" rx="3" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+      <text x="137" y="423" class="sublabel" text-anchor="middle">Retries · Fallbacks · Compression</text>
+
+      <rect x="265" y="405" width="195" height="28" rx="3" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+      <text x="362" y="423" class="sublabel" text-anchor="middle">Fallback providers · Error classify</text>
+
+      <rect x="490" y="405" width="195" height="28" rx="3" fill="#fefce8" stroke="#fde68a" stroke-width="1"/>
+      <text x="587" y="423" class="sublabel" text-anchor="middle">Guardrails · Budget · Concurrency</text>
+
+      <!-- Arrow down to tools -->
+      <line x1="490" y1="448" x2="490" y2="475" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ============================== LAYER 4: TOOLS ============================== -->
+      <rect x="30" y="482" width="940" height="28" rx="4" fill="#fef3c7"/>
+      <text x="40" y="500" class="header">④ TOOLS — 55+ built-in + MCP servers</text>
+
+      <rect x="40" y="517" width="700" height="55" rx="5" fill="#fffbeb" stroke="#f59e0b" stroke-width="1.5"/>
+      <text x="60" y="535" class="sublabel">Terminal · File Ops · Web Search · Browser · Vision · Memory · Delegate</text>
+      <text x="60" y="550" class="sublabel">Cron · Kanban · Code Execution · Image Gen · TTS · Send Message · Skills Manager</text>
+      <text x="60" y="565" class="sublabel">transcription · session_search · todo · X search · Discord · Home Assistant</text>
+
+      <rect x="760" y="517" width="170" height="55" rx="5" fill="#fef2f2" stroke="#ef4444" stroke-width="1"/>
+      <text x="845" y="536" class="sublabel" text-anchor="middle">+ MCP Servers</text>
+      <text x="845" y="550" class="tinylabel" text-anchor="middle">Graindrop · Josh · UnRAID</text>
+      <text x="845" y="563" class="tinylabel" text-anchor="middle">Obsidian · LinkedIn · etc.</text>
+
+      <line x1="490" y1="572" x2="490" y2="598" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+      <!-- ============================== LAYER 5: MEMORY ============================= -->
+      <rect x="30" y="605" width="940" height="28" rx="4" fill="#e0f2fe"/>
+      <text x="40" y="623" class="header">⑤ PERSISTENCE</text>
+
+      <rect x="40" y="640" width="200" height="42" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+      <text x="140" y="660" class="sublabel" text-anchor="middle">Fact Store (Holographic)</text>
+      <text x="140" y="674" class="tinylabel" text-anchor="middle">946 facts · entity resolution</text>
+
+      <rect x="260" y="640" width="200" height="42" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+      <text x="360" y="660" class="sublabel" text-anchor="middle">Session Archive</text>
+      <text x="360" y="674" class="tinylabel" text-anchor="middle">FTS5 searchable history</text>
+
+      <rect x="480" y="640" width="200" height="42" rx="5" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+      <text x="580" y="660" class="sublabel" text-anchor="middle">State &amp; Config</text>
+      <text x="580" y="674" class="tinylabel" text-anchor="middle">state.db · config.yaml</text>
+
+      <rect x="700" y="640" width="200" height="42" rx="5" fill="#fce7f3" stroke="#db2777" stroke-width="1"/>
+      <text x="800" y="660" class="sublabel" text-anchor="middle">Secrets &amp; Credentials</text>
+      <text x="800" y="674" class="tinylabel" text-anchor="middle">1Password · Bitwarden · env</text>
+    </svg>
+  </div>
+</body>
+</html>

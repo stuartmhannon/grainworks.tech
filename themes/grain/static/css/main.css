@@ -438,6 +438,12 @@ main {
   color: var(--accent);
 }
 
+.footer-gitinfo {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  color: var(--border-light);
+}
+
 /* ── Mailing list form ───────────────────── */
 
 .mailing-list {

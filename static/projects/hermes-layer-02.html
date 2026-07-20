@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>② Gateway & Transport</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>② Gateway &amp; Transport</h1>
+<p class="sub">How your message gets normalized, authenticated, and handed to the brain. Click any box for details.</p>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Transport Adapters <span class="arrow">▶</span></div>
+  <div class="desc">Each LLM provider has its own wire protocol. Transport adapters normalize them all into one internal format.</div>
+  <div class="detail">
+    <ul>
+      <li>Anthropic Messages API: Claude-specific message format, role types, caching headers</li>
+      <li>OpenAI Chat Completions: the default — used by DeepSeek, OpenRouter, most providers</li>
+      <li>Bedrock Converse: AWS Bedrock's native format (boto3-based)</li>
+      <li>Gemini: Google's generativeai format</li>
+      <li>Codex: Anthropic's Codex format for terminal-native coding sessions</li>
+      <li>Vertex AI: Google Cloud Vertex endpoint format</li>
+      <li>Each adapter: translates system prompts, tool schemas, streaming, tool results</li>
+      <li>Each adapter: normalizes error responses into Hermes' error classification system</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Approval Control Protocol (ACP) <span class="arrow">▶</span></div>
+  <div class="desc">Every operation goes through ACP — approve, deny, or defer. Smart defaults for known-safe operations.</div>
+  <div class="detail">
+    <ul>
+      <li>ACP registration: each tool/operation registers with the ACP system</li>
+      <li>Approval modes: auto (let known-safe through), prompt (ask user), deny (block)</li>
+      <li>Smart deny: when a known-safer alternative exists, suggest it instead</li>
+      <li>Scope: per-operation overrides (e.g. "always approve file reads from ~/Projects")</li>
+      <li>ACP adapters: acp_adapter/ directory with provider-specific implementations</li>
+      <li>ACP registry: acp_registry/ directory for operation registration</li>
+      <li>Context-aware: destructive command detected → stricter approval</li>
+      <li>Session-scoped: approval preferences persist within a session</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Credentials &amp; Secrets <span class="arrow">▶</span></div>
+  <div class="desc">API keys, tokens, passwords — handled securely through credential pools and secret sources.</div>
+  <div class="detail">
+    <ul>
+      <li>Credential pool: manages per-provider API keys with automatic rotation</li>
+      <li>OAuth token refresh: auto-refreshes expired tokens on 401 responses</li>
+      <li>Secret sources: 1Password CLI, Bitwarden CLI, environment variables, macOS Keychain</li>
+      <li>Touch ID gate: ~/.hermes/secrets/keys.env protected by biometric auth</li>
+      <li>credential_persistence.py: saves and restores credentials across restarts</li>
+      <li>credential_sources.py: abstracts multiple credential backends</li>
+      <li>Rate limit tracking: cross-session rate limit status (Nous Portal)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Provider Model Resolution <span class="arrow">▶</span></div>
+  <div class="desc">Which model gets called and in what order — primary, fallback chains, tool-specific overrides.</div>
+  <div class="detail">
+    <ul>
+      <li>Primary: configured provider + model in config.yaml (model.default, model.provider)</li>
+      <li>Fallback chain: fallback_providers list — tried in order when primary fails</li>
+      <li>Model-specific fallback: per-cron-job model overrides</li>
+      <li>Tool overrides: delegation tasks can pin specific models</li>
+      <li>Local inference: Ollama with mistral-nemo:latest as local fallback</li>
+      <li>Dynamic resolution: cron jobs inherit from provider defaults, not hardcoded names</li>
+      <li>Context window enforcement: 64K minimum — checks before sending the request</li>
+    </ul>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a> · <a href="/projects/hermes-layer-03.html">Brain Deep-Dive →</a>
+</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⑥ Persistence & State</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+.split { display: flex; gap: 10px; margin-bottom: 14px; }
+.split > * { flex: 1; }
+.cat { font-size: 11px; font-weight: 600; color: #4ade80; margin: 10px 0 6px; padding: 4px 8px; background: #0a2e16; border-radius: 4px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>⑥ Persistence &amp; State</h1>
+<p class="sub">Everything that survives between sessions — memory, conversation history, config, secrets. Click any box for details.</p>
+
+<span class="cat">Active Memory (Holographic)</span>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">How Holographic Memory Works <span class="arrow">▶</span></div>
+  <div class="desc">The active memory provider — local-only SQLite with FTS5 full-text search, HRR vectors, entity resolution, and trust scoring.</div>
+  <div class="detail">
+    <ul>
+      <li>946 stored facts across categories: user_pref, project, tool, general</li>
+      <li>SQLite-backed: single local file at ~/.hermes/memory_store.db</li>
+      <li>FTS5 full-text search: keyword queries across all facts</li>
+      <li>HRR (Holographic Reduced Representation) vectors: 1024-dim compositional retrieval</li>
+      <li>Entity resolution: recognizes the same person/thing across different surface forms</li>
+      <li>Trust scoring: each fact has a score (0.0–1.0), trained by fact_feedback (helpful/unhelpful)</li>
+      <li>Memory banks: named collections for context-aware recall (e.g. "engineering", "personal")</li>
+      <li>Auto-extraction: when enabled, facts are automatically extracted from conversation</li>
+      <li>Actions: add, search, probe (all facts about an entity), related (what connects to it), reason (compositional across entities), contradict (find conflicting claims)</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Memory Lifecycle <span class="arrow">▶</span></div>
+  <div class="desc">How memory enters, persists, and gets cleaned up — from capture to curation.</div>
+  <div class="detail">
+    <ul>
+      <li>Explicit save: memory tool called to store user preferences, corrections, decisions</li>
+      <li>Automatic extraction: fact_store auto-extract enabled (configurable)</li>
+      <li>Curator pruning: nightly curator pass clears stale/low-trust facts</li>
+      <li>Trust training: fact_feedback marks facts helpful or unhelpful, scores adjust</li>
+      <li>Consolidation: related facts merged by entity resolution</li>
+      <li>Minimum trust filter: facts below 0.3 are excluded from queries by default</li>
+      <li>User profile: dedicated store for who the user is (name, role, preferences, style)</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Session History</span>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Session Archive <span class="arrow">▶</span></div>
+  <div class="desc">Every conversation is saved to a searchable SQLite database. The session_search tool lets me find anything from any past session.</div>
+  <div class="detail">
+    <ul>
+      <li>sessions.db: SQLite database at ~/.hermes/sessions.db</li>
+      <li>FTS5-backed: full-text search across all messages from all sessions</li>
+      <li>session_search tool: 4 query modes — discovery (FTS5 search), scroll (around a message), read (full session), browse (recent sessions)</li>
+      <li>Bookend display: when searching, shows first 3 + last 3 messages of matching sessions (goal → resolution)</li>
+      <li>Context window: ±5 messages around the match for understanding context</li>
+      <li>Cross-session recall: "find the session where we discussed X" works</li>
+      <li>Role filtering: search user messages, assistant messages, or tool output</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Response Store &amp; Checkpoints <span class="arrow">▶</span></div>
+  <div class="desc">Tool results are persisted for reference, and snapshots enable rollback.</div>
+  <div class="detail">
+    <ul>
+      <li>response_store.db: persisted tool results for cross-session reference</li>
+      <li>Verification evidence: tool outputs stored for audit trail</li>
+      <li>Checkpoints: state snapshots at configurable intervals (default: every 24h)</li>
+      <li>Max snapshots: 20, with auto-prune of oldest</li>
+      <li>Auto-rollback: on crash or bad state, can restore from last checkpoint</li>
+      <li>Retention: 7 days, delete orphans on prune</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Config &amp; Secrets</span>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">State &amp; Configuration <span class="arrow">▶</span></div>
+  <div class="desc">Persistent agent state across restarts — environment, usage data, session tracking.</div>
+  <div class="detail">
+    <ul>
+      <li>state.db: agent state — session IDs, environment variables, usage counters</li>
+      <li>config.yaml: user configuration — model, providers, toolsets, agent settings, platforms</li>
+      <li>write-protected: config.yaml is write-protected from patch/write_file — must use "hermes config set"</li>
+      <li>provider_models_cache.json: cached model lists from provider discovery</li>
+      <li>auth.json / auth.lock: session auth state for platforms</li>
+      <li>usage-data: per-session and cumulative token/API usage tracking</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Secrets &amp; Credentials <span class="arrow">▶</span></div>
+  <div class="desc">API keys, tokens, passwords — kept secure via Touch ID-gated vault and external credential services.</div>
+  <div class="detail">
+    <ul>
+      <li>keys.env: Touch ID-gated environment file at ~/.hermes/secrets/keys.env</li>
+      <li>Protected by: &#x60;security authorize -u -P -l "system.login.touchid"&#x60;</li>
+      <li>Secrets alias: view, copy, edit, path operations</li>
+      <li>SECRETS_FILE: path set in .zshrc for all Hermes processes</li>
+      <li>Bitwarden integration: hermes-pass encrypted vault at ~/.hermes-pass/vault.json.age (730 items)</li>
+      <li>1Password integration: secret_sources/ plugin for 1Password CLI</li>
+      <li>credential_persistence.py: saves/restores credentials across restarts</li>
+      <li>credential_pool.py: manages per-provider credential pools with auto-rotation</li>
+    </ul>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a> · <a href="/projects/hermes-layer-07.html">Background Systems →</a>
+</p>
+</div>
+</body>
+</html>

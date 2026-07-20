@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>① Input Surfaces</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+.split { display: flex; gap: 10px; margin-bottom: 14px; }
+.split > * { flex: 1; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>① Input Surfaces</h1>
+<p class="sub">How I hear you — six ways a message can reach me. Click any box for details.</p>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">CLI / TUI <span class="arrow">▶</span></div>
+  <div class="desc">Terminal-based REPL via prompt_toolkit. The original interface — full power, zero abstraction.</div>
+  <div class="detail">
+    <ul>
+      <li>Fixed input area: multi-line text editor at the bottom of the terminal</li>
+      <li>File history: persistent ~/.hermes/history across sessions</li>
+      <li>Keyboard shortcuts: Ctrl+Enter to submit, Tab for autocomplete, arrow keys for history</li>
+      <li>Inline diffs: shows file changes directly in the terminal output</li>
+      <li>Kawaii spinner: animated thinking indicator while the model works</li>
+      <li>Slash commands: /skill, /memory, /todo, /debug, /cost, /reset</li>
+      <li>Personality switching: /personality concise, /personality pirate, etc.</li>
+      <li>Output paging: persistent output buffer (last 200 lines shown)</li>
+      <li>Full hermes-cli toolset: all 55+ tools available</li>
+      <li>Multi-line paste detection: auto-formats pasted code blocks</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Desktop App <span class="arrow">▶</span></div>
+  <div class="desc">Native desktop application — Electron shell with React frontend. Installed via Hermes Desktop.</div>
+  <div class="detail">
+    <ul>
+      <li>Cross-platform: macOS, Windows, Linux (Electron + React + TypeScript)</li>
+      <li>Standalone window: dedicated app, not a browser tab</li>
+      <li>In-app update: "Update Now" rebuilds both Python backend and Electron shell</li>
+      <li>cua-driver integration: Computer Use tool drives the desktop in background mode</li>
+      <li>Desktop-specific build pipeline: apps/desktop/ with electron/ directory</li>
+      <li>Build: hermes desktop --build-only compiles the Electron bundle</li>
+      <li>In-app settings: "Keep Follow Ups in Chat" toggle, appearance preferences</li>
+      <li>Bootstrap repair: auto-recovers from boot loops after update</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Web UI <span class="arrow">▶</span></div>
+  <div class="desc">Browser-based interface — Vite + React + TypeScript. Accessed via desktop browser or mobile.</div>
+  <div class="detail">
+    <ul>
+      <li>Zero install: works in any modern browser</li>
+      <li>Streaming responses: SSE-based real-time text delivery</li>
+      <li>Session management: resume from any device</li>
+      <li>Suggested follow-up questions: inline suggestions after each response</li>
+      <li>Markdown rendering: headings, code blocks, tables, LaTeX, Mermaid diagrams</li>
+      <li>Media previews: MEDIA:/path renders images, audio, video, PDFs inline</li>
+      <li>Workspace indicator: [Workspace::v1: /path] tag on every message</li>
+      <li>Model picker: switch providers per-session (overrides config.yaml default)</li>
+      <li>Mobile companion: Hermex app connects to the same WebUI backend</li>
+      <li>Profile selection: switch between multiple Hermes profiles</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">API Server <span class="arrow">▶</span></div>
+  <div class="desc">OpenAI-compatible HTTP endpoint — lets any tool talk to Hermes as if it were OpenAI.</div>
+  <div class="detail">
+    <ul>
+      <li>Endpoint: /v1/chat/completions — drop-in replacement for OpenAI SDK</li>
+      <li>Authentication: API key in header (configurable)</li>
+      <li>Streaming: SSE-based response streaming</li>
+      <li>Tool integration: supports OpenAI function-calling format</li>
+      <li>Open WebUI connects here: web-ui.camel-hoki.ts.net → Hermes API</li>
+      <li>Hermes Mobile (Hermex) connects here</li>
+      <li>Exposed via Tailscale Serve: hermes.camel-hoki.ts.net/api</li>
+      <li>Multi-turn: maintains conversation state across API calls</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Platform Channels <span class="arrow">▶</span></div>
+  <div class="desc">Messaging platforms — Telegram, Discord, Slack, Signal, WhatsApp, SMS. Each has its own adapter plugin.</div>
+  <div class="detail">
+    <ul>
+      <li>Each platform = separate plugin with its own toolset (platform_toolsets)</li>
+      <li>Platform-specific tools injected: e.g. Discord has channel/message/reaction tools</li>
+      <li>Supports DMs, group chats, and threaded conversations</li>
+      <li>Plugin architecture: platforms/ directory in the agent source</li>
+      <li>Toolset filtering: only relevant tools loaded per platform</li>
+      <li>Each platform adapter handles: auth, message format, rate limiting, reconnection</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Computer Use <span class="arrow">▶</span></div>
+  <div class="desc">cua-driver — drive the desktop in the background. Click, type, scroll, drag without stealing focus.</div>
+  <div class="detail">
+    <ul>
+      <li>Background mode: actions don't steal cursor or keyboard focus</li>
+      <li>SOM mode: screenshots with numbered overlays on every interactable element</li>
+      <li>AX tree: accessibility tree for reliable element targeting</li>
+      <li>Click by element index (preferred) or pixel coordinates (fallback)</li>
+      <li>Works on hidden/minimized/behind windows — doesn't need focus</li>
+      <li>Supported input: click, type, key combos, scroll, drag, set_value</li>
+      <li>App-specific capture: limit to one app's window for less noise</li>
+      <li>Safety blocks: no clicking permission dialogs, password prompts, payment UI</li>
+      <li>Fixed overlays: cua-driver's agent cursor is a visual cue for the user; real OS cursor stays put</li>
+      <li>Requires: Accessibility + Screen Recording permissions granted to cua-driver</li>
+      <li>Backend: cua-driver v0.5.2+ (installed via brew or GitHub release)</li>
+    </ul>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a> · <a href="/projects/hermes-brain.html">Brain Deep-Dive →</a>
+</p>
+</div>
+</body>
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Audio-Lighting Simulator</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header class="toolbar">
+    <div class="brand">
+      <span>grainworks / audio-lighting-sim</span>
+      <span id="project-name" class="project-name" title="Current project">—</span>
+    </div>
+    <div class="controls">
+      <button id="btn-upload" class="btn btn-secondary" title="Upload floor plan">Upload Plan</button>
+      <button id="btn-ies-upload" class="btn btn-secondary" title="Upload IES photometric file">Upload IES</button>
+      <button id="btn-gll-upload" class="btn btn-secondary" title="Upload GLL speaker library JSON">Upload GLL</button>
+      <span class="separator"></span>
+      <button id="btn-save-project" class="btn btn-secondary" title="Save project to browser storage">Save</button>
+      <button id="btn-load-project" class="btn btn-secondary" title="Load project from browser storage">Load</button>
+      <button id="btn-new-project" class="btn btn-secondary" title="Clear all fixtures and start fresh">New</button>
+      <button id="btn-lux-mode" class="btn btn-primary active" title="Show light coverage">Light</button>
+      <button id="btn-spl-mode" class="btn btn-primary" title="Show sound coverage">Sound</button>
+      <button id="btn-composite-mode" class="btn btn-primary" title="Show both">Both</button>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="palette" id="palette">
+      <h2>Fixture Library</h2>
+      <div class="fixture-group">
+        <h3>Lighting</h3>
+        <div class="fixture-card" data-type="downlight" data-ies="narrow">
+          <div class="fixture-icon">💡</div>
+          <div class="fixture-label">Narrow Downlight</div>
+          <div class="fixture-params">
+            <label>Beam: <input type="range" min="10" max="60" value="25" class="param-beam"></label>
+            <label>Wattage: <input type="number" value="12" class="param-watts" min="1" max="100"></label>
+          </div>
+        </div>
+        <div class="fixture-card" data-type="downlight" data-ies="wide">
+          <div class="fixture-icon">💡</div>
+          <div class="fixture-label">Wide Flood</div>
+          <div class="fixture-params">
+            <label>Beam: <input type="range" min="30" max="120" value="90" class="param-beam"></label>
+            <label>Wattage: <input type="number" value="24" class="param-watts" min="1" max="200"></label>
+          </div>
+        </div>
+      </div>
+      <div class="fixture-group">
+        <h3>Audio</h3>
+        <div class="fixture-card" data-type="speaker" data-speaker="ceiling">
+          <div class="fixture-icon">🔊</div>
+          <div class="fixture-label">Ceiling Speaker</div>
+          <div class="fixture-params">
+            <label>Sensitivity: <input type="number" value="88" class="param-sensitivity"> dB</label>
+            <label>Power: <input type="number" value="30" class="param-power"> W</label>
+          </div>
+        </div>
+        <div class="fixture-card" data-type="speaker" data-speaker="wall">
+          <div class="fixture-icon">🔉</div>
+          <div class="fixture-label">Wall Speaker</div>
+          <div class="fixture-params">
+            <label>Sensitivity: <input type="number" value="90" class="param-sensitivity"> dB</label>
+            <label>Power: <input type="number" value="100" class="param-power"> W</label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section class="canvas-area" id="canvas-area">
+      <div class="canvas-placeholder" id="placeholder">
+        <p>Upload a floor plan to begin</p>
+        <p class="hint">Drag an image file onto this area, or click "Upload Plan" above.</p>
+      </div>
+      <div id="three-container" style="display:none; width:100%; height:100%;"></div>
+    </section>
+
+    <aside class="info-panel" id="info-panel">
+      <h2>Details</h2>
+      <div class="info-section">
+        <h3>Selected</h3>
+        <div id="selection-info" class="info-content">—</div>
+      </div>
+      <div class="info-section" id="rotation-group" style="display:none">
+        <h3>Orientation</h3>
+        <div class="rotation-control">
+          <input type="range" id="rotation-slider" min="0" max="360" value="0">
+          <span id="rotation-value" class="stat-value">0°</span>
+        </div>
+        <div class="hint">Press R to rotate 15°</div>
+      </div>
+      <div class="info-section">
+        <h3>Coverage Summary</h3>
+        <div id="coverage-summary" class="info-content">
+          <div class="stat-row"><span class="stat-label">Avg Lux:</span><span id="stat-lux" class="stat-value">—</span></div>
+          <div class="stat-row"><span class="stat-label">Avg SPL:</span><span id="stat-spl" class="stat-value">—</span></div>
+          <div class="stat-row"><span class="stat-label">Fixtures:</span><span id="stat-fixtures" class="stat-value">0</span></div>
+          <div class="stat-row"><span class="stat-label">Speakers:</span><span id="stat-speakers" class="stat-value">0</span></div>
+        </div>
+      </div>
+      <div class="info-section">
+        <h3>BOM</h3>
+        <button id="btn-export-bom" class="btn btn-secondary">Export CSV</button>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Three.js CDN -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+
+  <!-- App entry point (imports simulation modules internally) -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

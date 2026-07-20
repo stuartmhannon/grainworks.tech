@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⑦ Background Systems</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+.split { display: flex; gap: 10px; margin-bottom: 14px; }
+.split > * { flex: 1; }
+.cat { font-size: 11px; font-weight: 600; color: #4ade80; margin: 10px 0 6px; padding: 4px 8px; background: #0a2e16; border-radius: 4px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>⑦ Background Systems</h1>
+<p class="sub">The stuff that runs without me — cron scheduler, kanban workers, gateway daemon, curator. Click any box for details.</p>
+
+<span class="cat">Scheduling &amp; Automation</span>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Cron Scheduler <span class="arrow">▶</span></div>
+  <div class="desc">15,000+ concurrent job types. Two modes: no_agent (script-only, zero LLM cost) and agent (full reasoning with tools). Gateway daemon must be running for cron to fire.</div>
+  <div class="detail">
+    <ul>
+      <li>cron/scheduler.py: core scheduler — manages job lifecycle, tick dispatch, persistence</li>
+      <li>cron/scheduler_provider.py: provider abstraction for different scheduling backends</li>
+      <li>cron/lifecycle_guard.py: prevents runaway jobs, enforces timeouts</li>
+      <li>cron/blueprint_catalog.py: reusable job blueprint library</li>
+      <li>cron/suggestion_catalog.py: suggests cron jobs based on usage patterns</li>
+      <li>Script mode (no_agent=True): pure script execution, no LLM token cost — ideal for watchdogs</li>
+      <li>Agent mode: full reasoning with tool access — for tasks needing judgment</li>
+      <li>Skills attachment: cron jobs can load specific skills before running</li>
+      <li>Per-job model override: pin specific providers/models per cron</li>
+      <li>Context chaining: job A's output feeds into job B via context_from</li>
+      <li>Workdir: per-job working directory with project context files</li>
+      <li>Attach to session: continuable jobs create threads for follow-up replies</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Active Cron Jobs <span class="arrow">▶</span></div>
+  <div class="desc">The recurring jobs running right now.</div>
+  <div class="detail">
+    <ul>
+      <li><strong>Email screener-executor</strong> (every 5m) — checks for Stuart's emails, executes instructions, forwards important non-Stuart mail</li>
+      <li><strong>Obsidian inbox-processor</strong> (every 5m) — develops Inbox notes into finished posts</li>
+      <li><strong>Obsidian vault-watcher</strong> (every 15m, no_agent) — scans vault for new files</li>
+      <li><strong>Midnight consolidation</strong> (daily 00:00, no_agent) — archives Daily/ notes</li>
+      <li><strong>Nightly dreaming</strong> (daily 00:00) — meditation/journal practice</li>
+      <li><strong>Graindrop webhook subscription</strong> (on-demand) — fires when voice memo lands</li>
+      <li><strong>iMessage poller</strong> (every 2m, no_agent) — checks for incoming texts</li>
+      <li><strong>Curator &amp; security audit</strong> (daily 02:00) — self-audit, memory cleanup</li>
+      <li><strong>Weekly site improvements</strong> (weekly Monday 09:00) — 3 improvements to grainworks.tech</li>
+      <li><strong>Ideas Reservoir harvest</strong> (monthly 1st 08:00) — surfaces 2-3 alive ideas</li>
+      <li><strong>Expense reminder</strong> (monthly 1st 09:00) — mileage + forgotten receipts</li>
+      <li><strong>Burn rate</strong> (monthly) — personal finance tracking</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Kanban System <span class="arrow">▶</span></div>
+  <div class="desc">Multi-profile worker dispatch — distributes tasks across isolated profiles with their own toolsets and models.</div>
+  <div class="detail">
+    <ul>
+      <li>config: kanban section in config.yaml (dispatch_interval, failure_limit, worker_log_rotate)</li>
+      <li>Orchestrator profile option: tasks sent to a coordinating profile</li>
+      <li>Auto-decompose: large tasks split into sub-items configurable per tick</li>
+      <li>Isolated per worker: each kanban worker gets a fresh profile with its own tools</li>
+      <li>Worker logs: rotated at 2MB, 1 backup kept</li>
+      <li>Failure handling: configurable failure limit before task is abandoned</li>
+      <li>Stale timeout: 4h timeout for stalled workers</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Daemon Services</span>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Gateway Daemon <span class="arrow">▶</span></div>
+  <div class="desc">Background process managed by launchd. Runs cron scheduler + webhook listener. Must be running for cron jobs to fire.</div>
+  <div class="detail">
+    <ul>
+      <li>launchd service: ai.hermes.gateway plist at ~/Library/LaunchAgents/</li>
+      <li>KeepAlive=true: auto-restarts on crash</li>
+      <li>RunAtLoad=true: starts on user login</li>
+      <li>60s ticker: scheduler checks every 60 seconds for pending jobs</li>
+      <li>Webhook listener: port 8644, receives POST requests from external systems</li>
+      <li>Webhook subscriptions: Graindrop (voice memo → Hermes), Josh.ai (scene trigger)</li>
+      <li>webhook_subscriptions.json: persisted subscription registry</li>
+      <li>Dispatch in gateway: cron and kanban can dispatch directly from the gateway process</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Webhook Subscriptions <span class="arrow">▶</span></div>
+  <div class="desc">External systems can trigger Hermes via webhooks — voice memos, Josh scenes, and more.</div>
+  <div class="detail">
+    <ul>
+      <li><strong>graindrop</strong> — fires when a voice memo is transcribed; delivers to origin (this chat)</li>
+      <li><strong>josh-trigger</strong> — fires when a Josh.ai scene calls the relay; runs with Josh + ideas-reservoir skills</li>
+      <li>Platform: webhook.enabled=true in config.yaml, listens on 0.0.0.0:8644</li>
+      <li>HMAC signing: webhook payloads signed with configurable secret</li>
+      <li>delivery targets: origin (current chat), local (save to file), or specific platform:chat_id</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">iMessage Bridge <span class="arrow">▶</span></div>
+  <div class="desc">Background Python HTTP server that wraps imsg CLI, enabling cross-user iMessage send/receive.</div>
+  <div class="detail">
+    <ul>
+      <li>imsg_bridge.py: Python HTTP server on 127.0.0.1:8646</li>
+      <li>Runs as the hermes macOS user (UID 502), signed into Messages.app</li>
+      <li>Endpoints: /health, /chats, /history/:chat_id, /send</li>
+      <li>Polling cron (every 2m, no_agent) checks for new incoming messages</li>
+      <li>Auto-responder: reads new messages via Hermes API, responds via bridge</li>
+      <li>Launchd-managed: AI.hermes.imsg-bridge plist for auto-start</li>
+      <li>Requires: Full Disk Access + Automation (Messages) granted to the hermes user</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Self-Maintenance</span>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Curator <span class="arrow">▶</span></div>
+  <div class="desc">Autonomous self-audit that runs nightly. Checks memory consistency, skill staleness, config drift, and backup state.</div>
+  <div class="detail">
+    <ul>
+      <li>curator.py: main curator logic — runs at 02:00 daily via cron</li>
+      <li>curator_backup.py: handles state backup to Tower (rsync-over-SSH to /mnt/user/Backups/hermes/)</li>
+      <li>Audits: memory (orphaned facts, low-trust entries), skills (stale references, provenance drift), config (model/provider mismatches)</li>
+      <li>Backup: config.yaml, state.db, sessions.db, secrets vault → Tower</li>
+      <li>Prunes: stale checkpoints, orphaned response data, expired cache</li>
+      <li>Reports: audit findings saved to ~/.hermes/reviews/</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Loop Closure <span class="arrow">▶</span></div>
+  <div class="desc">Weekly proactive self-review across 7 axes: model config, cron health, skills, fact store, tool quirks, edge cases, upgrade candidates.</div>
+  <div class="detail">
+    <ul>
+      <li>Weekly Sunday 10PM cron</li>
+      <li>Model audit: verify model.default, cron model overrides, delegation model</li>
+      <li>Cron health: check all jobs for recent failures, stale entries</li>
+      <li>Skills audit: verify YAML frontmatter, missing author fields, orphaned references</li>
+      <li>Fact store: check for stale/contradictory facts</li>
+      <li>Tool quirks: capture any tool-specific workarounds discovered that week</li>
+      <li>Edge cases: note any failure modes hit during the week</li>
+      <li>Upgrade candidates: identify config or workflow improvements</li>
+    </ul>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a>
+</p>
+</div>
+</body>
+</html>

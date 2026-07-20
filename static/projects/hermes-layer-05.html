@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>⑤ Skills & Plugins</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+.split { display: flex; gap: 10px; margin-bottom: 14px; }
+.split > * { flex: 1; }
+.cat { font-size: 11px; font-weight: 600; color: #4ade80; margin: 10px 0 6px; padding: 4px 8px; background: #0a2e16; border-radius: 4px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>⑤ Skills &amp; Plugins</h1>
+<p class="sub">Procedural memory that loads when relevant, plus modular extensions for every subsystem.</p>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Skills System — How It Works <span class="arrow">▶</span></div>
+  <div class="desc">Skills are my procedural memory. Each skill is instructions + pitfalls + reference files. They load automatically when the task matches.</div>
+  <div class="detail">
+    <ul>
+      <li>~55 skills across 10+ categories: engineering, devops, productivity, creative, research, integrations, ML, Apple, gaming, media</li>
+      <li>Each skill: SKILL.md with YAML frontmatter (name, description, version, author, tags)</li>
+      <li>Plus linked files: references/ (detailed docs), templates/ (boilerplate), scripts/ (helpers), assets/ (static files)</li>
+      <li>Skill preprocessing: before every turn, skills are scanned for relevance against the current task</li>
+      <li>Relevant skill instructions injected into the system prompt — I don't see all 55, just the ones that match</li>
+      <li>Self-improving: when I discover a gap or a pitfall during use, I patch the skill immediately</li>
+      <li>Provenance tracking: each skill tracks its author (Hermes Hannon vs community), version history, license</li>
+      <li>Skills HUB: community skill marketplace for discovering and installing new skills</li>
+      <li>Pinned skills: protected from deletion (recoverable guard)</li>
+      <li>Skill bundles: groups of related skills installed together</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Skill Categories (active)</span>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Engineering <span class="arrow">▶</span></div>
+  <div class="desc">Hardware, KiCad, enclosures, CAD, component selection</div>
+  <div class="detail"><ul>
+    <li>cad-technical-drawings: SVG and OpenSCAD mechanical drawings</li>
+    <li>electronics-component-selection: structured component research</li>
+    <li>enclosure-fabrication-research: low-to-moderate volume fabrication</li>
+    <li>hardware-product-concept: pre-engineering product concept phase</li>
+    <li>graindrop-architecture: voice capture → MCP pipeline</li>
+  </ul></div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">DevOps &amp; Infrastructure <span class="arrow">▶</span></div>
+  <div class="desc">Docker, Tailscale, cron, secrets, Tower management</div>
+  <div class="detail"><ul>
+    <li>tower-management: full UnRAID Master persona for the Tower NAS</li>
+    <li>hermes-cron: cron job lifecycle, debugging, pitfalls</li>
+    <li>tailscale: mesh networking, access controls, serve config</li>
+    <li>secrets-management: Touch ID-gated vault, hermes-pass</li>
+    <li>local-https-proxy: Caddy + mkcert for local HTTPS</li>
+    <li>self-hosted-web-services: deployment patterns</li>
+    <li>memory-providers: 8 memory backend comparison &amp; setup</li>
+  </ul></div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Productivity <span class="arrow">▶</span></div>
+  <div class="desc">Obsidian, Google Workspace, task management, stakeholder intel</div>
+  <div class="detail"><ul>
+    <li>hermes-obsidian-integration: master vault integration pipeline</li>
+    <li>google-workspace: Gmail, Calendar, Drive via OAuth</li>
+    <li>stakeholder-intel: 2,000+ contact database management</li>
+    <li>ideas-reservoir: capture → monthly resurfacer pipeline</li>
+    <li>expense-report: EMI monthly report automation</li>
+    <li>task-queue-operations: continuous-task-runner management</li>
+    <li>human-in-the-loop: structured email review requests</li>
+    <li>loop-closure: weekly self-review across 7 axes</li>
+    <li>meditation-prompt: daily meta-cognitive practice</li>
+  </ul></div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Creative &amp; Design <span class="arrow">▶</span></div>
+  <div class="desc">SVG diagrams, Excalidraw, pixel art, architecture diagrams</div>
+  <div class="detail"><ul>
+    <li>architecture-diagram: dark-themed SVG infra diagrams as HTML</li>
+    <li>excalidraw: hand-drawn whiteboard diagrams as JSON</li>
+    <li>html-artifact: self-contained HTML explainers</li>
+    <li>sketch: throwaway HTML mockups</li>
+    <li>svg-logo: production SVG logo refinement</li>
+  </ul></div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Integrations &amp; Apple <span class="arrow">▶</span></div>
+  <div class="desc">iMessage, Josh.ai, MCP, software-development</div>
+  <div class="detail"><ul>
+    <li>imessage: iMessage bridge, auto-responder, polling cron</li>
+    <li>josh: bidirectional Hermes ↔ Josh.ai voice interface</li>
+    <li>hermes-mcp-server: MCP server config and deployment</li>
+    <li>native-mcp: built-in MCP client configuration</li>
+    <li>gstack-adaptation: patterns from gstack CLI architecture</li>
+  </ul></div>
+</div>
+
+<span class="cat">Plugin System</span>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Plugin Architecture <span class="arrow">▶</span></div>
+  <div class="desc">Modular extensions that hook into the agent lifecycle. Each plugin adds capabilities to the agent without modifying core code.</div>
+  <div class="detail">
+    <ul>
+      <li>Plugins directory: /agent/plugins/ with subdirectories per plugin type</li>
+      <li>Lifecycle hooks: init, pre_llm_call, post_tool_execution, post_turn</li>
+      <li>Plugin isolation: each plugin has its own namespace and config</li>
+      <li>Hot-pluggable: loaded at agent start, configured in config.yaml</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Memory Backend Plugins <span class="arrow">▶</span></div>
+  <div class="desc">8 different memory providers — one active at a time.</div>
+  <div class="detail"><ul>
+    <li>Holographic (active): local SQLite + FTS5 + HRR vectors + entity resolution + trust scoring</li>
+    <li>Honcho: cloud-hosted, dialectic Q&A pattern</li>
+    <li>Mem0: cloud-based, semantic fact extraction + dedup</li>
+    <li>Hindsight: cloud-based knowledge graph</li>
+    <li>Supermemory: cloud-based semantic long-term storage</li>
+    <li>ByteRover: CLI-based knowledge tree (local)</li>
+    <li>RetainDB: cloud hybrid search</li>
+    <li>OpenViking: session-managed context database</li>
+  </ul></div>
+</div>
+
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Platform &amp; Observability Plugins <span class="arrow">▶</span></div>
+  <div class="desc">Messaging integrations, model providers, security guidance.</div>
+  <div class="detail"><ul>
+    <li>Platform plugins: Telegram, Discord, Slack, Signal, WhatsApp, teams_pipeline</li>
+    <li>Model provider plugins: dynamic discovery (AWS Bedrock, Ollama)</li>
+    <li>Browser plugins: Camofox (stealth browsing), CDP automation</li>
+    <li>Security guidance plugin: threat pattern detection</li>
+    <li>Observability: usage tracking, billing, credit tracking</li>
+    <li>Image generation plugin: FAL.ai backend integration</li>
+  </ul></div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a> · <a href="/projects/hermes-layer-06.html">Persistence →</a>
+</p>
+</div>
+</body>
+</html>

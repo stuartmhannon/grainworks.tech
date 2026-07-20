@@ -4,6 +4,8 @@ theme = "grain"
 defaultContentLanguage = "en"
 locale = "en-US"
 enableRobotsTXT = true
+buildFuture = false
+enableGitInfo = true
 
 [params]
   description = "Research into the humane use of AI tools"

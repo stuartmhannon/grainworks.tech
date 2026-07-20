@@ -4,4 +4,7 @@
   {{- with site.Params.footerExtra }}
   · {{ . | markdownify }}
   {{- end }}
+  {{- if .GitInfo }}
+  <br><span class="footer-gitinfo">rev {{ .GitInfo.AbbreviatedHash }} · {{ .GitInfo.AuthorDate.Format "Jan 2, 2006" }}</span>
+  {{- end }}
 </footer>

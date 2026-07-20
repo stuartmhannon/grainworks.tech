@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>④ Tools & MCP</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+h1 { font-size: 20px; font-weight: 700; color: #00cc66; margin-bottom: 4px; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 20px; }
+.back { display: inline-block; margin-bottom: 16px; font-size: 12px; color: #525252; }
+.back:hover { color: #00cc66; }
+.box { border-radius: 6px; border: 1.5px solid; padding: 12px 16px; margin-bottom: 14px; cursor: pointer; transition: all 0.2s; }
+.box:hover { border-color: #00cc66; }
+.box .title { font-size: 14px; font-weight: 600; color: #e5e5e5; display: flex; justify-content: space-between; align-items: center; }
+.box .desc { font-size: 11px; color: #a3a3a3; margin-top: 4px; }
+.box .detail { display: none; margin-top: 10px; padding-top: 10px; border-top: 1px solid #1a1a1a; }
+.box.open .detail { display: block; }
+.box .detail ul { list-style: none; padding: 0; }
+.box .detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.box .detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+.arrow { font-size: 14px; color: #166534; transition: transform 0.2s; }
+.box.open .arrow { transform: rotate(90deg); }
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+.split { display: flex; gap: 10px; margin-bottom: 14px; }
+.split > * { flex: 1; }
+.cat { font-size: 11px; font-weight: 600; color: #4ade80; margin: 10px 0 6px; padding: 4px 8px; background: #0a2e16; border-radius: 4px; display: inline-block; }
+</style>
+</head>
+<body>
+<div class="d">
+<a class="back" href="/projects/hermes-map.html">← Architecture Map</a>
+<h1>④ Tools &amp; MCP</h1>
+<p class="sub">55+ built-in tools + external MCP server ecosystem. Click any box to expand.</p>
+
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">Tool System Overview <span class="arrow">▶</span></div>
+  <div class="desc">How tools are defined, registered, loaded, and called. Every turn the model sees available tools as JSON schemas in the system prompt.</div>
+  <div class="detail">
+    <ul>
+      <li>Each tool is a Python file in tools/ with: schema (JSON-Style), handler function, input validation</li>
+      <li>Tools loaded per-turn based on toolset configuration (hermes-cli, web, delegation, etc.)</li>
+      <li>Schema includes: name, description, parameter types, required fields, enum constraints</li>
+      <li>Registry: tools/registry.py manages discovery and loading</li>
+      <li>Tool middleware: _apply_tool_request_middleware — hooks into every tool call</li>
+      <li>Concurrent dispatch: up to 8 parallel workers (execute_tool_calls_concurrent)</li>
+      <li>Sequential dispatch: one at a time for ordered operations</li>
+      <li>Budget config: token budget per tool call, scaled to model's context window</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Core Tools</span>
+<div class="split">
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">terminal <span class="arrow">▶</span></div>
+    <div class="desc">Run shell commands on the local machine</div>
+    <div class="detail"><ul>
+      <li>Foreground &amp; background modes</li>
+      <li>PTY mode for interactive CLIs</li>
+      <li>watch_patterns + notify_on_complete</li>
+    </ul></div>
+  </div>
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">file_tools / write_file <span class="arrow">▶</span></div>
+    <div class="desc">Read, write, search files</div>
+    <div class="detail"><ul>
+      <li>read_file: line-numbered, paginated</li>
+      <li>write_file: overwrite with auto-lint</li>
+      <li>search_files: ripgrep-backed</li>
+    </ul></div>
+  </div>
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">patch <span class="arrow">▶</span></div>
+    <div class="desc">Targeted find-and-replace</div>
+    <div class="detail"><ul>
+      <li>Fuzzy matching (9 strategies)</li>
+      <li>replace_all mode</li>
+      <li>Auto syntax check after edit</li>
+    </ul></div>
+  </div>
+</div>
+
+<span class="cat">Web &amp; Browser</span>
+<div class="split">
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">web_search <span class="arrow">▶</span></div>
+    <div class="desc">Search the web via configurable backend</div>
+    <div class="detail"><ul><li>Backend-agnostic (web_search_provider.py)</li></ul></div>
+  </div>
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">browser <span class="arrow">▶</span></div>
+    <div class="desc">Navigate, click, type, snapshot, scroll</div>
+    <div class="detail"><ul>
+      <li>CDP-based or Camofox backend</li>
+      <li>Dialog handling policy</li>
+      <li>Stealth mode w/ residential proxies</li>
+    </ul></div>
+  </div>
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">vision_analyze <span class="arrow">▶</span></div>
+    <div class="desc">Analyze images (native or fallback)</div>
+    <div class="detail"><ul><li>Native vision or auxiliary model</li></ul></div>
+  </div>
+</div>
+
+<span class="cat">Agent &amp; Meta Tools</span>
+<div class="split">
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">delegate_task <span class="arrow">▶</span></div>
+    <div class="desc">Spawn subagents in isolated contexts</div>
+    <div class="detail"><ul>
+      <li>Up to 5 concurrent subagents</li>
+      <li>Leaf (no further delegation) or Orchestrator</li>
+      <li>Runs in background — results arrive as new message</li>
+    </ul></div>
+  </div>
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">clarify <span class="arrow">▶</span></div>
+    <div class="desc">Ask user a question mid-task</div>
+    <div class="detail"><ul>
+      <li>Multiple choice or open-ended</li>
+      <li>Respects one-at-a-time preference</li>
+    </ul></div>
+  </div>
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">memory / fact_store <span class="arrow">▶</span></div>
+    <div class="desc">Read and write persistent memory</div>
+    <div class="detail"><ul>
+      <li>memory: always-on context</li>
+      <li>fact_store: deep structured recall</li>
+    </ul></div>
+  </div>
+</div>
+
+<span class="cat">Infrastructure Tools</span>
+<div class="split">
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">cronjob <span class="arrow">▶</span></div>
+    <div class="desc">Schedule recurring tasks</div>
+    <div class="detail"><ul>
+      <li>15K+ concurrent job support</li>
+      <li>no_agent (script-only) or agent mode</li>
+      <li>Per-job model override, skills</li>
+    </ul></div>
+  </div>
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">session_search <span class="arrow">▶</span></div>
+    <div class="desc">Search past conversations</div>
+    <div class="detail"><ul>
+      <li>FTS5-backed SQLite</li>
+      <li>Discovery, scroll, read, browse modes</li>
+    </ul></div>
+  </div>
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">computer_use <span class="arrow">▶</span></div>
+    <div class="desc">Drive desktop in background</div>
+    <div class="detail"><ul>
+      <li>cua-driver backend</li>
+      <li>SOM mode for element targeting</li>
+    </ul></div>
+  </div>
+</div>
+
+<span class="cat">Media &amp; Content Tools</span>
+<div class="split">
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">image_generation <span class="arrow">▶</span></div>
+    <div class="desc">Generate images via FLUX / FAL</div>
+    <div class="detail"><ul><li>text-to-image &amp; image-to-image</li></ul></div>
+  </div>
+  <div class="box bg3" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">tts <span class="arrow">▶</span></div>
+    <div class="desc">Text-to-speech (Edge/OpenAI)</div>
+    <div class="detail"><ul><li>Configurable voice &amp; provider</li></ul></div>
+  </div>
+  <div class="box bg2" onclick="event.stopPropagation();this.classList.toggle('open')">
+    <div class="title">execute_code <span class="arrow">▶</span></div>
+    <div class="desc">Run Python with tool access</div>
+    <div class="detail"><ul><li>Batch tool calls, conditional logic</li></ul></div>
+  </div>
+</div>
+
+<span class="cat">MCP Server Gateway</span>
+<div class="box bg1" onclick="this.classList.toggle('open')">
+  <div class="title">MCP Integration <span class="arrow">▶</span></div>
+  <div class="desc">Model Context Protocol — external tools connected via stdio or HTTP SSE. Registered in config.yaml under mcp_servers.</div>
+  <div class="detail">
+    <ul>
+      <li>mcp_tool.py: core MCP tool integration — routes tool calls to MCP servers</li>
+      <li>mcp_stdio_watchdog.py: monitors stdio-based MCP servers, restarts on crash</li>
+      <li>mcp_oauth.py / mcp_oauth_manager.py: OAuth flow for MCP servers</li>
+      <li>managed_tool_gateway.py: tool gateway for managed MCP connections</li>
+      <li>Two transport modes: stdio (subprocess) and SSE (HTTP, persistent connection)</li>
+      <li>Config: mcp_servers section in config.yaml with command, args, env, URL</li>
+      <li>Discovery timeout: 1.5s for MCP server handshake</li>
+    </ul>
+  </div>
+</div>
+
+<div class="box bg2" onclick="this.classList.toggle('open')">
+  <div class="title">Active MCP Servers <span class="arrow">▶</span></div>
+  <div class="desc">The external tools connected right now — stdio and SSE.</div>
+  <div class="detail">
+    <ul>
+      <li><strong>Graindrop</strong> (SSE :8648) — voice memo capture, transcription, MCP tools</li>
+      <li><strong>Josh.ai</strong> (stdio relay) — trigger Josh scenes, ping status</li>
+      <li><strong>UnRAID</strong> (stdio) — Tower/array management via GraphQL API</li>
+      <li><strong>ARR stack</strong> (stdio) — Sonarr, Radarr, Lidarr, Prowlarr, Readarr</li>
+      <li><strong>Obsidian</strong> (stdio) — vault read/write via local REST API plugin</li>
+      <li><strong>LinkedIn</strong> (stdio via uvx) — search people, extract profiles</li>
+      <li><strong>MyAnonamouse</strong> (stdio) — MAM search, torrent downloads</li>
+      <li><strong>Porkbun</strong> (stdio via npx) — DNS, domain management</li>
+      <li><strong>StatBar</strong> (stdio) — macOS system monitor config</li>
+      <li><strong>Chipotle</strong> (stdio) — order food via voice/chat</li>
+    </ul>
+  </div>
+</div>
+
+<span class="cat">Guardrails &amp; Safety</span>
+<div class="box bg3" onclick="this.classList.toggle('open')">
+  <div class="title">Tool Guardrails <span class="arrow">▶</span></div>
+  <div class="desc">Before and after every tool call: security, budget, idempotency checks.</div>
+  <div class="detail">
+    <ul>
+      <li>before_call(): check tool name + arguments against threat patterns</li>
+      <li>Destructive command detection: rm -rf, sudo, docker rm -f, dd, etc.</li>
+      <li>after_call(): classify result as success, failure, or error</li>
+      <li>Idempotency: same tool + same arguments + same result → skip mid-execution</li>
+      <li>Budget tracking: per-tool token/iteration counts, scaled to context window</li>
+      <li>Halt decision: if guardrail blocks execution, synthesize "tool denied" result</li>
+      <li>Recovery hints: on repeated tool failures, suggest alternative approaches</li>
+    </ul>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  <a href="/projects/hermes-map.html">← Back to Architecture Map</a> · <a href="/projects/hermes-layer-05.html">Skills & Plugins →</a>
+</p>
+</div>
+</body>
+</html>

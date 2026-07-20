@@ -1,0 +1,191 @@
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "hermes-agent",
+  "elements": [
+    {
+      "type": "rectangle", "id": "bg_title", "x": 0, "y": 0, "width": 1400, "height": 1800,
+      "backgroundColor": "#f8f9fa", "fillStyle": "solid", "roughness": 0, "strokeColor": "#f8f9fa"
+    },
+    {
+      "type": "text", "id": "title", "x": 40, "y": 30, "text": "Hermes Agent — Brain Architecture",
+      "fontSize": 28, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "Hermes Agent — Brain Architecture", "autoResize": true
+    },
+    {
+      "type": "text", "id": "subtitle", "x": 42, "y": 65, "text": "One user turn. One cycle. 55+ tools. DeepSeek → tool dispatch → done.",
+      "fontSize": 16, "fontFamily": 1, "strokeColor": "#757575", "originalText": "One user turn. One cycle. 55+ tools. DeepSeek → tool dispatch → done.", "autoResize": true
+    },
+
+    {
+      "type": "text", "id": "s1_title", "x": 40, "y": 110,
+      "text": "① INPUT SURFACES — how I hear you",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "① INPUT SURFACES — how I hear you", "autoResize": true
+    },
+
+    {"type": "rectangle","id":"cli_box","x":40,"y":140,"width":140,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_cli","type":"text"}]},
+    {"type":"text","id":"t_cli","x":45,"y":148,"width":130,"height":25,"text":"CLI / TUI","fontSize":16,"fontFamily":1,"originalText":"CLI / TUI","textAlign":"center","verticalAlign":"middle","containerId":"cli_box","autoResize":true},
+    {"type":"text","id":"t_cli_sub","x":42,"y":180,"text":"terminal prompt_toolkit","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"terminal prompt_toolkit","autoResize":true},
+
+    {"type":"rectangle","id":"desktop_box","x":210,"y":140,"width":140,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_desktop","type":"text"}]},
+    {"type":"text","id":"t_desktop","x":215,"y":148,"width":130,"height":25,"text":"Desktop App","fontSize":16,"fontFamily":1,"originalText":"Desktop App","textAlign":"center","verticalAlign":"middle","containerId":"desktop_box","autoResize":true},
+    {"type":"text","id":"t_desk_sub","x":212,"y":180,"text":"Electron app","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"Electron app","autoResize":true},
+
+    {"type":"rectangle","id":"webui_box","x":380,"y":140,"width":140,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_webui","type":"text"}]},
+    {"type":"text","id":"t_webui","x":385,"y":148,"width":130,"height":25,"text":"Web UI","fontSize":16,"fontFamily":1,"originalText":"Web UI","textAlign":"center","verticalAlign":"middle","containerId":"webui_box","autoResize":true},
+    {"type":"text","id":"t_wui_sub","x":382,"y":180,"text":"Vite + React","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"Vite + React","autoResize":true},
+
+    {"type":"rectangle","id":"api_box","x":550,"y":140,"width":140,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_api","type":"text"}]},
+    {"type":"text","id":"t_api","x":555,"y":148,"width":130,"height":25,"text":"API Server","fontSize":16,"fontFamily":1,"originalText":"API Server","textAlign":"center","verticalAlign":"middle","containerId":"api_box","autoResize":true},
+    {"type":"text","id":"t_api_sub","x":552,"y":180,"text":"OpenAI-compatible","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"OpenAI-compatible","autoResize":true},
+
+    {"type":"rectangle","id":"plat_box","x":720,"y":140,"width":170,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_plat","type":"text"}]},
+    {"type":"text","id":"t_plat","x":725,"y":148,"width":160,"height":25,"text":"Platform Channels","fontSize":16,"fontFamily":1,"originalText":"Platform Channels","textAlign":"center","verticalAlign":"middle","containerId":"plat_box","autoResize":true},
+    {"type":"text","id":"t_plat_sub","x":722,"y":180,"text":"Telegram · Discord · etc","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"Telegram · Discord · etc","autoResize":true},
+
+    {"type":"rectangle","id":"cu_box","x":920,"y":140,"width":140,"height":55,"backgroundColor":"#a5d8ff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_cu","type":"text"}]},
+    {"type":"text","id":"t_cu","x":925,"y":148,"width":130,"height":25,"text":"Computer Use","fontSize":16,"fontFamily":1,"originalText":"Computer Use","textAlign":"center","verticalAlign":"middle","containerId":"cu_box","autoResize":true},
+    {"type":"text","id":"t_cu_sub","x":922,"y":180,"text":"cua-driver","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"cua-driver","autoResize":true},
+
+    {"type":"arrow","id":"a_cli_down","x":110,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"cli_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+    {"type":"arrow","id":"a_desk_down","x":280,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"desktop_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+    {"type":"arrow","id":"a_web_down","x":450,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"webui_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+    {"type":"arrow","id":"a_api_down","x":620,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"api_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+    {"type":"arrow","id":"a_plat_down","x":805,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"plat_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+    {"type":"arrow","id":"a_cu_down","x":990,"y":195,"width":0,"height":40,"points":[[0,0],[0,40]],"endArrowhead":"arrow","startBinding":{"elementId":"cu_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"gateway_box","fixedPoint":[0.5,0]}},
+
+    {
+      "type": "text", "id": "s2_title", "x": 40, "y": 255,
+      "text": "② TRANSPORT & GATEWAY — all inputs converge here",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "② TRANSPORT & GATEWAY — all inputs converge here", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"gateway_box","x":40,"y":285,"width":1140,"height":55,"backgroundColor":"#ffd8a8","fillStyle":"solid","roundness":{"type":3},"strokeColor":"#d9480f","roughness":1,"boundElements":[{"id":"t_gw","type":"text"}]},
+    {"type":"text","id":"t_gw","x":45,"y":293,"width":1130,"height":25,"text":"Transport Layer  —  Anthropic · OpenAI · Bedrock · Gemini · Codex · Vertex adapters  →  Auth & Approval check  →  ACP (Approval Control Protocol)","fontSize":15,"fontFamily":1,"originalText":"Transport Layer  —  Anthropic · OpenAI · Bedrock · Gemini · Codex · Vertex adapters  →  Auth & Approval check  →  ACP (Approval Control Protocol)","textAlign":"center","verticalAlign":"middle","containerId":"gateway_box","autoResize":true},
+
+    {"type":"arrow","id":"a_gw_down","x":610,"y":340,"width":0,"height":45,"points":[[0,0],[0,45]],"endArrowhead":"arrow","startBinding":{"elementId":"gateway_box","fixedPoint":[0.5,1]},"endBinding":{"elementId":"core_bg","fixedPoint":[0.5,0]}},
+
+    {
+      "type": "text", "id": "s3_title", "x": 40, "y": 405,
+      "text": "③ THE BRAIN — the turn cycle (agent/)",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "③ THE BRAIN — the turn cycle (agent/)", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"core_bg","x":40,"y":430,"width":1140,"height":380,"backgroundColor":"#d3f9d8","fillStyle":"solid","roughness":2,"strokeColor":"#2b8a3e","roundness":{"type":3}},
+
+    {"type":"text","id":"core_title","x":45,"y":437,"text":"ONE TURN CYCLE","fontSize":14,"fontFamily":1,"strokeColor":"#2b8a3e","originalText":"ONE TURN CYCLE","autoResize":true},
+    {"type":"text","id":"core_sub","x":45,"y":455,"text":"Every user message = one pass through this loop. Tool results feed back as new messages in the same turn.","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"Every user message = one pass through this loop. Tool results feed back as new messages in the same turn.","autoResize":true},
+
+    {"type":"rectangle","id":"step1","x":70,"y":490,"width":200,"height":65,"backgroundColor":"#b2f2bb","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_s1","type":"text"}]},
+    {"type":"text","id":"t_s1","x":75,"y":498,"width":190,"height":25,"text":"① Build Turn Context","fontSize":16,"fontFamily":1,"originalText":"① Build Turn Context","textAlign":"center","verticalAlign":"middle","containerId":"step1","autoResize":true},
+    {"type":"text","id":"t_s1b","x":72,"y":525,"text":"load messages + tools + memory + skills","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"load messages + tools + memory + skills","autoResize":true},
+
+    {"type":"arrow","id":"a_s1_s2","x":270,"y":522,"width":60,"height":0,"points":[[0,0],[60,0]],"endArrowhead":"arrow","startBinding":{"elementId":"step1","fixedPoint":[1,0.5]},"endBinding":{"elementId":"step2","fixedPoint":[0,0.5]}},
+
+    {"type":"rectangle","id":"step2","x":330,"y":490,"width":200,"height":65,"backgroundColor":"#b2f2bb","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_s2","type":"text"}]},
+    {"type":"text","id":"t_s2","x":335,"y":498,"width":190,"height":25,"text":"② Call the LLM","fontSize":16,"fontFamily":1,"originalText":"② Call the LLM","textAlign":"center","verticalAlign":"middle","containerId":"step2","autoResize":true},
+    {"type":"text","id":"t_s2b","x":332,"y":525,"text":"DeepSeek (or Claude/Ollama/etc)","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"DeepSeek (or Claude/Ollama/etc)","autoResize":true},
+
+    {"type":"arrow","id":"a_s2_s3","x":530,"y":522,"width":60,"height":0,"points":[[0,0],[60,0]],"endArrowhead":"arrow","startBinding":{"elementId":"step2","fixedPoint":[1,0.5]},"endBinding":{"elementId":"step3","fixedPoint":[0,0.5]}},
+
+    {"type":"rectangle","id":"step3","x":590,"y":490,"width":200,"height":65,"backgroundColor":"#ffd8a8","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_s3","type":"text"}]},
+    {"type":"text","id":"t_s3","x":595,"y":498,"width":190,"height":25,"text":"③ Execute Tools","fontSize":16,"fontFamily":1,"originalText":"③ Execute Tools","textAlign":"center","verticalAlign":"middle","containerId":"step3","autoResize":true},
+    {"type":"text","id":"t_s3b","x":592,"y":525,"text":"terminal, file_ops, browser, web, ...","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"terminal, file_ops, browser, web, ...","autoResize":true},
+
+    {"type":"arrow","id":"a_s3_s4","x":790,"y":522,"width":60,"height":0,"points":[[0,0],[60,0]],"endArrowhead":"arrow","startBinding":{"elementId":"step3","fixedPoint":[1,0.5]},"endBinding":{"elementId":"step4","fixedPoint":[0,0.5]}},
+
+    {"type":"rectangle","id":"step4","x":850,"y":490,"width":200,"height":65,"backgroundColor":"#b2f2bb","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_s4","type":"text"}]},
+    {"type":"text","id":"t_s4","x":855,"y":498,"width":190,"height":25,"text":"④ Result → Context","fontSize":16,"fontFamily":1,"originalText":"④ Result → Context","textAlign":"center","verticalAlign":"middle","containerId":"step4","autoResize":true},
+    {"type":"text","id":"t_s4b","x":852,"y":525,"text":"tool output → loop back to ①","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"tool output → loop back to ①","autoResize":true},
+
+    {"type":"arrow","id":"a_loopback","x":960,"y":555,"width":-890,"height":80,"points":[[0,0],[-890,80]],"endArrowhead":"arrow","strokeStyle":"dashed","strokeColor":"#2b8a3e","startBinding":{"elementId":"step4","fixedPoint":[1,0.5]},"endBinding":{"elementId":"step1","fixedPoint":[0.5,-1]}},
+    {"type":"text","id":"t_loopback","x":460,"y":610,"text":"↻ loop: tool results become new messages → model thinks again","fontSize":13,"fontFamily":1,"strokeColor":"#2b8a3e","originalText":"↻ loop: tool results become new messages → model thinks again","autoResize":true},
+
+    {"type":"rectangle","id":"step1b","x":70,"y":590,"width":390,"height":50,"backgroundColor":"transparent","fillStyle":"solid","roundness":{"type":3},"strokeStyle":"dashed","strokeColor":"#868e96","boundElements":[{"id":"t_s1b_big","type":"text"}]},
+    {"type":"text","id":"t_s1b_big","x":75,"y":598,"width":380,"height":25,"text":"Adjacent: retry on failure · compress if context full","fontSize":14,"fontFamily":1,"originalText":"Adjacent: retry on failure · compress if context full","textAlign":"center","verticalAlign":"middle","containerId":"step1b","autoResize":true},
+
+    {"type":"rectangle","id":"step2b","x":330,"y":590,"width":390,"height":50,"backgroundColor":"transparent","fillStyle":"solid","roundness":{"type":3},"strokeStyle":"dashed","strokeColor":"#868e96","boundElements":[{"id":"t_s2b_big","type":"text"}]},
+    {"type":"text","id":"t_s2b_big","x":335,"y":598,"width":380,"height":25,"text":"Adjacent: fallback providers if primary fails","fontSize":14,"fontFamily":1,"originalText":"Adjacent: fallback providers if primary fails","textAlign":"center","verticalAlign":"middle","containerId":"step2b","autoResize":true},
+
+    {"type":"rectangle","id":"step3b","x":590,"y":590,"width":460,"height":50,"backgroundColor":"transparent","fillStyle":"solid","roundness":{"type":3},"strokeStyle":"dashed","strokeColor":"#868e96","boundElements":[{"id":"t_s3b_big","type":"text"}]},
+    {"type":"text","id":"t_s3b_big","x":595,"y":598,"width":450,"height":25,"text":"Adjacent: guardrails · budget checks · concurrent dispatch (up to 8)","fontSize":14,"fontFamily":1,"originalText":"Adjacent: guardrails · budget checks · concurrent dispatch (up to 8)","textAlign":"center","verticalAlign":"middle","containerId":"step3b","autoResize":true},
+
+    {"type":"textarea","id":"note_cycle","x":70,"y":670,"width":500,"height":55,"backgroundColor":"#fff3bf","fillStyle":"solid","roughness":2,"strokeColor":"#e67700","roundness":{"type":3}},
+    {"type":"text","id":"t_note","x":75,"y":678,"width":490,"height":25,"text":"💡 This loop is the heartbeat. It runs once per user message.","fontSize":15,"fontFamily":1,"originalText":"💡 This loop is the heartbeat. It runs once per user message.","autoResize":true},
+    {"type":"text","id":"t_note2","x":75,"y":698,"width":490,"height":25,"text":"If the model calls 3 tools, steps ②-③-④ repeat 3 times in one turn.","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"If the model calls 3 tools, steps ②-③-④ repeat 3 times in one turn.","autoResize":true},
+
+    {
+      "type": "text", "id": "s4_title", "x": 40, "y": 835,
+      "text": "④ TOOLS — how I act on the world",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "④ TOOLS — how I act on the world", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"tools_bg","x":40,"y":860,"width":1140,"height":210,"backgroundColor":"#fff3bf","fillStyle":"solid","roughness":2,"strokeColor":"#e67700","roundness":{"type":3}},
+
+    {"type":"text","id":"tool_row1","x":60,"y":875,"text":"Terminal · File Ops · Web Search · Browser · Vision · Memory · Delegate Task · Clarify","fontSize":15,"fontFamily":1,"originalText":"Terminal · File Ops · Web Search · Browser · Vision · Memory · Delegate Task · Clarify","autoResize":true},
+    {"type":"text","id":"tool_row2","x":60,"y":900,"text":"Cron Scheduler · Kanban · Code Execution · Image Generation · Text-to-Speech · Send Message","fontSize":15,"fontFamily":1,"originalText":"Cron Scheduler · Kanban · Code Execution · Image Generation · Text-to-Speech · Send Message","autoResize":true},
+    {"type":"text","id":"tool_row3","x":60,"y":925,"text":"Video Generation · X Search · Discord · Home Assistant · Session Search · Todo List","fontSize":15,"fontFamily":1,"originalText":"Video Generation · X Search · Discord · Home Assistant · Session Search · Todo List","autoResize":true},
+    {"type":"text","id":"tool_row4","x":60,"y":950,"text":"Transcription · Notebooks · Video/Audio Generation · Skills Manager · Approvals · Blueprints","fontSize":15,"fontFamily":1,"originalText":"Transcription · Notebooks · Video/Audio Generation · Skills Manager · Approvals · Blueprints","autoResize":true},
+
+    {"type":"text","id":"mcp_label","x":60,"y":990,"text":"+ MCP Servers (external tools connected via stdio or HTTP SSE):","fontSize":14,"fontFamily":1,"strokeColor":"#d9480f","originalText":"+ MCP Servers (external tools connected via stdio or HTTP SSE):","autoResize":true},
+    {"type":"text","id":"mcp_row","x":60,"y":1012,"text":"Graindrop · Josh.ai · UnRAID · Sonarr · Radarr · Obsidian · Porkbun · MyAnonamouse · LinkedIn · StatBar · Chipotle · ARR stack","fontSize":13,"fontFamily":1,"originalText":"Graindrop · Josh.ai · UnRAID · Sonarr · Radarr · Obsidian · Porkbun · MyAnonamouse · LinkedIn · StatBar · Chipotle · ARR stack","autoResize":true},
+
+    {
+      "type": "text", "id": "s5_title", "x": 40, "y": 1095,
+      "text": "⑤ SKILLS & PLUGINS — my procedural memory",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "⑤ SKILLS & PLUGINS — my procedural memory", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"skills_box","x":40,"y":1120,"width":450,"height":120,"backgroundColor":"#d0bfff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_sk","type":"text"}]},
+    {"type":"text","id":"t_sk","x":45,"y":1128,"width":440,"height":25,"text":"Skills (~55 loaded)","fontSize":16,"fontFamily":1,"originalText":"Skills (~55 loaded)","textAlign":"center","verticalAlign":"middle","containerId":"skills_box","autoResize":true},
+    {"type":"text","id":"t_sk_sub","x":45,"y":1155,"width":440,"height":25,"text":"Skills are procedural memory: instructions + pitfalls + reference files","fontSize":14,"fontFamily":1,"originalText":"Skills are procedural memory: instructions + pitfalls + reference files","autoResize":true},
+    {"type":"text","id":"t_sk2","x":45,"y":1175,"width":440,"height":25,"text":"Loaded automatically when relevant. Patched when I find gaps.","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"Loaded automatically when relevant. Patched when I find gaps.","autoResize":true},
+
+    {"type":"rectangle","id":"plugins_box","x":520,"y":1120,"width":450,"height":120,"backgroundColor":"#d0bfff","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_pl","type":"text"}]},
+    {"type":"text","id":"t_pl","x":525,"y":1128,"width":440,"height":25,"text":"Plugins","fontSize":16,"fontFamily":1,"originalText":"Plugins","textAlign":"center","verticalAlign":"middle","containerId":"plugins_box","autoResize":true},
+    {"type":"text","id":"t_pl_sub","x":525,"y":1155,"width":440,"height":25,"text":"Memory backends · Kanban · Browser · Model providers · Observability · Cron","fontSize":14,"fontFamily":1,"originalText":"Memory backends · Kanban · Browser · Model providers · Observability · Cron","autoResize":true},
+
+    {
+      "type": "text", "id": "s6_title", "x": 40, "y": 1265,
+      "text": "⑥ MEMORY — what persists between sessions",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "⑥ MEMORY — what persists between sessions", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"mem_box","x":40,"y":1290,"width":240,"height":70,"backgroundColor":"#c3fae8","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_mem","type":"text"}]},
+    {"type":"text","id":"t_mem","x":45,"y":1298,"width":230,"height":25,"text":"Fact Store (Holographic)","fontSize":15,"fontFamily":1,"originalText":"Fact Store (Holographic)","textAlign":"center","verticalAlign":"middle","containerId":"mem_box","autoResize":true},
+    {"type":"text","id":"t_mem_sub","x":42,"y":1325,"text":"946 facts · trust scoring · entity resolution","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"946 facts · trust scoring · entity resolution","autoResize":true},
+
+    {"type":"rectangle","id":"sess_box","x":310,"y":1290,"width":240,"height":70,"backgroundColor":"#c3fae8","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_sess","type":"text"}]},
+    {"type":"text","id":"t_sess","x":315,"y":1298,"width":230,"height":25,"text":"Session Archive","fontSize":15,"fontFamily":1,"originalText":"Session Archive","textAlign":"center","verticalAlign":"middle","containerId":"sess_box","autoResize":true},
+    {"type":"text","id":"t_sess_sub","x":312,"y":1325,"text":"FTS5 searchable conversation history","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"FTS5 searchable conversation history","autoResize":true},
+
+    {"type":"rectangle","id":"state_box","x":580,"y":1290,"width":240,"height":70,"backgroundColor":"#c3fae8","fillStyle":"solid","roundness":{"type":3},"boundElements":[{"id":"t_st","type":"text"}]},
+    {"type":"text","id":"t_st","x":585,"y":1298,"width":230,"height":25,"text":"State & Config","fontSize":15,"fontFamily":1,"originalText":"State & Config","textAlign":"center","verticalAlign":"middle","containerId":"state_box","autoResize":true},
+    {"type":"text","id":"t_st_sub","x":582,"y":1325,"text":"state.db · config.yaml · secrets.env","fontSize":13,"fontFamily":1,"strokeColor":"#757575","originalText":"state.db · config.yaml · secrets.env","autoResize":true},
+
+    {
+      "type": "text", "id": "s7_title", "x": 40, "y": 1390,
+      "text": "⑦ BACKGROUND — the stuff that runs while I'm not in a turn",
+      "fontSize": 18, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "⑦ BACKGROUND — the stuff that runs while I'm not in a turn", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"bg_sys","x":40,"y":1415,"width":1140,"height":65,"backgroundColor":"#ffd8a8","fillStyle":"solid","roughness":2,"strokeColor":"#d9480f","roundness":{"type":3}},
+
+    {"type":"text","id":"t_bg1","x":60,"y":1425,"text":"Cron Scheduler (15,000+ concurrent jobs) · Kanban worker dispatch · Gateway (webhook listener on :8644)","fontSize":14,"fontFamily":1,"originalText":"Cron Scheduler (15,000+ concurrent jobs) · Kanban worker dispatch · Gateway (webhook listener on :8644)","autoResize":true},
+    {"type":"text","id":"t_bg2","x":60,"y":1448,"text":"Curator (self-audit, memory cleanup) · Webhook subscriptions · Checkpoint snapshots · Usage tracking","fontSize":14,"fontFamily":1,"originalText":"Curator (self-audit, memory cleanup) · Webhook subscriptions · Checkpoint snapshots · Usage tracking","autoResize":true},
+
+    {
+      "type": "text", "id": "key_title", "x": 40, "y": 1510,
+      "text": "🔑 The key insight in one sentence:",
+      "fontSize": 17, "fontFamily": 1, "strokeColor": "#1e1e1e", "originalText": "🔑 The key insight in one sentence:", "autoResize": true
+    },
+
+    {"type":"rectangle","id":"insight_bg","x":40,"y":1535,"width":1100,"height":65,"backgroundColor":"#fff3bf","fillStyle":"solid","roughness":2,"strokeColor":"#e67700","roundness":{"type":3}},
+
+    {"type":"text","id":"insight","x":60,"y":1548,"width":1060,"height":25,"text":"Every user message triggers one or more turn cycles. Each cycle: load context → call DeepSeek → execute tools → feed results back in → repeat until the model says \"I'm done\".","fontSize":15,"fontFamily":1,"originalText":"Every user message triggers one or more turn cycles. Each cycle: load context → call DeepSeek → execute tools → feed results back in → repeat until the model says \"I'm done\".","autoResize":true},
+    {"type":"text","id":"insight2","x":60,"y":1572,"width":1060,"height":25,"text":"The model never \"sees\" the full 55-tool list — only the tools relevant to the current task, loaded from the tool registry each turn.","fontSize":14,"fontFamily":1,"strokeColor":"#757575","originalText":"The model never \"sees\" the full 55-tool list — only the tools relevant to the current task, loaded from the tool registry each turn.","autoResize":true}
+
+  ],
+  "appState": {
+    "viewBackgroundColor": "#ffffff"
+  }
+}

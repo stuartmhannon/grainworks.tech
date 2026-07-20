@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hermes Agent — Architecture Map</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #0a0a0a; font-family: system-ui, -apple-system, sans-serif; display: flex; justify-content: center; padding: 30px; }
+.d { max-width: 900px; width: 100%; }
+
+h1 { font-size: 22px; font-weight: 700; color: #00cc66; }
+.sub { font-size: 12px; color: #525252; margin-bottom: 24px; margin-top: 4px; }
+
+.lv { position: relative; margin-bottom: 24px; border-radius: 8px; border: 1.5px solid; cursor: pointer; transition: all 0.2s; overflow: hidden; }
+.lv:hover { border-color: #00cc66; }
+
+.lv-header { padding: 14px 18px; display: flex; align-items: center; gap: 12px; }
+.lv-num { font-size: 20px; font-weight: 700; color: #00cc66; width: 28px; }
+.lv-title { font-size: 15px; font-weight: 600; color: #e5e5e5; flex: 1; }
+.lv-summary { font-size: 11px; color: #525252; }
+.lv-arrow { font-size: 18px; color: #166534; transition: transform 0.2s; }
+.lv.open .lv-arrow { transform: rotate(90deg); }
+
+.lv-body { display: none; padding: 0 18px 14px; }
+.lv.open .lv-body { display: block; }
+
+.sys { background: #0f1a08; border: 1px solid #166534; border-radius: 6px; padding: 10px 14px; margin-bottom: 8px; cursor: pointer; transition: all 0.2s; }
+.sys:hover { border-color: #22c55e; }
+.sys-title { font-size: 13px; font-weight: 600; color: #e5e5e5; }
+.sys-desc { font-size: 11px; color: #a3a3a3; margin-top: 2px; }
+.sys-detail { display: none; margin-top: 8px; padding-top: 8px; border-top: 1px solid #1a1a1a; }
+.sys.open .sys-detail { display: block; }
+.sys-detail ul { list-style: none; padding: 0; }
+.sys-detail li { padding: 3px 0 3px 14px; position: relative; font-size: 11px; color: #737373; }
+.sys-detail li::before { content: '›'; position: absolute; left: 0; color: #00cc66; }
+
+.bg1 { background: #052e16; border-color: #22c55e; }
+.bg2 { background: #0a2e16; border-color: #166534; }
+.bg3 { background: #0f1a08; border-color: #166534; }
+
+/* Flow arrow between layers */
+.flow-arr { text-align: center; margin: -16px 0 4px; font-size: 14px; color: #166534; }
+
+.split { display: flex; gap: 8px; }
+.split > * { flex: 1; }
+
+a { color: #4ade80; text-decoration: none; font-size: 11px; }
+a:hover { color: #00cc66; }
+</style>
+</head>
+<body>
+<div class="d">
+
+<h1>Hermes Agent — Architecture Map</h1>
+<p class="sub">Click a layer to see its subsystems. Click a subsystem for details.</p>
+
+<!-- LAYER 1 -->
+<div class="lv bg1" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">①</span>
+    <div>
+      <div class="lv-title">Input Surfaces <a href="/projects/hermes-layer-01.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">How I hear you — CLI, Desktop, Web UI, API Server, Platform Channels, Computer Use</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">CLI / TUI</div>
+      <div class="sys-desc">Terminal REPL via prompt_toolkit</div>
+      <div class="sys-detail"><ul>
+        <li>Fixed input area, history, key bindings</li>
+        <li>Local machine only — no network needed</li>
+        <li>Full tool access (hermes-cli toolset)</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Desktop App</div>
+      <div class="sys-desc">Electron + React, native OS integration</div>
+      <div class="sys-detail"><ul>
+        <li>Tauri/Electron shell on macOS, Windows, Linux</li>
+        <li>cua-driver for Computer Use (desktop automation)</li>
+        <li>Inline diffs, file mutation verifier</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Web UI</div>
+      <div class="sys-desc">Browser-based — Vite + React + TypeScript</div>
+      <div class="sys-detail"><ul>
+        <li>Zero install, accessed via browser or Hermex mobile</li>
+        <li>Streaming responses, session management</li>
+        <li>Mobile-friendly companion app (Hermex)</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">API Server</div>
+      <div class="sys-desc">OpenAI-compatible HTTP endpoint</div>
+      <div class="sys-detail"><ul>
+        <li>/v1/chat/completions — drop-in replacement for any OpenAI client</li>
+        <li>Header-based auth (api key)</li>
+        <li>Lets external tools hook into Hermes</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Platform Channels</div>
+      <div class="sys-desc">Telegram · Discord · Slack · Signal · WhatsApp · SMS</div>
+      <div class="sys-detail"><ul>
+        <li>Each platform has its own adapter plugin</li>
+        <li>Supports DMs, group chats, threads</li>
+        <li>Channel-specific toolset (platform_toolsets)</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Computer Use</div>
+      <div class="sys-desc">cua-driver — drive the desktop in the background</div>
+      <div class="sys-detail"><ul>
+        <li>Background mode: doesn't steal cursor or focus</li>
+        <li>Click, type, scroll, drag via AX tree + screenshots</li>
+        <li>Works on any window (hidden, minimized, behind others)</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 2 -->
+<div class="lv bg2" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">②</span>
+    <div>
+      <div class="lv-title">Gateway &amp; Transport <a href="/projects/hermes-layer-02.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">All inputs converge — protocol adapters, auth, approval</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Transport Adapters</div>
+      <div class="sys-desc">Normalize wire protocols from every provider</div>
+      <div class="sys-detail"><ul>
+        <li>Anthropic Messages API adapter</li>
+        <li>OpenAI Chat Completions adapter</li>
+        <li>Bedrock Converse adapter</li>
+        <li>Gemini adapter</li>
+        <li>Codex adapter</li>
+        <li>Vertex AI adapter</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Auth &amp; Credentials</div>
+      <div class="sys-desc">Approval Control Protocol (ACP), secret sources</div>
+      <div class="sys-detail"><ul>
+        <li>ACP: approve/deny per-operation with scoped overrides</li>
+        <li>Secret sources: 1Password, Bitwarden, env vars, keychain</li>
+        <li>Credential pools &amp; OAuth token refresh</li>
+        <li>Smart deny: block based on known-safer alternatives</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 3 -->
+<div class="lv bg1" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">③</span>
+    <div>
+      <div class="lv-title">The Brain — Turn Cycle <a href="/projects/hermes-brain.html" target="_blank" onclick="event.stopPropagation()">[interactive deep-dive]</a></div>
+      <div class="lv-summary">The core: build context → call LLM → execute tools → loop</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="split">
+      <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+        <div class="sys-title">A. Build Context</div>
+        <div class="sys-desc">Assemble messages + tools + memory</div>
+        <div class="sys-detail"><ul>
+          <li>Sanitize &amp; repair message history</li>
+          <li>Inject memory/plugin context</li>
+          <li>Apply prompt caching</li>
+          <li>Normalize for KV cache reuse</li>
+        </ul></div>
+      </div>
+      <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+        <div class="sys-title">B. Pre-Flight</div>
+        <div class="sys-desc">Budget · Interrupt · Context pressure</div>
+        <div class="sys-detail"><ul>
+          <li>Iteration budget check</li>
+          <li>Interrupt signal check</li>
+          <li>Compress if near context limit</li>
+          <li>Ollama window too small? hard stop</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="split">
+      <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+        <div class="sys-title">C. Call the LLM</div>
+        <div class="sys-desc">DeepSeek · Claude · Ollama · etc.</div>
+        <div class="sys-detail"><ul>
+          <li>Streaming or non-streaming</li>
+          <li>Retry with exponential backoff</li>
+          <li>Fallback provider on exhaustion</li>
+          <li>Content filter detection</li>
+        </ul></div>
+      </div>
+      <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+        <div class="sys-title">D. Execute Tools</div>
+        <div class="sys-desc">Guardrails · sequential or concurrent</div>
+        <div class="sys-detail"><ul>
+          <li>Destructive command detection</li>
+          <li>Up to 8 parallel workers</li>
+          <li>Failure classification</li>
+          <li>Compress → loop back</li>
+        </ul></div>
+      </div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">E. Finalize</div>
+      <div class="sys-desc">Return answer or handle edge cases</div>
+      <div class="sys-detail"><ul>
+        <li>Normal delivery · empty-response nudge · thinking-only recovery</li>
+        <li>Truncated tool-call retry · partial stream recovery</li>
+        <li>Persist to session DB · clean up resources</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 4 -->
+<div class="lv bg2" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">④</span>
+    <div>
+      <div class="lv-title">Tools &amp; MCP <a href="/projects/hermes-layer-04.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">55+ built-in tools + external MCP server ecosystem</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Built-in Tools (55+)</div>
+      <div class="sys-desc">File ops, terminal, browser, web, vision, memory, cron, and more</div>
+      <div class="sys-detail"><ul>
+        <li>Core: terminal, file, web_search, browser, vision, memory</li>
+        <li>Agent: delegate_task, clarify, cronjob, kanban, code_execution</li>
+        <li>Media: image_generation, tts, video_generation, transcription</li>
+        <li>Platform: send_message, Discord, Home Assistant, X search</li>
+        <li>Meta: session_search, skills_manager, todo, blueprints</li>
+        <li>Each tool has: schema, input validation, result formatting</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">MCP Gateway</div>
+      <div class="sys-desc">Model Context Protocol — stdio &amp; HTTP SSE servers</div>
+      <div class="sys-detail"><ul>
+        <li>mcp_tool.py: MCP tool integration</li>
+        <li>mcp_stdio_watchdog.py: restart crashed stdio servers</li>
+        <li>mcp_oauth.py: OAuth for MCP servers</li>
+        <li>Connects to: Graindrop, Josh.ai, UnRAID, Obsidian, LinkedIn,</li>
+        <li>Sonarr, Radarr, Porkbun, MyAnonamouse, StatBar, Chipotle</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Guardrails &amp; Safety</div>
+      <div class="sys-desc">Destructive command detection, idempotency, budget</div>
+      <div class="sys-detail"><ul>
+        <li>Before each tool call: check by name + arguments</li>
+        <li>Destructive patterns: rm, sudo, docker rm -f, etc.</li>
+        <li>Idempotency: same tool + args + result? skip execution</li>
+        <li>Budget: track token/iteration usage per call</li>
+        <li>Safe harbor: define non-sensitive fallback actions</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 5 -->
+<div class="lv bg3" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">⑤</span>
+    <div>
+      <div class="lv-title">Skills &amp; Plugins <a href="/projects/hermes-layer-05.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">Procedural memory that loads when relevant; modular extensions</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Skills System</div>
+      <div class="sys-desc">Instructions + pitfalls + reference files — loaded by relevance</div>
+      <div class="sys-detail"><ul>
+        <li>~55 skills covering: engineering, devops, productivity, creative, research, integrations</li>
+        <li>Skill preprocessing: relevance matching against current task</li>
+        <li>Skills HUB: community skill marketplace</li>
+        <li>Self-improving: patched when I find gaps during use</li>
+        <li>Provenance tracking: author, version, license metadata</li>
+        <li>Lazy loading: only the relevant ones enter the prompt</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Plugin System</div>
+      <div class="sys-desc">Memory backends, model providers, platform channels, observability</div>
+      <div class="sys-detail"><ul>
+        <li>Memory: Holographic (SQLite+FTS5+HRR), Honcho, Mem0, and more</li>
+        <li>Model providers: configurable connection to any LLM API</li>
+        <li>Platform channels: Telegram, Discord, Slack, Signal, WhatsApp</li>
+        <li>Context engine: manages compression, checkpointing</li>
+        <li>Observability: usage tracking, billing, credits</li>
+        <li>Security: guidance plugin for threat detection</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 6 -->
+<div class="lv bg2" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">⑥</span>
+    <div>
+      <div class="lv-title">Persistence &amp; State <a href="/projects/hermes-layer-06.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">Everything that survives between sessions</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Fact Store (Holographic)</div>
+      <div class="sys-desc">946 facts · entity resolution · trust scoring · compositional reasoning</div>
+      <div class="sys-detail"><ul>
+        <li>SQLite-backed with FTS5 full-text search</li>
+        <li>Entity resolution: same person/thing across names</li>
+        <li>Trust scoring: facts rated helpful/unhelpful train accuracy</li>
+        <li>HRR vectors for semantic retrieval</li>
+        <li>Memory banks for context-aware recall</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Session Archive</div>
+      <div class="sys-desc">FTS5-searchable conversation history</div>
+      <div class="sys-detail"><ul>
+        <li>sessions.db: every message from every session</li>
+        <li>session_search tool: keyword, phrase, boolean queries</li>
+        <li>Response store: persisted tool results</li>
+        <li>Cross-session recall: "what did we do about X?"</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">State &amp; Config</div>
+      <div class="sys-desc">Persistent agent state, config YAML, secrets</div>
+      <div class="sys-detail"><ul>
+        <li>state.db: environment, usage data, session tracking</li>
+        <li>config.yaml: model config, provider setup, tool preferences</li>
+        <li>Secrets: 1Password, Bitwarden, Touch ID-gated env files</li>
+        <li>Checkpoints: snapshot/rollback for disaster recovery</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<div class="flow-arr">▼</div>
+
+<!-- LAYER 7 -->
+<div class="lv bg3" onclick="toggleLayer(this)">
+  <div class="lv-header">
+    <span class="lv-num">⑦</span>
+    <div>
+      <div class="lv-title">Background Systems <a href="/projects/hermes-layer-07.html" target="_blank" onclick="event.stopPropagation()">[full detail]</a></div>
+      <div class="lv-summary">Cron scheduler · Kanban · Gateway daemon · Curator — run without me</div>
+    </div>
+    <span class="lv-arrow">▶</span>
+  </div>
+  <div class="lv-body">
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Cron Scheduler</div>
+      <div class="sys-desc">15,000+ concurrent job types</div>
+      <div class="sys-detail"><ul>
+        <li>Time-based and interval-based scheduling</li>
+        <li>no_agent mode: script-only, zero LLM cost</li>
+        <li>agent mode: full reasoning with tool access</li>
+        <li>Email screening, expense reminders, morning briefing, book extraction</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Kanban System</div>
+      <div class="sys-desc">Multi-profile worker dispatch</div>
+      <div class="sys-detail"><ul>
+        <li>Separate profile processes with isolated toolsets</li>
+        <li>Worker log rotation, failure limits, stale timeout</li>
+        <li>Auto-decompose large tasks into sub-items</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Gateway Daemon</div>
+      <div class="sys-desc">Webhook listener · cron ticker · background housekeeping</div>
+      <div class="sys-detail"><ul>
+        <li>Listens on port 8644 for incoming webhooks</li>
+        <li>Graindrop voice memo → processed, webhook fires, I respond</li>
+        <li>Josh.ai scene trigger → Hermes action</li>
+        <li>launchd-managed, auto-restarts on crash</li>
+      </ul></div>
+    </div>
+    <div class="sys" onclick="event.stopPropagation();this.classList.toggle('open')">
+      <div class="sys-title">Curator</div>
+      <div class="sys-desc">Self-audit · memory cleanup · skill maintenance</div>
+      <div class="sys-detail"><ul>
+        <li>Runs nightly at 2 AM</li>
+        <li>Audits: memory consistency, skill staleness, config drift</li>
+        <li>Backs up agent state to Tower</li>
+        <li>Prunes stale checkpoints and orphaned data</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<p style="text-align:center;margin-top:30px;font-size:10px;color:#333;">
+  Hermes Agent v0.18.2 · Nous Research · <span style="color:#00cc66;">Layer ③</span> has a full interactive deep-dive
+</p>
+
+</div>
+
+<script>
+function toggleLayer(el) {
+  el.classList.toggle('open');
+}
+</script>
+</body>
+</html>
