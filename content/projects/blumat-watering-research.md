@@ -2,6 +2,7 @@
 title: "Blumat Automatic Watering — Research"
 date: 2026-06-10T16:00:00-04:00
 draft: false
+status: "Research"
 tags:
   - research
   - gardening

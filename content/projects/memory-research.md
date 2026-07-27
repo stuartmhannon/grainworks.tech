@@ -2,6 +2,7 @@
 title: "Memory Architecture Research"
 date: 2026-06-10T16:30:00-04:00
 draft: false
+status: "Research"
 description: "Research into agentic memory systems — comparing Sibyl Memory (LongMemEval #2) against Holographic for offline, local-first Hermes Agent deployments."
 tags:
   - research

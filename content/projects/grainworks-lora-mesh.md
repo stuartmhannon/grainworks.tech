@@ -2,6 +2,7 @@
 title: "Grainworks LoRa Mesh"
 date: 2026-06-10T16:00:00-04:00
 draft: false
+status: "Design"
 tags:
   - hardware
   - lora

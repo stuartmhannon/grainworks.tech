@@ -2,6 +2,7 @@
 title: "SOUL.md Library"
 date: 2026-06-10T16:28:00-04:00
 draft: false
+status: "Live"
 description: "A library of portable agent persona files — reusable souls for AI systems that should behave with identity, taste, and conviction."
 tags:
   - shipped

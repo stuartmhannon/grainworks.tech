@@ -2,6 +2,7 @@
 title: "Organizational Orchestrator — Multi-Agent Routing System"
 date: 2026-06-29T06:00:00-04:00
 draft: false
+status: "Live"
 description: "A multi-agent orchestration framework that routes requests across 19 domain-specialized agents with intent classification, context passing, and two-stage verification."
 tags: [grainworks, agents, orchestration, hermes-agent]
 ---

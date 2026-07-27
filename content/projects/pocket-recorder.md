@@ -2,6 +2,7 @@
 title: "Pocket Recorder — v0.5 Hardware Proto"
 date: 2026-06-16T18:00:00-04:00
 draft: false
+status: "Prototype"
 tags:
   - hardware
   - audio

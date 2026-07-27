@@ -2,6 +2,7 @@
 title: "Grain Seed Connection"
 date: 2026-06-10T16:25:00-04:00
 draft: false
+status: "Research"
 description: "Research into Blumat automatic watering systems — clay cone technology that waters plants on their own terms, no electricity required. Working with the grain of the soil."
 ---
 

@@ -2,6 +2,7 @@
 title: "Josh.ai + Hermes Agent Relay"
 date: 2026-06-15T12:30:00-04:00
 draft: false
+status: "Live"
 description: "A lightweight HTTP relay that bridges Josh.ai scenes to Hermes Agent — converts plain GET requests from Josh's httpget() Custom Command into authenticated POST calls for the Hermes webhook system."
 ---
 

@@ -2,6 +2,7 @@
 title: "RadarTV — Raspberry Pi RF-to-Composite Video Broadcast"
 date: 2026-06-29T06:00:00-04:00
 draft: false
+status: "Prototype"
 description: "A C-based composite video generator that reads aviation radar data and renders it as PAL/NTSC video output from a Raspberry Pi — direct RF to analog TV."
 tags: [hardware, raspberry-pi, video, radar, c, embedded]
 ---

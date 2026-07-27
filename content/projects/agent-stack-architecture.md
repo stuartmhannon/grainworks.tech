@@ -2,6 +2,7 @@
 title: "Agent Stack Architecture — Six Layers of grainworks"
 date: 2026-06-29T06:00:00-04:00
 draft: false
+status: "Live"
 description: "A 1-page visual architecture map of the grainworks agent stack: orchestration, memory, tool mesh, evaluation, pipelines, and delivery. Every component we've built lives in one layer."
 tags: [grainworks, architecture, agents, portfolio]
 ---

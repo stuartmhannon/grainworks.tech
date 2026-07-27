@@ -2,6 +2,7 @@
 title: "Grain Tracker"
 date: 2026-06-10T16:30:00-04:00
 draft: false
+status: "Live"
 description: "A live project dashboard for the Grainworks workshop — a single visual reference for every project, its files, status, and next actions."
 ---
 

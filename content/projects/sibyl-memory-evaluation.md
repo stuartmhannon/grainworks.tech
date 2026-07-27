@@ -2,6 +2,7 @@
 title: "Sibyl vs Holographic — Memory at the Grain"
 date: 2026-06-08T16:00:00-04:00
 draft: false
+status: "Research"
 tags:
   - memory
   - agents
