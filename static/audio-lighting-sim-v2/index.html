@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <title>grainworks / audio-lighting-sim</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Toolbar -->
+  <header class="toolbar">
+    <div class="toolbar-left">
+      <span class="brand">grainworks / als</span>
+      <span class="separator"></span>
+      <button id="btn-upload-plan" class="btn btn-secondary" title="Upload floor plan image">Plan</button>
+      <button id="btn-calibrate" class="btn btn-secondary" title="Calibrate scale">Scale</button>
+      <button id="btn-draw-zone" class="btn btn-secondary" title="Draw zone polygon">Zone</button>
+      <button id="btn-upload-ies" class="btn btn-secondary" title="Upload IES photometric file">IES</button>
+      <button id="btn-upload-gll" class="btn btn-secondary" title="Upload GLL speaker file">GLL</button>
+      <span class="separator"></span>
+      <button id="btn-lux-mode" class="btn btn-primary layer-btn active" data-mode="lux">Light</button>
+      <button id="btn-spl-mode" class="btn btn-primary layer-btn" data-mode="spl">Sound</button>
+      <button id="btn-both-mode" class="btn btn-primary layer-btn" data-mode="both">Both</button>
+    </div>
+    <div class="toolbar-right">
+      <button id="btn-new-project" class="btn btn-secondary">New</button>
+      <button id="btn-save" class="btn btn-secondary">Save</button>
+      <button id="btn-load" class="btn btn-secondary">Load</button>
+      <button id="btn-bom" class="btn btn-accent">BOM</button>
+      <button id="btn-3d-export" class="btn btn-accent">3D</button>
+    </div>
+  </header>
+
+  <!-- Main workspace -->
+  <main class="workspace">
+    <!-- Left sidebar: Palette -->
+    <aside class="palette" id="palette">
+      <!-- rendered by js -->
+    </aside>
+
+    <!-- Center: Canvas -->
+    <section class="canvas-area" id="canvas-area">
+      <div class="three-container" id="three-container">
+        <canvas id="heatmap-canvas" class="heatmap-overlay"></canvas>
+      </div>
+    </section>
+
+    <!-- Right sidebar: Panels -->
+    <aside class="panels" id="panels">
+      <div class="panel" id="zone-panel" style="display:none"></div>
+      <div class="panel" id="entity-panel" style="display:none"></div>
+      <div class="panel" id="bom-panel" style="display:none"></div>
+
+      <!-- Heatmap controls -->
+      <div class="panel" id="hm-controls">
+        <h3>Heatmap</h3>
+        <label class="slider-label">
+          Resolution
+          <input type="range" id="hm-resolution" min="0.5" max="8" step="0.5" value="2">
+          <span id="hm-resolution-value">2.0</span> cells/ft
+        </label>
+        <label class="slider-label">
+          Sensitivity
+          <input type="range" id="hm-sensitivity" min="0.1" max="3" step="0.1" value="1.0">
+          <span id="hm-sensitivity-value">1.0</span>x
+        </label>
+      </div>
+    </aside>
+  </main>
+
+  <!-- Status bar -->
+  <footer class="status-bar" id="status-bar">
+    Ready — upload a floor plan, calibrate scale, draw zones, place entities
+  </footer>
+
+  <!-- Three.js from CDN -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

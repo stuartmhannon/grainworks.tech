@@ -1,0 +1,391 @@
+/* ============================================================
+   Audio-Lighting Sim v2 — grainworks
+   ============================================================ */
+
+:root {
+  --bg: #1a1a1a;
+  --bg-panel: #141414;
+  --bg-card: #1e1e1e;
+  --border: #2a2a2a;
+  --text: #c0c0c0;
+  --text-dim: #666;
+  --text-bright: #e0e0e0;
+  --accent: #00cc66;
+  --accent-dim: #00aa55;
+  --blue: #44aaff;
+  --red: #ff4444;
+  --amber: #ffaa22;
+  --fixture-color: #ffcc44;
+  --speaker-color: #44aaff;
+  --radius: 4px;
+  --font: -apple-system, 'SF Mono', 'Menlo', 'Monaco', monospace;
+  --toolbar-h: 40px;
+  --status-h: 28px;
+  --sidebar-w: 200px;
+  --panel-w: 260px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 11px;
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ============================================================
+   Toolbar
+   ============================================================ */
+.toolbar {
+  height: var(--toolbar-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 8px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border);
+  gap: 4px;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.toolbar-left, .toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.brand {
+  color: var(--accent);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background: var(--border);
+  margin: 0 4px;
+}
+
+.btn {
+  height: 26px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.btn:hover { background: #2a2a2a; border-color: #444; }
+.btn:active { background: #333; }
+
+.btn-primary {
+  border-color: #333;
+  background: #222;
+}
+
+.btn-primary.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+.btn-secondary {
+  color: var(--text-dim);
+}
+
+.btn-accent {
+  border-color: var(--accent-dim);
+  color: var(--accent);
+}
+
+.btn-accent:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+.btn-danger {
+  border-color: var(--red);
+  color: var(--red);
+}
+
+.btn-danger:hover {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ============================================================
+   Workspace layout
+   ============================================================ */
+.workspace {
+  display: flex;
+  height: calc(100vh - var(--toolbar-h) - var(--status-h));
+  overflow: hidden;
+}
+
+/* Left sidebar */
+.palette {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-right: 1px solid var(--border);
+  padding: 8px;
+}
+
+.palette h3 {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  margin: 8px 0 4px;
+}
+
+.palette h3:first-child { margin-top: 0; }
+
+.palette-card {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  margin-bottom: 3px;
+  border-left: 3px solid #444;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.palette-card:hover { background: #222; }
+.palette-card.selected {
+  background: #1a2a1a;
+  border-left-color: var(--accent) !important;
+}
+
+.palette-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.palette-name {
+  font-size: 10px;
+  color: var(--text-bright);
+}
+
+.palette-desc {
+  font-size: 9px;
+  color: var(--text-dim);
+}
+
+/* Center canvas area */
+.canvas-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.three-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.heatmap-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Right panels */
+.panels {
+  width: var(--panel-w);
+  min-width: var(--panel-w);
+  overflow-y: auto;
+  background: var(--bg-panel);
+  border-left: 1px solid var(--border);
+  padding: 8px;
+}
+
+.panel {
+  margin-bottom: 12px;
+}
+
+.panel h3 {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-bright);
+  margin-bottom: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--border);
+}
+
+.panel p {
+  font-size: 10px;
+  margin: 2px 0;
+  color: var(--text-dim);
+}
+
+.panel label {
+  display: block;
+  font-size: 10px;
+  margin: 6px 0;
+  color: var(--text-dim);
+}
+
+.panel input[type="text"],
+.panel input[type="number"] {
+  width: 80px;
+  padding: 2px 4px;
+  background: #111;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  color: var(--text);
+  font-family: var(--font);
+  font-size: 10px;
+  margin-left: 4px;
+}
+
+.panel input[type="range"] {
+  width: 100%;
+  margin: 4px 0;
+  accent-color: var(--accent);
+}
+
+/* ============================================================
+   Sliders
+   ============================================================ */
+.slider-label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 9px;
+  color: var(--text-dim);
+}
+
+.slider-label input {
+  flex: 1;
+  accent-color: var(--accent);
+}
+
+.slider-label span {
+  min-width: 24px;
+  text-align: right;
+  color: var(--text-bright);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   BOM report
+   ============================================================ */
+.bom-report { font-size: 10px; }
+
+.bom-report h3 {
+  font-size: 12px;
+  color: var(--accent);
+  text-transform: none;
+  letter-spacing: 0;
+  border: none;
+  margin-bottom: 2px;
+}
+
+.bom-project {
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.bom-summary {
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.bom-zone {
+  margin: 8px 0;
+  padding: 6px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+
+.bom-zone h4 {
+  font-size: 10px;
+  color: var(--text-bright);
+  margin-bottom: 2px;
+}
+
+.bom-meta {
+  font-size: 9px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+}
+
+.bom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 9px;
+  margin: 4px 0;
+}
+
+.bom-table th {
+  text-align: left;
+  color: var(--text-dim);
+  padding: 2px 4px;
+  border-bottom: 1px solid var(--border);
+  font-weight: 400;
+}
+
+.bom-table td {
+  padding: 2px 4px;
+  border-bottom: 1px solid #1a1a1a;
+}
+
+/* ============================================================
+   Status bar
+   ============================================================ */
+.status-bar {
+  height: var(--status-h);
+  display: flex;
+  align-items: center;
+  padding: 0 12px;
+  background: #0d0d0d;
+  border-top: 1px solid var(--border);
+  font-size: 10px;
+  color: var(--text-dim);
+}
+
+/* ============================================================
+   Responsive — iPad CEDIA fallback
+   ============================================================ */
+@media (max-width: 800px) {
+  .palette { width: 140px; min-width: 140px; }
+  .panels { width: 200px; min-width: 200px; }
+  .toolbar { flex-wrap: wrap; height: auto; padding: 4px 8px; gap: 2px; }
+  .workspace { height: calc(100vh - 80px - var(--status-h)); }
+  .brand { font-size: 10px; }
+}
+
+@media (max-width: 600px) {
+  .palette { display: none; }
+  .panels { width: 100%; position: absolute; right: 0; top: 0; bottom: 0; background: rgba(20,20,20,0.95); z-index: 10; }
+}
