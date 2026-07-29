@@ -37,10 +37,19 @@ export function parseIES(iesContent) {
   }
   if (dataStart === -1) throw new Error('Could not find TILT= marker');
 
-  // Next line: lamp count, lumens per lamp, multiplier, vertical angles, horizontal angles
+  // Next lines: lamp count, lumens per lamp, multiplier, vertical angles, horizontal angles
   // units: 1=feet, 2=meters
-  const paramLine = lines[dataStart].trim().split(/\s+/).map(Number);
-  if (paramLine.length < 8) {
+  // IESNA allows these on one line OR across multiple lines
+  const paramValues = [];
+  let paramIdx = dataStart;
+  while (paramValues.length < 8 && paramIdx < lines.length) {
+    const nums = lines[paramIdx].trim().split(/\s+/).map(Number);
+    for (const n of nums) {
+      if (!isNaN(n)) paramValues.push(n);
+    }
+    if (paramValues.length < 8) paramIdx++;
+  }
+  if (paramValues.length < 8) {
     throw new Error('IES parameter line has too few values');
   }
   const [
@@ -51,8 +60,8 @@ export function parseIES(iesContent) {
     hAngleCount,
     photometricType,
     unitsType,
-    width,    // luminaire dimensions
-  ] = paramLine;
+    width,
+  ] = paramValues;
 
   let idx = dataStart + 1;
 
