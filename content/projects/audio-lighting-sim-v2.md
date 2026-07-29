@@ -27,4 +27,4 @@ Browser-based audio-lighting coverage simulator. Zero-server, zero-build, runs o
 
 Pure ES modules. Three.js from CDN. Tested with 125 unit tests covering calibration math, point-in-polygon, AFF/AAS resolution, entity lifecycle, BOM generation, and state serialization.
 
-[Launch the simulator](/static/audio-lighting-sim-v2/) &rarr;
+[Launch the simulator](/audio-lighting-sim-v2/) &rarr;
