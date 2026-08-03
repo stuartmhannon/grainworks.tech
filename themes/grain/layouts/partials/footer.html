@@ -2,7 +2,7 @@
 <footer class="site-footer">
   &copy; {{ now.Year }} <a href="{{ "" | relURL }}">{{ site.Title }}</a>
   {{- with site.Params.footerExtra }}
-  · {{ . | markdownify }}
+  · <a href="{{ "index.xml" | absURL }}">via RSS</a>
   {{- end }}
   {{- if .GitInfo }}
   <br><span class="footer-gitinfo">rev {{ .GitInfo.AbbreviatedHash }} · {{ .GitInfo.AuthorDate.Format "Jan 2, 2006" }}</span>

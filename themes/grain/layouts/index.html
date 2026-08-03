@@ -206,6 +206,30 @@ let's make it worth it.</script>
   })();
   </script>
 
+  {{- $projects := where site.RegularPages "Section" "in" (slice "projects") }}
+  {{- $projectsLive := where $projects ".Params.draft" "!=" true }}
+  {{- if gt (len $projectsLive) 0 }}
+  <h2 class="section-heading"><a href="/projects/" style="text-decoration:none;color:var(--fg);">Projects →</a></h2>
+  <div class="project-grid" style="margin-bottom: 2rem;">
+    {{- range $projectsLive.ByDate.Reverse | first 4 }}
+    <article class="project-card">
+      <a href="{{ .RelPermalink }}" class="project-link">
+        <div class="project-card-header">
+          <span class="project-card-icon">▶</span>
+          <h2 class="project-card-title">{{ .Title }}</h2>
+        </div>
+        {{- with .Params.status }}
+        <div class="project-card-status" style="font-family:var(--font-mono);font-size:0.7rem;color:var(--accent-dim);margin-bottom:0.25rem;">{{ . }}</div>
+        {{- end }}
+        {{- with .Description }}
+        <div class="project-card-desc">{{ . | markdownify }}</div>
+        {{- end }}
+      </a>
+    </article>
+    {{- end }}
+  </div>
+  {{- end }}
+
   {{- $pages := where site.RegularPages "Section" "in" site.Params.mainSections }}
   {{- $paginator := .Paginate $pages }}
   {{- if gt $paginator.TotalPages 0 }}

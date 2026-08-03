@@ -557,6 +557,90 @@ main {
   color: var(--accent);
 }
 
+/* ── Project cards (shared: homepage + projects index) ─────────── */
+
+.project-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.project-card {
+  background: var(--bg);
+}
+
+.project-link {
+  display: block;
+  padding: 1rem 1.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: background 0.15s ease;
+}
+
+.project-link:hover {
+  background: var(--bg-alt);
+}
+
+.project-card-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+}
+
+.project-card-icon {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--accent-dim);
+  flex-shrink: 0;
+}
+
+.project-card-title {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--fg);
+  margin: 0;
+}
+
+.project-link:hover .project-card-title {
+  color: var(--accent);
+}
+
+.project-card-tags {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-alt);
+  margin-bottom: 0.35rem;
+}
+
+.project-sep {
+  color: var(--border-light);
+}
+
+.project-tag {
+  color: var(--fg-alt);
+}
+
+.project-card-desc {
+  font-size: 0.85rem;
+  color: var(--fg-dim);
+  line-height: 1.5;
+}
+
+.project-card-desc p {
+  margin: 0;
+}
+
+.project-card-status {
+  margin-top: 0.4rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  color: var(--fg-alt);
+}
+
 /* ── Print ──────────────────────────────────── */
 
 @media print {
