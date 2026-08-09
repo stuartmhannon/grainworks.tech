@@ -236,7 +236,7 @@ let's make it worth it.</script>
     <h2 class="section-heading">Latest</h2>
     {{- range $paginator.Pages }}
     <article class="post-entry">
-      <a href="{{ .RelPermalink }}" style="text-decoration: none; color: inherit; display: block;">
+      <a href="{{ .RelPermalink }}">
         <h3 class="post-title">{{ .Title }}</h3>
         <div class="post-meta">
           <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
