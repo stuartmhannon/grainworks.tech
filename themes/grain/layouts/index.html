@@ -208,6 +208,24 @@ let's make it worth it.</script>
 
   {{- $projects := where site.RegularPages "Section" "in" (slice "projects") }}
   {{- $projectsLive := where $projects ".Params.draft" "!=" true }}
+
+  {{- $plive := where $projectsLive ".Params.status" "Live" | len }}
+  {{- $presearch := where $projectsLive ".Params.status" "Research" | len }}
+  {{- $pprototype := where $projectsLive ".Params.status" "Prototype" | len }}
+  {{- $pcomplete := where $projectsLive ".Params.status" "Complete" | len }}
+  {{- $pdesign := where $projectsLive ".Params.status" "Design" | len }}
+  {{- $total := len $projectsLive }}
+  {{- if gt $total 0 }}
+  <div class="status-counter" style="font-family:var(--font-mono);font-size:0.75rem;color:var(--fg-dim);margin-bottom:1.75rem;display:flex;gap:1.25rem;flex-wrap:wrap;">
+    <span>projects: {{ $total }}</span>
+    {{- if gt $plive 0 }}<span>{{ $plive }} live</span>{{ end }}
+    {{- if gt $presearch 0 }}<span>{{ $presearch }} research</span>{{ end }}
+    {{- if gt $pprototype 0 }}<span>{{ $pprototype }} prototype</span>{{ end }}
+    {{- if gt $pdesign 0 }}<span>{{ $pdesign }} design</span>{{ end }}
+    {{- if gt $pcomplete 0 }}<span>{{ $pcomplete }} complete</span>{{ end }}
+  </div>
+  {{- end }}
+
   {{- if gt (len $projectsLive) 0 }}
   <h2 class="section-heading"><a href="/projects/" style="text-decoration:none;color:var(--fg);">Projects →</a></h2>
   <div class="project-grid" style="margin-bottom: 2rem;">

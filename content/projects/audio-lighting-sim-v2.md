@@ -3,8 +3,8 @@ title: "Audio Lighting Sim v2"
 date: 2026-07-28
 draft: false
 status: Live
-project_tags: ["simulation", "audio", "lighting", "three.js", "ipad"]
-summary: "Browser-based audio-lighting coverage simulator. Upload a floor plan, draw zones, place fixtures and speakers, get coverage heatmaps and BOMs."
+tags: ["simulation", "audio", "lighting", "three.js", "ipad"]
+description: "Browser-based audio-lighting coverage simulator. Upload a floor plan, draw zones, place fixtures and speakers, get coverage heatmaps and BOMs."
 ---
 
 Browser-based audio-lighting coverage simulator. Zero-server, zero-build, runs on any laptop or iPad on tradeshow wifi.

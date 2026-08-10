@@ -10,6 +10,7 @@ A visual index of everything we're building. Hardware prototypes, software tools
 | Project | Status | Category |
 |---------|--------|----------|
 | [Agent Stack Architecture](/projects/agent-stack-architecture/) | Live | Architecture |
+| [Audio Lighting Sim v2](/projects/audio-lighting-sim-v2/) | Live | Web |
 | [Blumat Watering](/projects/blumat-watering-research/) | Research | Home + Hardware |
 | [Flipoff](/projects/flipoff/) | Live | Web |
 | [Grain Seed Connection](/projects/grain-seed-connection/) | Research | Home + Hardware |
