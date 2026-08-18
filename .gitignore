@@ -3,6 +3,7 @@ public/
 
 # OS files
 .DS_Store
+._*
 
 # IDE/editor
 .vscode/
@@ -10,6 +11,10 @@ public/
 *.swp
 *.swo
 *~
+
+# Python (workflow tools)
+__pycache__/
+*.pyc
 
 # Hugo dev server cache
 .hugo_build.lock
