@@ -16,7 +16,14 @@
         <div class="post-meta">
           <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
           {{- with .ReadingTime }} · {{ . }} min read{{ end }}
+          {{- with .Params.tags }}
+          ·
+          {{- range $i, $tag := . }}{{ if $i }}, {{ end }}<span class="tag">{{ $tag }}</span>{{ end }}
+          {{- end }}
         </div>
+        {{- with .Description }}
+        <div class="post-excerpt">{{ . | markdownify }}</div>
+        {{- end }}
       </a>
     </article>
     {{- end }}
